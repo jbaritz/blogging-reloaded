@@ -1,0 +1,31 @@
+BASIC FUNCTIONS
+
+PERSONAL BLOGS 
+optimize all media types
+	text
+	picture(s)
+	video
+	audio
+	tags and tag blacklisting
+ability to reblog from other personal blogs
+comments on personal blog posts
+	upvoting comments (sort by time or votes/popularity)
+privacy settings
+		ban lists
+		permission lists
+	following other blogs
+		friend blog feed
+DISCUSSION AREAS
+	User-created (have staff promote ‘official’ groups?)
+		Moderated by users
+	Forum-like structure, but also optimized for multimedia (i.e. not just inline pictures and		 videos but more integrated format)
+
+
+AESTHETIC, GOALS, ETC.
+	Make it pretty! Sleek and colorful, fluid and intuitive.
+Casual and user-friendly. put jokey stuff in there. 
+
+GEMS TO USE:
+
+acts_as_taggable
+devise
