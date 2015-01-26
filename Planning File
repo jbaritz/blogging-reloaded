@@ -1,31 +1,31 @@
 BASIC FUNCTIONS
-
+// = not as important as other functions, can be left for last
 PERSONAL BLOGS 
 optimize all media types
 	text
 	picture(s)
 	video
 	audio
+other post types? i.e. status updates and stuff like that?
 	tags and tag blacklisting
+toggle whether your post is rebloggable or not
 ability to reblog from other personal blogs
+	comment highlighting? (how to display chosen comments like tumblr reblogging)
 comments on personal blog posts
-	upvoting comments (sort by time or votes/popularity)
+	//upvoting comments (toggle between sort by time or votes/popularity)
 privacy settings
-		ban lists
+		//ban lists
 		permission lists
 	following other blogs
 		friend blog feed
 DISCUSSION AREAS
 	User-created (have staff promote ‘official’ groups?)
 		Moderated by users
-	Forum-like structure, but also optimized for multimedia (i.e. not just inline pictures and		 videos but more integrated format)
+	Forum-like structure, but also optimized for multimedia (i.e. not just inline pictures and videos but more integrated format)
 
 
 AESTHETIC, GOALS, ETC.
 	Make it pretty! Sleek and colorful, fluid and intuitive.
 Casual and user-friendly. put jokey stuff in there. 
-
-GEMS TO USE:
-
-acts_as_taggable
-devise
+	
+	
