@@ -12,13 +12,21 @@ ESSENTAIL FUNCTIONS:
 * Every blog has an **archive view**.
 * Users can **create communities**.
 * Communities have a **forum section and a media feed**.
+* Users can **make forum posts** and submit to community feed.
+* Communities can be **moderated** by a user.
+* 
 
-ANCILLARY/OPTIONAL FUNCTIONS:
+OPTIONAL/IF-WE-HAVE-THE-TIME FUNCTIONS:
+* Users can **customize the CSS** of their personal blog.
+* Users can **customize the CSS** of their community blogs.
 * Users can **ban** other users from following and contacting their blog.
 * Users can **send private messages** to other users, which will be stored as a conversation thread in their inbox.
 * Users can **upvote comments** so that they will be displayed at the top of the comments list.
 * Users can create **lists of trusted users**, who have the special permission to view posts that they mark as friends-only.
-* 
+* A user's **blog can be sorted** by original posts only, reblogged posts only, or all posts.
+* Offer **different skins for the homepage feed**.
+
+Mockups are available in the home directory of this repo.
 
 **Team Members & Responsibilities:**
 * Julia Baritz - General project management, pre-production development, controller and route management, front end development
