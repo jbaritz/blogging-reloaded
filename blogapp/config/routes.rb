@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'welcomes#index'
   devise_for :users
 #               Prefix     Verb   URI Pattern                    Controller#Action
 #         new_user_session GET    /users/sign_in(.:format)       devise/sessions#new
@@ -23,7 +24,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcomes#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
