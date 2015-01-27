@@ -16,6 +16,15 @@ ESSENTAIL FUNCTIONS:
 ANCILLARY/OPTIONAL FUNCTIONS:
 * Users can **ban** other users from following and contacting their blog.
 * Users can **send private messages** to other users, which will be stored as a conversation thread in their inbox.
-* Users can upvote comments so that they will be displayed at the top of the comments list.
+* Users can **upvote comments** so that they will be displayed at the top of the comments list.
+* Users can create **lists of trusted users**, who have the special permission to view posts that they mark as friends-only.
 * 
 
+**Team Members & Responsibilities:**
+Julia Baritz - General project management, pre-production development, controller and route management, front end development
+James Knepper - Database management, front end development
+
+**Technologies to implement:**
+* Rails
+* Devise
+* HTML/CSS/jQuery/JavaScript
