@@ -21,7 +21,7 @@ ANCILLARY/OPTIONAL FUNCTIONS:
 * 
 
 **Team Members & Responsibilities:**
-*Julia Baritz - General project management, pre-production development, controller and route management, front end development
+* Julia Baritz - General project management, pre-production development, controller and route management, front end development
 * James Knepper - Database management, front end development
 
 **Technologies to implement:**
