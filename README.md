@@ -26,7 +26,7 @@ OPTIONAL/IF-WE-HAVE-THE-TIME FUNCTIONS:
 * A user's **blog can be sorted** by original posts only, reblogged posts only, or all posts.
 * Offer **different skins for the homepage feed**.
 
-Mockups are available in the home directory of this repo.
+Mockups are available in the root directory of this repo.
 
 **Team Members & Responsibilities:**
 * Julia Baritz - General project management, pre-production development, controller and route management, front end development
