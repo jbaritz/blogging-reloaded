@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root 'welcomes#index'
   devise_for :users
+  devise_scope :user do
+    get '/signout', to: 'devise/sessions#destroy', as: :signout
+  end
 #               Prefix     Verb   URI Pattern                    Controller#Action
 #         new_user_session GET    /users/sign_in(.:format)       devise/sessions#new
 #             user_session POST   /users/sign_in(.:format)       devise/sessions#create

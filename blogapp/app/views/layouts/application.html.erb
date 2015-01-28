@@ -2,13 +2,17 @@
 <html>
 <head>
   <title>Blogapp</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 </head>
 <body>
+	<% if current_user %>
+  Welcome to VideoCloset! You are signed in as <%= current_user.email %>.
+  <%= link_to 'sign out', signout_path %>
+<% else %>
+  Please <%= link_to 'sign in', new_user_session_path %> first.
+<% end %>
 
 <%= yield %>
 
