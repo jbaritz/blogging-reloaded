@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+
+<html>
+<head>
+  <title>Blogapp</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -13,7 +18,12 @@
   </head>
 
   <body>
-
+<% if current_user %>
+  Welcome to VideoCloset! You are signed in as <%= current_user.email %>.
+  <%= link_to 'sign out', signout_path %>
+<% else %>
+  Please <%= link_to 'sign in', new_user_session_path %> first.
+<% end %>
     <%= yield %>
 
   </body>
