@@ -17,6 +17,7 @@ ESSENTAIL FUNCTIONS:
 * 
 
 OPTIONAL/IF-WE-HAVE-THE-TIME FUNCTIONS:
+* Users can **queue and schedule** posts.
 * Users can **customize the CSS** of their personal blog.
 * Users can **customize the CSS** of their community blogs.
 * Users can **ban** other users from following and contacting their blog.
