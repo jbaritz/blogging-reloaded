@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   post '/new-video-post', to: 'posts#submit_video_post'
   post '/new-audio-post', to: 'posts#submit_audio_post'
 
+  get '/posts/:id/comments/new', to: 'comments#add_new_comment'
+  post '/posts/:id/comments', to: 'comments#submit_comment'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

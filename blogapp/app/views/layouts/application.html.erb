@@ -55,7 +55,7 @@
   </section>
 </nav>
 <% if current_user %>
-  Welcome to VideoCloset! You are signed in as <%= current_user.email %>.
+  Welcome to SHINJI! You are signed in as <%= current_user.email %>.
   <%= link_to 'sign out', signout_path %>
 <% else %>
   Please <%= link_to 'sign in', new_user_session_path %> first.
