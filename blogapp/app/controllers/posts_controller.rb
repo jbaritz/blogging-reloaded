@@ -43,6 +43,16 @@ class PostsController < ApplicationController
 
   def submit_video_post
     params['user_id'] = current_user.id
+    if params[:video_url].include?("outube")
+      params[:video_url] = params[:video_url].split("=")[1]
+      params[:vid_type] = "youtube"
+    elsif params[:video_url].include?("outu.be")
+      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:vid_type] = "youtube"
+    elsif  params[:video_url].include?("vimeo")
+      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:vid_type] = "vimeo"
+    end
     UserVideoPost.create!(vid_params)
     redirect_to "/"
   end
@@ -69,7 +79,7 @@ class PostsController < ApplicationController
     def vid_params
        params.require(:user_id)
        params.require(:video_url)
-       params.permit(:title, :content, :video_url, :user_id, :tags)
+       params.permit(:title, :content, :video_url, :user_id, :tags, :vid_type)
     end
 
     def audio_params
