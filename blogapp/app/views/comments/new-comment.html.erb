@@ -1,0 +1,8 @@
+
+<h3>Add a Comment</h3>
+<%= form_tag("/new-text-post", method: "post") do %>
+ 	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
+ 	 <%= text_area_tag(:'content',nil, placeholder: "post") %>
+	 <%= text_field_tag(:'tags',nil, placeholder: "tags") %>
+  <%= submit_tag("submit") %>
+<% end %>
