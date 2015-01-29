@@ -1,8 +1,8 @@
 
-<h3>Create a new picture post</h3>
-<%= form_tag("/new-picture-post", method: "post") do %>
+<h3>Create a new audio post</h3>
+<%= form_tag("/new-audio-post", method: "post") do %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
- 	 <%= text_field_tag(:'image_url', nil, placeholder: "picture URL") %>
+ 	 <%= text_field_tag(:'audio_url', nil, placeholder: "audio URL") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "caption") %>
 	 <%= text_field_tag(:'tags',nil, placeholder: "tags") %>
   <%= submit_tag("submit") %>
