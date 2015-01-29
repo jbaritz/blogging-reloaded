@@ -28,6 +28,7 @@ class PostsController < ApplicationController
 
   def submit_text_post
     params['user_id'] = current_user.id
+    params['type'] = 'text'
     # puts "PARAMS:" 
     # puts params
     UserTextPost.create!(text_params)
@@ -67,7 +68,7 @@ class PostsController < ApplicationController
   private
     def text_params
        params.require(:user_id)
-       params.permit(:title, :content, :tags, :user_id)
+       params.permit(:title, :content, :tags, :user_id, :type)
     end
 
     def pic_params

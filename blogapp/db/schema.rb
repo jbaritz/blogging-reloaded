@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20150129200410) do
+ActiveRecord::Schema.define(version: 20150129220257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,58 +42,22 @@ ActiveRecord::Schema.define(version: 20150129200410) do
 
   add_index "communities", ["user_id"], name: "index_communities_on_user_id", using: :btree
 
+  create_table "media_urls", force: :cascade do |t|
+    t.integer "post_id"
+    t.string  "url"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "content"
+    t.string  "title"
+    t.string  "post_type"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "user_audio_posts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "user_id"
-    t.string   "audio_url"
-    t.string   "tags"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_audio_posts", ["user_id"], name: "index_user_audio_posts_on_user_id", using: :btree
-
-  create_table "user_picture_posts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.string   "image_url"
-    t.integer  "user_id"
-    t.string   "tags"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_picture_posts", ["user_id"], name: "index_user_picture_posts_on_user_id", using: :btree
-
-  create_table "user_text_posts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "user_id"
-    t.string   "tags"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_text_posts", ["user_id"], name: "index_user_text_posts_on_user_id", using: :btree
-
-  create_table "user_video_posts", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.string   "video_url"
-    t.integer  "user_id"
-    t.string   "tags"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "vid_type"
-  end
-
-  add_index "user_video_posts", ["user_id"], name: "index_user_video_posts_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -116,8 +79,4 @@ ActiveRecord::Schema.define(version: 20150129200410) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "communities", "users"
-  add_foreign_key "user_audio_posts", "users"
-  add_foreign_key "user_picture_posts", "users"
-  add_foreign_key "user_text_posts", "users"
-  add_foreign_key "user_video_posts", "users"
 end
