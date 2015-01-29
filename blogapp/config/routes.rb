@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get '/new-picture-post', to: 'posts#new_picture_post'
   get '/new-video-post', to: 'posts#new_video_post'
   get '/new-audio-post', to: 'posts#new_audio_post'
+  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
 
   post '/new-text-post', to: 'posts#submit_text_post'
   post '/new-picture-post', to: 'posts#submit_picture_post'

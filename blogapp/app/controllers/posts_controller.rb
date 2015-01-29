@@ -15,6 +15,17 @@ class PostsController < ApplicationController
     #view  form
   end
 
+  def show_all_posts
+    @posts = []
+    @user = User.find_by(username: params[:username])
+    @texts = UserTextPost.where(user_id: @user.id)
+    @pics = UserPicturePost.where(user_id: @user.id)
+    @videos = UserVideoPost.where(user_id: @user.id)
+    @posts.push(@texts, @pics, @videos)
+    @posts.flatten!
+    @posts.sort_by! {|x| x.created_at }
+  end
+
   def submit_text_post
     params['user_id'] = current_user.id
     # puts "PARAMS:" 
@@ -22,6 +33,7 @@ class PostsController < ApplicationController
     UserTextPost.create!(text_params)
     redirect_to "/"
   end
+
 
   def submit_picture_post
     params['user_id'] = current_user.id
@@ -31,6 +43,16 @@ class PostsController < ApplicationController
 
   def submit_video_post
     params['user_id'] = current_user.id
+    if params[:video_url].include?("outube")
+      params[:video_url] = params[:video_url].split("=")[1]
+      params[:vid_type] = "youtube"
+    elsif params[:video_url].include?("outu.be")
+      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:vid_type] = "youtube"
+    elsif  params[:video_url].include?("vimeo")
+      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:vid_type] = "vimeo"
+    end
     UserVideoPost.create!(vid_params)
     redirect_to "/"
   end
@@ -39,6 +61,7 @@ class PostsController < ApplicationController
     params['user_id'] = current_user.id
     UserAudioPost.create!(audio_params)
     redirect_to "/"
+
   end
 
   private
@@ -56,7 +79,7 @@ class PostsController < ApplicationController
     def vid_params
        params.require(:user_id)
        params.require(:video_url)
-       params.permit(:title, :content, :video_url, :user_id, :tags)
+       params.permit(:title, :content, :video_url, :user_id, :tags, :vid_type)
     end
 
     def audio_params
