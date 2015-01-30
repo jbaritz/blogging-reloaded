@@ -1,2 +1,15 @@
 <h3><%= @post.title %></h3>
 <p><%= @post.content %></p>
+<b>Comments</b><br>
+<% @comments.each{ |c| %>
+	<a href= <%= "/" + c.user.username %>> <%= c.user.username%></a>: 
+	<%= c.body %><br>
+<% } %>
+<h4>Add a comment</h4>
+<%= form_tag("/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
+ 	 <%= text_area_tag(:'body',nil, placeholder: "comment") %>
+
+  <%= submit_tag("submit") %>
+  <% end %>
+
+
