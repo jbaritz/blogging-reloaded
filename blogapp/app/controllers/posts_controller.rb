@@ -48,15 +48,17 @@ class PostsController < ApplicationController
     params['user_id'] = current_user.id
     if params[:video_url].include?("outube")
       params[:url] = params[:video_url].split("=")[-1]
-      params[:post_type] = "youtube"
+      params[:media_type] = "youtube"
     elsif params[:video_url].include?("outu.be")
       params[:url] = params[:video_url].split("/")[-1]
-      params[:vid_type] = "youtube"
+      params[:media_type] = "youtube"
     elsif  params[:video_url].include?("vimeo")
       params[:url] = params[:video_url].split("/")[-1]
-      params[:vid_type] = "vimeo"
+      params[:media_type] = "vimeo"
     end
-    UserVideoPost.create!(vid_params)
+    post = Post.create!(vid_params)
+    params[:post_id] = post.id
+    MediaUrl.create!(media_params)
     redirect_to "/"
   end
 
