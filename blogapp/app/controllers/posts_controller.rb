@@ -18,8 +18,6 @@ class PostsController < ApplicationController
   def show_all_posts
     @user = User.find_by(username: params[:username])
     @posts = Post.where(user_id: @user.id)
-    @posts.flatten!
-    @posts.sort_by! {|x| x.created_at }
   end
 
   def submit_text_post
