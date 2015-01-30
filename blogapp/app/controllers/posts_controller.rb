@@ -16,12 +16,8 @@ class PostsController < ApplicationController
   end
 
   def show_all_posts
-    @posts = []
     @user = User.find_by(username: params[:username])
-    @texts = UserTextPost.where(user_id: @user.id)
-    @pics = UserPicturePost.where(user_id: @user.id)
-    @videos = UserVideoPost.where(user_id: @user.id)
-    @posts.push(@texts, @pics, @videos)
+    @posts = Post.where(user_id: @user.id)
     @posts.flatten!
     @posts.sort_by! {|x| x.created_at }
   end
@@ -37,10 +33,14 @@ class PostsController < ApplicationController
 
 
   def submit_picture_post
-    params['user_id'] = current_user.id
-    params['post_type'] = 'picture'
-    Post.create!(pic_params)
-    MediaUrl.create!()
+    params[:user_id] = current_user.id
+    params[:post_type] = 'picture'
+    post = Post.create!(pic_params)
+    # url_params = {post_id: post.id, url: params["image_url"], media_type: "picture" }
+    params[:post_id] = post.id
+    params[:url] = params[:image_url]
+    params[:media_type] = "picture"
+    MediaUrl.create!(media_params)
     redirect_to "/"
   end
 
@@ -75,7 +75,6 @@ class PostsController < ApplicationController
 
     def pic_params
        params.require(:user_id)
-       params.require(:image_url)
        params.permit(:title, :content, :user_id)
     end
 
