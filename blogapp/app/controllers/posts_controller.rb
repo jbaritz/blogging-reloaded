@@ -1,4 +1,9 @@
 class PostsController < ApplicationController
+  def show
+    @post = Posts.find(params[:id])
+    @media = @post.mediaurls
+  end
+
   def new_text_post
     #view  form
   end

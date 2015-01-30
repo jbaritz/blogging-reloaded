@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
   def add_new_comment
-    puts params
+
+    comment = Comment.build_from(post, current_user.id, commenttext )
+    comment.save!
 end

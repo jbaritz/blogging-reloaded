@@ -2,7 +2,7 @@
 
 <% @posts.each do |post| %>
 	<h3><%= post.title %></h3><br>
-	<h2><%= post.content %></h3><br>
+	<p><%= post.content %></p><br>
 	<% if post.is_a? UserPicturePost %>
 	<img src="<%= post.image_url %>"></img>
 	<% end %>
