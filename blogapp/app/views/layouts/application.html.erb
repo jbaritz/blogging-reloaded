@@ -15,10 +15,12 @@
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application" 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 
   </head>
 
   <body>
+  
 
   <nav class="top-bar" data-topbar role="navigation" >
   <ul class="title-area">
@@ -40,9 +42,9 @@
       <% end %>
       <li class="active"><a href="#">Right Button Active</a></li>
       <li class="has-dropdown">
-        <a href="#">Post!</a>
+        <a href='#'>Post!</a>
         <ul class="dropdown">
-          <li><%= link_to "new text post", new_video_post_path %></li>
+          <li id='vid' value='/new-video-post'><%= link_to "new text post", new_video_post_path %></li>
           <li class="active"><a href="#">Active link in dropdown</a></li>
         </ul>
       </li>
@@ -64,6 +66,7 @@
 <div class="row">
     <%= yield %>
 </div>
+
 
   </body>
 </html>

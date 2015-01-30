@@ -47,13 +47,13 @@ class PostsController < ApplicationController
   def submit_video_post
     params['user_id'] = current_user.id
     if params[:video_url].include?("outube")
-      params[:video_url] = params[:video_url].split("=")[1]
+      params[:url] = params[:video_url].split("=")[-1]
       params[:post_type] = "youtube"
     elsif params[:video_url].include?("outu.be")
-      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:url] = params[:video_url].split("/")[-1]
       params[:vid_type] = "youtube"
     elsif  params[:video_url].include?("vimeo")
-      params[:video_url] = params[:video_url].split("/")[-1]
+      params[:url] = params[:video_url].split("/")[-1]
       params[:vid_type] = "vimeo"
     end
     UserVideoPost.create!(vid_params)
