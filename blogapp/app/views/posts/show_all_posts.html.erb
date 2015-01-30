@@ -1,23 +1,30 @@
 <h1><%= @user.username %></h1>
-
 <% @posts.each do |post| %>
+<div id="blog">
 	<h2><%= post.title %></h2>
-	<h3><%= post.content %></h3>
 	<% post.mediaurls.each do |media| %>
 		<% if media.media_type == 'picture' %>
 			<img src='<%= media.url %>'></img>
 		<% elsif media.media_type == 'youtube' %>
-			<div class="flex-video">
-        			<iframe width="420" height="315" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
-			</div>
+		<!-- 	<div class="flex-video"> -->
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+		<!-- 	</div> -->
 		<% elsif media.media_type == 'vimeo' %>
-			<div class="flex-video">
+			<!-- <div class="flex-video"> -->
         			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        	</div>
+        	<!-- </div> -->
         <% end %>
     <% end %>
+	<h3><%= post.content %></h3>
+	<a href='/posts/<%= post.id %>'>Comment</a>
+	
+
 
 	
+</div>
+<div id='time'>
+	<h6><%= post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p") %></h6>
+</div>
 <% end %>
 
 

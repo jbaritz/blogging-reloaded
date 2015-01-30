@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, :except => [:show, :show_all_posts]
   def show
     @post = Post.find(params[:id])
   end
