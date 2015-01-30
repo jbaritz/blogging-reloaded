@@ -35,7 +35,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <% if current_user %>
-        <li style="color:white; margin-top: 9px">Signed in as <%= current_user.email %></li>
+        <li style="color:white; margin-top: 9px">Signed in as <%= current_user.username %></li>
         <li><%= link_to "Sign Out", signout_path %></li>
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
@@ -58,12 +58,7 @@
     </ul>
   </section>
 </nav>
-<% if current_user %>
-  Welcome to SHINJI! You are signed in as <%= current_user.email %>.
-  <%= link_to 'sign out', signout_path %>
-<% else %>
-  Please <%= link_to 'sign in', new_user_session_path %> first.
-<% end %>
+
 
 <div class="row">
     <%= yield %>
