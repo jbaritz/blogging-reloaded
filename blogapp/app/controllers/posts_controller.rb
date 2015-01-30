@@ -22,8 +22,6 @@ class PostsController < ApplicationController
   def show_all_posts
     @user = User.find_by(username: params[:username])
     @posts = Post.where(user_id: @user.id)
-    @posts.flatten!
-    @posts.sort_by! {|x| x.created_at }
   end
 
   def submit_text_post
@@ -51,16 +49,18 @@ class PostsController < ApplicationController
   def submit_video_post
     params['user_id'] = current_user.id
     if params[:video_url].include?("outube")
-      params[:video_url] = params[:video_url].split("=")[1]
-      params[:post_type] = "youtube"
+      params[:url] = params[:video_url].split("=")[-1]
+      params[:media_type] = "youtube"
     elsif params[:video_url].include?("outu.be")
-      params[:video_url] = params[:video_url].split("/")[-1]
-      params[:vid_type] = "youtube"
+      params[:url] = params[:video_url].split("/")[-1]
+      params[:media_type] = "youtube"
     elsif  params[:video_url].include?("vimeo")
-      params[:video_url] = params[:video_url].split("/")[-1]
-      params[:vid_type] = "vimeo"
+      params[:url] = params[:video_url].split("/")[-1]
+      params[:media_type] = "vimeo"
     end
-    UserVideoPost.create!(vid_params)
+    post = Post.create!(vid_params)
+    params[:post_id] = post.id
+    MediaUrl.create!(media_params)
     redirect_to "/"
   end
 
