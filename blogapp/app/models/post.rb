@@ -4,6 +4,6 @@ class Post < ActiveRecord::Base
   acts_as_commentable
   def mediaurls
     x = self.media_urls
-    x.map { |y| y.url }
+    x.map { |y| y }
   end
 end
