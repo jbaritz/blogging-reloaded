@@ -61,8 +61,12 @@ class PostsController < ApplicationController
   end
 
   def submit_audio_post
-    params['user_id'] = current_user.id
-    UserAudioPost.create!(audio_params)
+    params[:user_id] = current_user.id
+    Post.create!(audio_params)
+    params[:post_id] = post.id
+    params[:url] = params[:audio_url]
+    params[:media_type] = "audio"
+    MediaUrl.create!(media_params)
     redirect_to "/"
 
   end
@@ -80,14 +84,12 @@ class PostsController < ApplicationController
 
     def vid_params
        params.require(:user_id)
-       params.require(:video_url)
-       params.permit(:title, :content, :video_url, :user_id, :tags, :vid_type)
+       params.permit(:title, :content, :user_id)
     end
 
     def audio_params
        params.require(:user_id)
-       params.require(:audio_url)
-       params.permit(:title, :content, :audio_url, :user_id, :tags)
+       params.permit(:title, :content, :user_id)
     end
 
     def media_params
