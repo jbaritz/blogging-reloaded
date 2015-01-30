@@ -28,17 +28,19 @@ class PostsController < ApplicationController
 
   def submit_text_post
     params['user_id'] = current_user.id
-    params['type'] = 'text'
+    params['post_type'] = 'text'
     # puts "PARAMS:" 
     # puts params
-    UserTextPost.create!(text_params)
+    Post.create!(text_params)
     redirect_to "/"
   end
 
 
   def submit_picture_post
     params['user_id'] = current_user.id
-    UserPicturePost.create!(pic_params)
+    params['post_type'] = 'picture'
+    Post.create!(pic_params)
+    MediaUrl.create!()
     redirect_to "/"
   end
 
@@ -46,7 +48,7 @@ class PostsController < ApplicationController
     params['user_id'] = current_user.id
     if params[:video_url].include?("outube")
       params[:video_url] = params[:video_url].split("=")[1]
-      params[:vid_type] = "youtube"
+      params[:post_type] = "youtube"
     elsif params[:video_url].include?("outu.be")
       params[:video_url] = params[:video_url].split("/")[-1]
       params[:vid_type] = "youtube"
@@ -68,13 +70,13 @@ class PostsController < ApplicationController
   private
     def text_params
        params.require(:user_id)
-       params.permit(:title, :content, :tags, :user_id, :type)
+       params.permit(:title, :content, :user_id, :post_type)
     end
 
     def pic_params
        params.require(:user_id)
        params.require(:image_url)
-       params.permit(:title, :content, :image_url, :user_id, :tags)
+       params.permit(:title, :content, :user_id)
     end
 
     def vid_params
@@ -87,6 +89,14 @@ class PostsController < ApplicationController
        params.require(:user_id)
        params.require(:audio_url)
        params.permit(:title, :content, :audio_url, :user_id, :tags)
+    end
+
+    def media_params
+      params.require(:url)
+      params.require(:post_id)
+      params.require(:media_type)
+      params.permit(:url, :post_id, :media_type)
+
     end
 end
 
