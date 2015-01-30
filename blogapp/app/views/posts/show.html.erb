@@ -1,4 +1,17 @@
 <h3><%= @post.title %></h3>
+<% @post.mediaurls.each do |media| %>
+	 	<% if media.media_type == 'picture' %>
+			<img src='<%= media.url %>'></img>
+		<% elsif media.media_type == 'youtube' %>
+		<!-- 	<div class="flex-video"> -->
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+		<!-- 	</div> -->
+		<% elsif media.media_type == 'vimeo' %>
+			<!-- <div class="flex-video"> -->
+        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        	<!-- </div> -->
+        <% end %>
+<% end %>
 <p><%= @post.content %></p>
 <b>Comments</b><br>
 <% @comments.each{ |c| %>
