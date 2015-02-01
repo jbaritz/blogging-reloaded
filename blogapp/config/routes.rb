@@ -27,8 +27,10 @@ Rails.application.routes.draw do
   get '/new-text-post', to: 'posts#new_text_post'
   get '/new-picture-post', to: 'posts#new_picture_post'
   get '/new-video-post', to: 'posts#new_video_post'
-  get '/new-audio-post', to: 'posts#new_audio_post'
-  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
+  # resources :posts do
+  #   resources :comments
+  # end
+  # get '/new-audio-post', to: 'posts#new_audio_post'
 
   post '/new-text-post', to: 'posts#submit_text_post'
   post '/new-picture-post', to: 'posts#submit_picture_post'
@@ -38,7 +40,7 @@ Rails.application.routes.draw do
   get '/posts/:id', to: 'posts#show'
   get '/posts/:id/comments/new', to: 'comments#add_new_comment'
   post '/posts/:id/comments', to: 'comments#submit_comment'
-
+  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
 
 
   # The priority is based upon order of creation: first created -> highest priority.
