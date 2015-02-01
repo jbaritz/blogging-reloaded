@@ -38,9 +38,14 @@ Rails.application.routes.draw do
   post '/new-audio-post', to: 'posts#submit_audio_post'
 
   get '/posts/:id', to: 'posts#show'
-  get '/posts/:id/comments/new', to: 'comments#add_new_comment'
+  # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
   post '/posts/:id/comments', to: 'comments#submit_comment'
+
   get '/:username', to: 'posts#show_all_posts', as: :user_page_path
+
+  post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
