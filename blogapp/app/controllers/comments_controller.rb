@@ -1,4 +1,10 @@
 class CommentsController < ApplicationController
+  def get_post_comments
+   post = Post.find(params[:id])
+   @comments = post.comment_threads
+   render :json => @comments
+  end
+
   def submit_comment
     post = Post.find(params[:id])
     comment = Comment.build_from(post, current_user.id, params['body'])
