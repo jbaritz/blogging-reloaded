@@ -1,15 +1,9 @@
-<h1><%= @user.username %></h1><br>
-<% if current_user && current_user.username != @user.username %>
-	<% if !current_user.subscribees.include?(@user) %>
-		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
-	<% elsif current_user.subscribees.include?(@user) %>
-		<h6>Following this user</h6>
-	<% end %>
-<% end %>
+<h1><%= current_user.username %><h1><br>
 <% @posts.each do |post| %>
-<div id="blog">
-	<h2><%= post.title %></h2>
-	<% post.mediaurls.each do |media| %>
+	<div id='blog'>
+	<h3><a href='/<%= post.user.username %>'><%= post.user.username %></a> posted:</h3>
+		<h2><%= post.title %></h2>
+		<% post.mediaurls.each do |media| %>
 		<% if media.media_type == 'picture' %>
 			<img src='<%= media.url %>'></img>
 		<% elsif media.media_type == 'youtube' %>
@@ -24,18 +18,11 @@
         	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
         <% end %>
     <% end %>
-	<h3><%= post.content %></h3> 
-	<a href="/posts/<%= post.id %>">Comment</a>
-	
-
-
-	
-</div>
-<div id='time'>
-	<h6><%= post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p") %></h6>
-</div>
+		<h2><%= post.content %></h2>
+	</div>
+	<!-- </div> -->
+	<div id='time'>
+		<h6><%= post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p") %></h6>
+	</div>
 <% end %>
-
-
-
 
