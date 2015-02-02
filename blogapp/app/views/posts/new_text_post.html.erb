@@ -1,6 +1,6 @@
 
 <h3>Create a new text post</h3>
-<%= form_tag("/new-text-post", method: "post") do %>
+<%= form_tag("/posts/text", method: "post") do %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "post") %>
 	 <%= text_field_tag(:'tags',nil, placeholder: "tags") %>

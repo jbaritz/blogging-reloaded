@@ -1,6 +1,6 @@
 
 <h3>Create a new audio post</h3>
-<%= form_tag("/new-audio-post", method: "post") do %>
+<%= form_tag("/posts/audio", method: "post") do %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_field_tag(:'audio_url', nil, placeholder: "audio URL") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "caption") %>
