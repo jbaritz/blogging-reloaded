@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'welcomes#index'
+  # root 'welcomes#index'
+  root to: 'users#home'
   devise_for :users
 
   devise_scope :user do
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   # end
   # get '/new-audio-post', to: 'posts#new_audio_post'
 
+  get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
   post '/new-text-post', to: 'posts#submit_text_post'
   post '/new-picture-post', to: 'posts#submit_picture_post'
   post '/new-video-post', to: 'posts#submit_video_post'

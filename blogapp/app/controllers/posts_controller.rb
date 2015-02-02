@@ -61,6 +61,9 @@ class PostsController < ApplicationController
     elsif  params[:video_url].include?("vimeo")
       params[:url] = params[:video_url].split("/")[-1]
       params[:media_type] = "vimeo"
+    elsif params[:video_url].include?("vine.co")
+      params[:url] = params[:video_url].split("/")[-1]
+      params[:media_type] = "vine"
     end
     post = Post.create!(vid_params)
     params[:post_id] = post.id

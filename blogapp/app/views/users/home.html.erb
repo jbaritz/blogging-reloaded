@@ -1,0 +1,7 @@
+
+
+<% if !current_user %>
+	<%= render partial: "signin" %>
+<% else %>
+	<%= render partial: "home" %>
+<% end %>
