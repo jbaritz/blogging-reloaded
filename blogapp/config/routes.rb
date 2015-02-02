@@ -25,21 +25,23 @@ Rails.application.routes.draw do
       #                          DELETE /users(.:format)               devise/registrations#destroy
       #                     root GET    /   
 
-  get '/new-text-post', to: 'posts#new_text_post'
-  get '/new-picture-post', to: 'posts#new_picture_post'
-  get '/new-video-post', to: 'posts#new_video_post'
-  get '/new-audio-post', to: 'posts#new_audio_post'
+  get '/posts/text', to: 'posts#new_text_post'
+  get '/posts/picture', to: 'posts#new_picture_post'
+  get '/posts/video', to: 'posts#new_video_post'
+  get '/posts/audio', to: 'posts#new_audio_post'
   get '/:username', to: 'posts#show_all_posts', as: :user_page_path
   # resources :posts do
   #   resources :comments
   # end
   # get '/new-audio-post', to: 'posts#new_audio_post'
 
+
   get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
-  post '/new-text-post', to: 'posts#submit_text_post'
-  post '/new-picture-post', to: 'posts#submit_picture_post'
-  post '/new-video-post', to: 'posts#submit_video_post'
-  post '/new-audio-post', to: 'posts#submit_audio_post'
+  post '/posts/text', to: 'posts#submit_text_post'
+  post '/posts/picture', to: 'posts#submit_picture_post'
+  post '/posts/video', to: 'posts#submit_video_post'
+  post '/posts/audio', to: 'posts#submit_audio_post'
+
 
   get '/posts/:id', to: 'posts#show'
   # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
