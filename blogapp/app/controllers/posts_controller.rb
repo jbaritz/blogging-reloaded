@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
-  def show
+  def show #this is okay
     @post = Post.find(params[:id])
     @comments = Comment.where(commentable_id: params[:id])
   end
 
-  def new_text_post
+  def new_text_post #these should be new_post/:type
     #view  form
   end
 
@@ -21,9 +21,10 @@ class PostsController < ApplicationController
     #view  form
   end
 
-  def show_all_posts
+  def show_all_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
-    @posts = Post.where(user_id: @user.id)
+    @posts = Post.where(user_id: @user.id).order('created_at DESC')
+    # @posts = Post.where(user_id: @user.id)
     # render :json => @posts
   end
 

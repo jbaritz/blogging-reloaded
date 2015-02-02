@@ -5,6 +5,6 @@ class Post < ActiveRecord::Base
 
   def mediaurls
     x = self.media_urls
-    x.map { |y| y }
+    x.map { |y| y } #doesn't do anything
   end
 end

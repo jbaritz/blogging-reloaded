@@ -35,7 +35,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <% if current_user %>
-        <li style="color:white; margin-top: 0px">Signed in as <span><a href="/<%= current_user.username %>"><%= current_user.username %></a></span></li>
+        <li>Signed in as <span><a href="/<%= current_user.username %>"><%= current_user.username %></a></span></li>
         <li><%= link_to "Sign Out", signout_path %></li>
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>

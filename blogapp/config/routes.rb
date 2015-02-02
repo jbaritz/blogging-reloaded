@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   get '/new-video-post', to: 'posts#new_video_post'
   get '/new-audio-post', to: 'posts#new_audio_post'
   get '/:username', to: 'posts#show_all_posts', as: :user_page_path
+  # resources :posts do
+  #   resources :comments
+  # end
+  # get '/new-audio-post', to: 'posts#new_audio_post'
 
   post '/new-text-post', to: 'posts#submit_text_post'
   post '/new-picture-post', to: 'posts#submit_picture_post'
@@ -38,7 +42,10 @@ Rails.application.routes.draw do
   get '/posts/:id', to: 'posts#show'
   # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
   post '/posts/:id/comments', to: 'comments#submit_comment'
+
+
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
+
 
 
 
