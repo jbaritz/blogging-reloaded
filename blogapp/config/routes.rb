@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get '/new-text-post', to: 'posts#new_text_post'
   get '/new-picture-post', to: 'posts#new_picture_post'
   get '/new-video-post', to: 'posts#new_video_post'
+  get '/new-audio-post', to: 'posts#new_audio_post'
+  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
   # resources :posts do
   #   resources :comments
   # end
@@ -41,7 +43,6 @@ Rails.application.routes.draw do
   # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
   post '/posts/:id/comments', to: 'comments#submit_comment'
 
-  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
 
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
 

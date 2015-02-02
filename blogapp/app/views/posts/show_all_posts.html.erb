@@ -15,9 +15,8 @@
         	<!-- </div> -->
         <% end %>
     <% end %>
-	<h3><%= post.content %></h3>
-	<%= link_to 'Comment', post_path(post) %><%# use the post_path so if you change endpoints it will always point to the right view %>
-	<!-- <a href='/posts/<%= post.id %>'>Comment</a>  -->
+	<h3><%= post.content %></h3> 
+	<a href="/posts/<%= post.id %>">Comment</a>
 	
 
 
