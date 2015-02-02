@@ -2,7 +2,8 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
   def show #this is okay
     @post = Post.find(params[:id])
-    @comments = Comment.where(commentable_id: params[:id])
+    @comments = @post.comment_threads
+    @comments.to_json
   end
 
   def new_text_post #these should be new_post/:type

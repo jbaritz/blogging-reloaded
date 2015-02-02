@@ -15,6 +15,7 @@
 <p><%= @post.content %></p>
 <b>Comments</b><br>
 <% @comments.each{ |c| %>
+<%= c.has_children? %>
 	<a href= <%= "/" + c.user.username %>> <%= c.user.username%></a>: 
 	<%= c.body %><br>
 <% } %>
@@ -25,3 +26,8 @@
   <% end %>
 
 
+<script>
+<% @comments.to_json%>.forEach(function(c){
+	console.log(c)
+)}
+</script>
