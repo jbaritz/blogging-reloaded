@@ -3,7 +3,12 @@ class PostsController < ApplicationController
   def show #this is okay
     @post = Post.find(params[:id])
     @comments = @post.comment_threads
-    
+    @comments_hash = @comments.map do |c|
+    attrs = c.attributes
+    attrs[:username] = c.user.username
+    attrs
+    end  
+    @comments_hash = @comments_hash.to_json  
   end
 
   def new_text_post #these should be new_post/:type

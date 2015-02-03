@@ -2,7 +2,15 @@ class CommentsController < ApplicationController
   def get_post_comments
    post = Post.find(params[:id])
    @comments = post.comment_threads
-   render :json => @comments
+   comment_hash = @comments.map do |c|
+    attrs = c.attributes
+    attrs[:username] = c.user.username
+    if c.has_children?
+       attrs[:replies] = c.children
+    end
+    attrs
+    end
+   render :json => comment_hash
   end
 
   def submit_comment
@@ -21,4 +29,8 @@ class CommentsController < ApplicationController
     redirect_to "/posts/" + params[:id]
 
   end
+
+  private
+  def get_replies
+
 end

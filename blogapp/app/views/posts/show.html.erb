@@ -16,25 +16,25 @@
 </div>
 
 <div class="comments large-12 columns"><b>Comments</b><br>
-<% @comments.each{ |c| %>
-<div class="large-7 columns comment-box">
-	<a href= <%= "/" + c.user.username %>> <%= c.user.username%></a>: 
-	<%= c.body %><br>
-	</div>
-<% } %>
+<div class="comments large=12 columns print-comments"></div>
+<div class="large-12 columns comment-form">
 <h4>Add a comment</h4>
 <%= form_tag("/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
  	 <%= text_area_tag(:'body',nil, placeholder: "comment") %>
-  <%= submit_tag("submit") %>
+  <%= submit_tag("submit", class: "button small") %>
   <% end %>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
 <script>
+$(document).ready(function(){
 	$.get("/posts/" + <%= @post.id %> + "/comments", function (comments){
-		comments.forEach(function (c){
-			console.log(c.body)
-		})
-		
-	})//end get
+		_.each(comments, function (c){
+			console.log(c.body);
+			$('.print-comments').append('<div class="large-12 columns comment-box"><a href="/' + c.username + '">' + c.username + '</a>:<br>' + c.body + '<br></div>')
+			})
+	})
+})		
 </script>

@@ -18,6 +18,12 @@ body {
 	margin: 5px;
 	padding: 10px;
 	border-radius: 5px;
+	width: 57%;
+}
+
+.comment-form {
+	width: 50%;
+	float:left;
 }
 #blog {
 	min-height: 100px;
@@ -53,4 +59,8 @@ iframe {
 
 .top-bar-section ul.right li {
 	color: white;
+}
+
+[class*="column"] + [class*="column"]:last-child {
+  float: left; 
 }
