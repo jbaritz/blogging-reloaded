@@ -32,5 +32,6 @@ class CommentsController < ApplicationController
 
   private
   def get_replies
+  end
 
 end
