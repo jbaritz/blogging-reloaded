@@ -54,27 +54,36 @@ post4 = OriginalPost.create({
     post_type: "video"
   })
 
-UserBlogPost.create({original_post_id: post1.id, user_ud: post1.user_id })
-
-
-
-
 
 MediaUrl.create([
   {
-    post_id: 1,
+    post_id: post1.id,
     url: "https://www.youtube.com/watch?v=bBH0ele7qdw"
   },
   {
-    post_id: 2,
+    post_id: post2.id,
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ807Vag4b7cBo9xl4zlKiNb-s-aFG8cocPyGQJRqNVbsIH5EZ1KQOz0w4N"
   },
   {
-    post_id: 4,
+    post_id: post4.id,
     url: "https://www.youtube.com/watch?v=-lGrARvsuD0"
   }
 
   ])
+UserBlogPost.create({post_id: post1.id, post_type: "OriginalPost", user_id: post1.user_id })
+UserBlogPost.create({post_id: post2.id, post_type: "OriginalPost", user_id: post2.user_id })
+UserBlogPost.create({post_id: post3.id, post_type: "OriginalPost", user_id: post3.user_id })
+UserBlogPost.create({post_id: post4.id, post_type: "OriginalPost", user_id: post4.user_id })
+
+reblog1 = Reblog.create({user_id: 1, post_id: post2.id})
+reblog2 = Reblog.create({user_id: 2, post_id: post3.id})
+reblog3 = Reblog.create({user_id: 6, post_id: post4.id})
+UserBlogPost.create({post_id: reblog1.id, post_type: "Reblog", user_id: post1.user_id })
+UserBlogPost.create({post_id: post1.id, post_type: "Reblog", user_id: post1.user_id })
+UserBlogPost.create({post_id: post1.id, post_type: "Reblog", user_id: post1.user_id })
+
+
+
 
 
 
