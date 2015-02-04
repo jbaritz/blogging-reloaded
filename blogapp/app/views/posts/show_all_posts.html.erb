@@ -1,4 +1,5 @@
 <h1><%= @user.username %></h1><br>
+<div class='showpost'>
 <% if current_user && current_user.username != @user.username %>
 	<% if !current_user.subscribees.include?(@user) %>
 		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
@@ -35,6 +36,61 @@
 	<h6><%= post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p") %></h6>
 </div>
 <% end %>
+<br>
+</div>
+<button type='submit' id='more'>Show more posts</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/convert.js"></script>
+
+<script>
+$(document).ready(function() {
+	var offset = 2;
+
+$(document).on('click', '#more', function (e) {
+	console.log(offset)
+	e.preventDefault()
+	$.ajax({
+		type: 'GET',
+		url: '/<%= @user.username %>/json/' + offset
+	}).done(function (data) {
+		console.log('second',offset)
+		console.log(data)
+		data.forEach(function (c) {
+			console.log('third',offset)
+			console.log('post: ',c)
+			// console.log(c.content)
+			$x = $('<div>').attr('id', 'blog')
+			$x.prepend('<h2>' + c.title)
+			if (c.media_type && c.media_type === 'picture') {
+				var $player = $('<div>').html('<img src=' + c.url + ' />')
+			}else if (c.media_type && c.media_type === 'youtube') {
+				var newurl = '//www.youtube.com/embed/' + c.url;
+				var $player = $('<div>').html("<iframe width='400' height='225' src=" + newurl + " frameborder='0' allowfullscreen></iframe>")
+			}else if (c.media_type && c.media_type === 'vimeo') {
+				var newurl = 'http://player.vimeo.com/video/' + c.url;
+				var $player = $('<div>').html("<iframe src=" + newurl + " + c.url + '  width='400' height='225' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")
+			}
+			console.log(offset)
+			$x.append($player)
+			$x.append('<h3>' + c.content)
+
+
+			$y = $('<div>').attr('id', 'time')
+			$y.html(convertTime(c.created_at))
+			console.log('fourth', offset)
+			// console.log(c.created_at)
+			console.log('html:',$x);
+			// $x.append($y)
+			$('.showpost').append($x,$y)
+			console.log('fifth', offset)
+
+
+		})
+	})
+	offset += 2
+})
+})
+</script>
 
 
 

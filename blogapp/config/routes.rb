@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/posts/video', to: 'posts#new_video_post'
   get '/posts/audio', to: 'posts#new_audio_post'
   get '/:username', to: 'posts#show_all_posts', as: :user_page_path
+  get '/:username/json/:offset', to: 'posts#show_all_posts_json'
   # resources :posts do
   #   resources :comments
   # end
