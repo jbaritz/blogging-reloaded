@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get '/posts/:id', to: 'posts#show'
   # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
   post '/posts/:id/comments', to: 'comments#submit_comment'
+  get '/posts/:id/comments', to: 'comments#get_post_comments'
 
 
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
