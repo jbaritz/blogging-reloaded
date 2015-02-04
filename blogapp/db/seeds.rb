@@ -29,35 +29,36 @@
 #   }
 #   ])
 
-Post.create([
-  {
+post1= OriginalPost.create({
     user_id: 1,
     content: "This is a post about cars",
     title: "cars",
     post_type: "video"
-  },
-  {
+  })
+post2 = OriginalPost.create({
     user_id: 2,
     content: "This is a post about boats",
     title: "Boats",
     post_type: "image"
-  },
-  {
+  })
+post3 = OriginalPost.create({
     user_id: 1,
     content: "I am having such a wonderful day",
     title: "My day",
     post_type: "text"
-
-  },
-  {
+  })
+post4 = OriginalPost.create({
     user_id: 2,
     content: "This is a post about football",
     title: "football",
     post_type: "video"
-  }
+  })
+
+UserBlogPost.create({original_post_id: post1.id, user_ud: post1.user_id })
 
 
-  ])
+
+
 
 MediaUrl.create([
   {
