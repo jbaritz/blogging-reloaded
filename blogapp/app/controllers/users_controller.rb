@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     subscriptions = Subscription.where(subscriber_id: current_user.id)
     @posts = []
     subscriptions.each do |sub|
-      post = Post.where(user_id: sub.subscribee_id)
+      post = OriginalPost.where(user_id: sub.subscribee_id)
       @posts.push(post)
     end
     @posts.flatten!
