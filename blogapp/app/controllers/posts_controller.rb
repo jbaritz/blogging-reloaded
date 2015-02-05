@@ -78,7 +78,7 @@ class PostsController < ApplicationController
     # puts "PARAMS:" 
     # puts params
     post = OriginalPost.create!(text_params)
-    params = [{}]
+    params = [{post_id: post.id, post_type: "OriginalPost", user_id: post.user_id}]
     UserBlogPost.create!(user_blog_post_params)
     redirect_to "/"
   end
