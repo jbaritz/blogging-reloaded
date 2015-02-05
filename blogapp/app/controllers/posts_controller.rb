@@ -20,8 +20,9 @@ class PostsController < ApplicationController
       @posts << p
     end
     rblgs.each do |p|
+      p = p.original_post
       attrs = p.attributes
-      attrs[:op_username] = p.original_post.user.username
+      attrs[:op_username] = p.user.username
       @posts << p
     end
   end
