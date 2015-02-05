@@ -25,31 +25,29 @@ Rails.application.routes.draw do
       #                          DELETE /users(.:format)               devise/registrations#destroy
       #                     root GET    /   
 
+    #new post forms
   get '/posts/text', to: 'posts#new_text_post'
   get '/posts/picture', to: 'posts#new_picture_post'
   get '/posts/video', to: 'posts#new_video_post'
   get '/posts/audio', to: 'posts#new_audio_post'
-  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
-  get '/:username/json/:offset', to: 'posts#show_all_posts_json'
-  # resources :posts do
-  #   resources :comments
-  # end
-  # get '/new-audio-post', to: 'posts#new_audio_post'
-
-
-  get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
+    #new post submit
   post '/posts/text', to: 'posts#submit_text_post'
   post '/posts/picture', to: 'posts#submit_picture_post'
   post '/posts/video', to: 'posts#submit_video_post'
   post '/posts/audio', to: 'posts#submit_audio_post'
+    #user blog display
+  get '/:username', to: 'posts#show_all_posts', as: :user_page_path
+  get '/:username/json/:offset', to: 'posts#show_all_posts_json'
 
-
-  get '/posts/:id', to: 'posts#show'
-  # get '/posts/:id/comments/new', to: 'comments#add_new_comment'
-  post '/posts/:id/comments', to: 'comments#submit_comment'
-  get '/posts/:id/comments', to: 'comments#get_post_comments'
-
-
+  get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
+  # get ':username/posts'
+  # get ':username/reblogs'
+    #individual post display
+  get ':username/posts/:id', to: 'posts#show_post'
+  get ':username/reblogs/:id', to: 'posts#show_reblog'
+    #comments
+  post ':username/posts/:id/comments', to: 'comments#submit_comment'
+  get ':username/posts/:id/comments', to: 'comments#get_post_comments'
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
 
 
