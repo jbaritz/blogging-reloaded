@@ -13,7 +13,11 @@
 <% end %>
 <% @posts.each do |post| %>
 <div id="blog">
+	<% if post.class == Reblog %>
+		<h2>orignial poster: <%= post.original_post.user.username %></h2>
+	<%end%>
 	<h2><%= post.title %></h2>
+
 	<% post.mediaurls.each do |media| %>
 		<% if media.media_type == 'picture' %>
 			<img src='<%= media.url %>'></img>

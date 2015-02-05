@@ -32,6 +32,7 @@ class PostsController < ApplicationController
     @posts = []
     ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
     rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+    byebug
     ops.each do |p|
       @posts << p
     end
@@ -40,7 +41,11 @@ class PostsController < ApplicationController
       attrs = p.attributes
       attrs[:op_username] = p.user.username
       @posts << p
+      byebug
     end
+    byebug
+    @posts.sort_by! {|p| p.created_at}
+    @posts.reverse!
   end
 
   def show_all_posts_json #this should be in a profile controller
