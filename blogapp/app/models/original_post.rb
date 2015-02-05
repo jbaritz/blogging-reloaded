@@ -1,7 +1,7 @@
 class OriginalPost < ActiveRecord::Base
   belongs_to :user
   has_many :media_urls, foreign_key: :post_id
-  has_many :reblogs, foreign_key: :post_id
+  has_many :reblogs, foreign_key: :original_post_id
   belongs_to :user_blog_post, foreign_key: :post_id
   acts_as_commentable
 

@@ -78,9 +78,9 @@ UserBlogPost.create({post_id: post4.id, post_type: "OriginalPost", user_id: post
 reblog1 = Reblog.create({user_id: 1, post_id: post2.id})
 reblog2 = Reblog.create({user_id: 2, post_id: post3.id})
 reblog3 = Reblog.create({user_id: 6, post_id: post4.id})
-UserBlogPost.create({post_id: reblog1.id, post_type: "Reblog", user_id: post1.user_id })
-UserBlogPost.create({post_id: post1.id, post_type: "Reblog", user_id: post1.user_id })
-UserBlogPost.create({post_id: post1.id, post_type: "Reblog", user_id: post1.user_id })
+UserBlogPost.create({post_id: reblog1.id, post_type: "Reblog", user_id: reblog1.user_id })
+UserBlogPost.create({post_id: reblog2.id, post_type: "Reblog", user_id: reblog2.user_id })
+UserBlogPost.create({post_id: reblog3.id, post_type: "Reblog", user_id: reblog3.user_id })
 
 
 
