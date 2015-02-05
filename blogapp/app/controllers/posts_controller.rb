@@ -11,6 +11,21 @@ class PostsController < ApplicationController
     @comments_hash = @comments_hash.to_json  
   end
 
+   def show_all_posts #this should be in a profile controller
+    @user = User.find_by(username: params[:username])
+    @posts = []
+    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
+    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+    ops.each do |p|
+      @posts << p
+    end
+    rblgs.each do |p|
+      attrs = p.attributes
+      attrs[:op_username] = p.original_post.user.username
+      @posts << p
+    end
+  end
+
   def new_text_post 
     #view  form
   end
@@ -27,22 +42,7 @@ class PostsController < ApplicationController
     #view  form
   end
 
-  def show_all_posts #this should be in a profile controller
-    @user = User.find_by(username: params[:username])
-    @posts = []
-    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
-    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
-    ops.each do |p|
-      @posts << p
-    end
-    rblgs.each do |p|
-      p = p.original_post
-      attrs = p.attributes
-      attrs[:op_username] = p.user.username
-      @posts << p
-    end
-  end
-
+ 
   def show_all_posts_json #this should be in a profile controller
     @user = User.find_by(username: params[:username])
     # counter = params[:counter]
