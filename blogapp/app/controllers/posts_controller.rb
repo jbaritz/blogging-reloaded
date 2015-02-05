@@ -19,10 +19,11 @@ class PostsController < ApplicationController
     ops.each do |p|
       @posts << p
     end
-    rblgs.each do |p|
-      p = p.original_post
+    rblgs = rblgs.map do |p|
       attrs = p.attributes
       attrs[:op_username] = p.user.username
+    end
+    rblgs.each do |p|
       @posts << p
     end
   end
