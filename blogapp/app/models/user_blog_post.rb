@@ -6,7 +6,10 @@ class UserBlogPost < ActiveRecord::Base
     if self.post_type == "OriginalPost"
       self.post
     elsif self.post_type == "Reblog"
-      self.post.original_post
+      p = self.post.original_post
+      attrs = p.attributes
+      attrs[:op_username] = p.user.username
+      p
     end
   end
 end
