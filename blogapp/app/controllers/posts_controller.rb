@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
   def show #this is okay
-    @post = UserBlogPost.find(params[:id]).get_post
+    @post = OriginalPost.find(params[:id])
     @comments = @post.comment_threads
     @comments_hash = @comments.map do |c|
       attrs = c.attributes
