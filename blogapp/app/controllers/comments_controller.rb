@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   def get_post_comments
-   post = Post.find(params[:id])
+   post = UserBlogPost.find(params[:id]).get_post
    @comments = post.comment_threads
    comment_hash = @comments.map do |c|
     attrs = c.attributes

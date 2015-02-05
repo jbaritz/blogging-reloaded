@@ -1,17 +1,17 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
   def show #this is okay
-    @post = UserBlogPost.find(params[:id]).post
+    @post = UserBlogPost.find(params[:id]).get_post
     @comments = @post.comment_threads
     @comments_hash = @comments.map do |c|
-    attrs = c.attributes
-    attrs[:username] = c.user.username
-    attrs
+      attrs = c.attributes
+      attrs[:username] = c.user.username
+      attrs
     end  
     @comments_hash = @comments_hash.to_json  
   end
 
-  def new_text_post #these should be new_post/:type
+  def new_text_post 
     #view  form
   end
 
@@ -29,7 +29,10 @@ class PostsController < ApplicationController
 
   def show_all_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
-    @posts = Post.where(user_id: @user.id).order('created_at DESC').limit(2)
+    posts = UserBlogPost.where(user_id: @user.id).order('created_at DESC').limit(2)
+    @posts = posts.map do |p|
+      p.get_post
+    end
     # @posts = Post.where(user_id: @user.id)
     # render :json => @posts
   end
@@ -74,7 +77,9 @@ class PostsController < ApplicationController
     params['post_type'] = 'text'
     # puts "PARAMS:" 
     # puts params
-    Post.create!(text_params)
+    post = OriginalPost.create!(text_params)
+    params = [{}]
+    UserBlogPost.create!(user_blog_post_params)
     redirect_to "/"
   end
 
@@ -106,7 +111,7 @@ class PostsController < ApplicationController
       params[:url] = params[:video_url].split("/")[-1]
       params[:media_type] = "vine"
     end
-    post = Post.create!(vid_params)
+    post = OriginalPost.create!(vid_params)
     params[:post_id] = post.id
     MediaUrl.create!(media_params)
     redirect_to "/"
@@ -114,7 +119,7 @@ class PostsController < ApplicationController
 
   def submit_audio_post
     params[:user_id] = current_user.id
-    Post.create!(audio_params)
+    OriginalPost.create!(audio_params)
     params[:post_id] = post.id
     params[:url] = params[:audio_url]
     params[:media_type] = "audio"
@@ -149,7 +154,10 @@ class PostsController < ApplicationController
       params.require(:post_id)
       params.require(:media_type)
       params.permit(:url, :post_id, :media_type)
+    end
 
+    def user_blog_post_params
+      params.require()
     end
 end
 
