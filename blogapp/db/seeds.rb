@@ -59,14 +59,17 @@ MediaUrl.create([
   {
     post_id: post1.id,
     url: "https://www.youtube.com/watch?v=bBH0ele7qdw"
+    media_type: 'youtube'
   },
   {
     post_id: post2.id,
     url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ807Vag4b7cBo9xl4zlKiNb-s-aFG8cocPyGQJRqNVbsIH5EZ1KQOz0w4N"
+    media_type: "picture"
   },
   {
     post_id: post4.id,
     url: "https://www.youtube.com/watch?v=-lGrARvsuD0"
+    media_type: 'youtube'
   }
 
   ])
