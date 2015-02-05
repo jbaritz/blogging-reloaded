@@ -10,8 +10,8 @@ class User < ActiveRecord::Base
   has_many :subscribing_to, class_name: "Subscription", foreign_key: :subscriber_id
   has_many :subscribees, through: :subscribing_to
 
-  has_many :user_blog_posts
   has_many :original_posts
+  has_many :reblogs
 
 
 
