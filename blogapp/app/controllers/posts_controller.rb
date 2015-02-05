@@ -29,12 +29,18 @@ class PostsController < ApplicationController
 
   def show_all_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
-    posts = UserBlogPost.where(user_id: @user.id).order('created_at DESC').limit(2)
-    @posts = posts.map do |p|
-      p.get_post
+    @posts = []
+    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
+    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+    ops.each do |p|
+      @posts << p
     end
-    # @posts = Post.where(user_id: @user.id)
-    # render :json => @posts
+    rblgs.each do |p|
+      p = p.original_post
+      attrs = p.attributes
+      attrs[:op_username] = p.user.username
+      @posts << p
+    end
   end
 
   def show_all_posts_json #this should be in a profile controller
@@ -59,8 +65,6 @@ class PostsController < ApplicationController
     # end
     # byebug
 
- 
-
     # @posts = Post.where(user_id: @user.id)
     # @posts.each do |post|
     #   byebug
@@ -75,11 +79,7 @@ class PostsController < ApplicationController
   def submit_text_post
     params['user_id'] = current_user.id
     params['post_type'] = 'text'
-    # puts "PARAMS:" 
-    # puts params
     post = OriginalPost.create!(text_params)
-    params = [{post_id: post.id, post_type: "OriginalPost", user_id: post.user_id}]
-    UserBlogPost.create!(user_blog_post_params)
     redirect_to "/"
   end
 
@@ -87,7 +87,7 @@ class PostsController < ApplicationController
   def submit_picture_post
     params[:user_id] = current_user.id
     params[:post_type] = 'picture'
-    post = Post.create!(pic_params)
+    post = OriginalPost.create!(pic_params)
     # url_params = {post_id: post.id, url: params["image_url"], media_type: "picture" }
     params[:post_id] = post.id
     params[:url] = params[:image_url]
@@ -156,8 +156,5 @@ class PostsController < ApplicationController
       params.permit(:url, :post_id, :media_type)
     end
 
-    def user_blog_post_params
-      params.require()
-    end
 end
 
