@@ -25,6 +25,7 @@ class PostsController < ApplicationController
       attrs[:op_username] = p.user.username
       @posts << p
     end
+    byebug
   end
 
   def new_text_post 
