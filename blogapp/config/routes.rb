@@ -43,8 +43,8 @@ Rails.application.routes.draw do
   # get ':username/posts'
   # get ':username/reblogs'
     #individual post display
-  get ':username/posts/:id', to: 'posts#show_post'
-  get ':username/reblogs/:id', to: 'posts#show_reblog'
+  get ':username/posts/:id', to: 'posts#show'
+  get ':username/reblogs/:id', to: 'reblogs#show'
     #comments
   post ':username/posts/:id/comments', to: 'comments#submit_comment'
   get ':username/posts/:id/comments', to: 'comments#get_post_comments'

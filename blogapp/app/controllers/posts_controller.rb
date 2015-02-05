@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
   def show #this is okay
-    @post = UserBlogPost.find(params[:id]).get_post
+    @post = OriginalPost.find(params[:id])
     @comments = @post.comment_threads
     @comments_hash = @comments.map do |c|
       attrs = c.attributes
@@ -9,6 +9,21 @@ class PostsController < ApplicationController
       attrs
     end  
     @comments_hash = @comments_hash.to_json  
+  end
+
+   def show_all_posts #this should be in a profile controller
+    @user = User.find_by(username: params[:username])
+    @posts = []
+    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
+    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+    ops.each do |p|
+      @posts << p
+    end
+    rblgs.each do |p|
+      attrs = p.attributes
+      attrs[:op_username] = p.original_post.user.username
+      @posts << p
+    end
   end
 
   def new_text_post 
@@ -26,6 +41,7 @@ class PostsController < ApplicationController
   def new_audio_post
     #view  form
   end
+
 
   def show_all_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
@@ -47,6 +63,9 @@ class PostsController < ApplicationController
     @posts.sort_by! {|p| p.created_at}
     @posts.reverse!
   end
+
+
+ 
 
   def show_all_posts_json #this should be in a profile controller
     @user = User.find_by(username: params[:username])
