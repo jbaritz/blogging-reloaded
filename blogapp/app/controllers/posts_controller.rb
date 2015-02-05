@@ -19,14 +19,15 @@ class PostsController < ApplicationController
     ops.each do |p|
       @posts << p
     end
-    rblgs = rblgs.map do |p|
-      attrs = p.attributes
-      attrs[:op_username] = p.user.username
-    end
+    # rblgs = rblgs.map do |p|
+    #   attrs = p.attributes
+    #   attrs[:op_username] = p.user.username
+    # end
     rblgs.each do |p|
       @posts << p
     end
-    byebug
+    @posts.sort_by! {|p| p.created_at}
+    @posts.reverse
   end
 
   def new_text_post 
@@ -46,26 +47,26 @@ class PostsController < ApplicationController
   end
 
 
-  def show_all_posts #this should be in a profile controller
-    @user = User.find_by(username: params[:username])
-    @posts = []
-    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
-    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
-    byebug
-    ops.each do |p|
-      @posts << p
-    end
-    rblgs.each do |p|
-      p = p.original_post
-      attrs = p.attributes
-      attrs[:op_username] = p.user.username
-      @posts << p
-      byebug
-    end
-    byebug
-    @posts.sort_by! {|p| p.created_at}
-    @posts.reverse!
-  end
+  # def show_all_posts #this should be in a profile controller
+  #   @user = User.find_by(username: params[:username])
+  #   @posts = []
+  #   ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
+  #   rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+  #   byebug
+  #   ops.each do |p|
+  #     @posts << p
+  #   end
+  #   rblgs.each do |p|
+  #     p = p.original_post
+  #     attrs = p.attributes
+  #     attrs[:op_username] = p.user.username
+  #     @posts << p
+  #     byebug
+  #   end
+  #   byebug
+  #   @posts.sort_by! {|p| p.created_at}
+  #   @posts.reverse!
+  # end
 
 
  
