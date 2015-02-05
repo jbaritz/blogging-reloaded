@@ -1,13 +1,13 @@
 class CommentsController < ApplicationController
   def get_post_comments
-   post = OriginalPost.find(params[:id]).get_post
+   post = OriginalPost.find(params[:id])
    @comments = post.comment_threads
    comment_hash = @comments.map do |c|
     attrs = c.attributes
     attrs[:username] = c.user.username
-    if c.has_children?
-       attrs[:replies] = c.children
-    end
+    # if c.has_children?
+    #    attrs[:replies] = c.children
+    # end
     attrs
     end
    render :json => comment_hash
