@@ -19,13 +19,15 @@ class PostsController < ApplicationController
     ops.each do |p|
       @posts << p
     end
-    rblgs = rblgs.map do |p|
-      attrs = p.attributes
-      attrs[:op_username] = p.user.username
-    end
+    # rblgs = rblgs.map do |p|
+    #   attrs = p.attributes
+    #   attrs[:op_username] = p.user.username
+    # end
     rblgs.each do |p|
       @posts << p
     end
+    @posts.sort_by! {|p| p.created_at}
+    @posts.reverse
   end
 
   def new_text_post 
@@ -44,7 +46,31 @@ class PostsController < ApplicationController
     #view  form
   end
 
+
+  # def show_all_posts #this should be in a profile controller
+  #   @user = User.find_by(username: params[:username])
+  #   @posts = []
+  #   ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
+  #   rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+  #   byebug
+  #   ops.each do |p|
+  #     @posts << p
+  #   end
+  #   rblgs.each do |p|
+  #     p = p.original_post
+  #     attrs = p.attributes
+  #     attrs[:op_username] = p.user.username
+  #     @posts << p
+  #     byebug
+  #   end
+  #   byebug
+  #   @posts.sort_by! {|p| p.created_at}
+  #   @posts.reverse!
+  # end
+
+
  
+
   def show_all_posts_json #this should be in a profile controller
     @user = User.find_by(username: params[:username])
     # counter = params[:counter]
@@ -52,7 +78,7 @@ class PostsController < ApplicationController
     # @posts = Post.where(user_id: @user.id).order('created_at DESC').limit(3).offset(2)
 
     # @posts = Post.where(user_id: @user.id).joins(:media_urls)
-    sql = "select * from posts left outer join media_urls on media_urls.post_id=posts.id where posts.user_id = #{@user.id} order by created_at desc limit 2 offset #{offset} "
+    sql = "select * from original_posts left outer join media_urls on media_urls.post_id=original_posts.id where original_posts.user_id = #{@user.id} order by created_at desc limit 2 offset #{offset} "
     @posts = ActiveRecord::Base.connection.execute(sql)
     # @urls = MediaUrl.where(post_id: @posts.id)
 
