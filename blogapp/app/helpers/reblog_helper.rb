@@ -1,0 +1,2 @@
+module ReblogHelper
+end

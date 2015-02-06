@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
   # get ':username/posts'
   # get ':username/reblogs'
+
     #individual post display
   get ':username/posts/:id', to: 'posts#show'
   get ':username/reblogs/:id', to: 'reblogs#show'
@@ -49,7 +50,8 @@ Rails.application.routes.draw do
   post ':username/posts/:id/comments', to: 'comments#submit_comment'
   get ':username/posts/:id/comments', to: 'comments#get_post_comments'
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
-
+    #communities
+  get '/communities/:communityname', to: 'communities#show'
 
 
 

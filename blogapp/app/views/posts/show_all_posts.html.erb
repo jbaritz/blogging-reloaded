@@ -14,7 +14,7 @@
 <% @posts.each do |post| %>
 <div id="blog">
 	<% if post.class == Reblog %>
-		<h6>orignial poster: <%= post.original_post.user.username %></h6>
+		<h6>originally posted by: <a href="/<%= post.original_post.user.username %>"> <%= post.original_post.user.username %></a></h6>
 		<h2><%= post.original_post.title %></h2>
 		<% post.original_post.mediaurls.each do |media| %>
 		<% if media.media_type == 'picture' %>
@@ -30,7 +30,8 @@
         <% elsif media.media_type == 'vine' %>
         	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
         <% end %>
-        <h3><%= post.original_post.content %></h3>
+        <p><%= post.original_post.content %></p>
+        <a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>
 	<%end%>
 	<%end%>
 	<% if post.class != Reblog %>
@@ -51,7 +52,7 @@
         	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
         <% end %>
     <% end %>
-	<h3><%= post.content %></h3> 
+	<p><%= post.content %></p> 
 	<a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>
 	<%end%>
 	
