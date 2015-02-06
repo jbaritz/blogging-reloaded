@@ -1,9 +1,10 @@
-
+<div class="new-post-form">
 <h3>Create a new video post</h3>
 <%= form_tag("/posts/video", method: "post") do %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_field_tag(:'video_url', nil, placeholder: "video URL") %>
- 	 <%= text_area_tag(:'content',nil, placeholder: "caption") %>
+ 	 <%= text_area_tag(:'content',nil, placeholder: "caption",class: "text-area") %>
 	 <%= text_field_tag(:'tags',nil, placeholder: "tags") %>
     <%= submit_tag("submit", class: "button") %>
 <% end %>
+</div>
