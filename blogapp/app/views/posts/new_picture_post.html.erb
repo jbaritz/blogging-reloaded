@@ -1,6 +1,6 @@
 
 <h3>Create a new picture post</h3>
-<%= form_tag("/posts/audio", method: "post") do %>
+<%= form_tag("/posts/picture", method: "post") do %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_field_tag(:'image_url', nil, placeholder: "picture URL") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "caption") %>

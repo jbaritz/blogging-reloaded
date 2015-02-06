@@ -37,7 +37,6 @@ $(document).ready(function(){
 		var template = _.template($('.comments-template').html())
 		_.each(comments, function (c){
 			$('.print-comments').append(template(c))
-			// $('.print-comments').append('<div class="large-12 columns comment-box"><a href="/' + c.username + '">' + c.username + '</a>:<br>' + c.body + '<br></div>')
 		})
 	})
 })		

@@ -27,7 +27,7 @@ class PostsController < ApplicationController
       @posts << p
     end
     @posts.sort_by! {|p| p.created_at}
-    @posts.reverse
+    @posts.reverse!
   end
 
   def new_text_post 
