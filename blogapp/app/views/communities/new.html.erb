@@ -1,0 +1,5 @@
+<h3>Create a new community!</h3>
+<%= form_tag("/communities/new", method: "post") do %>
+ 	 <%= text_field_tag(:'name', nil, placeholder: "Community name") %>
+  <%= submit_tag("submit", class: "button small") %>
+  <% end %>
