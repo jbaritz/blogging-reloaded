@@ -46,6 +46,9 @@ Rails.application.routes.draw do
     #individual post display
   get ':username/posts/:id', to: 'posts#show'
   get ':username/reblogs/:id', to: 'reblogs#show'
+  get 'reblogs/:id/confirm', to: 'reblogs#confirm' #confirmation page wiht a button to confirm
+  post 'reblogs/:id/confirm', to: 'reblogs#reblog_post' #endpoint that actually sends database request for reblog entry
+
     #comments
   post ':username/posts/:id/comments', to: 'comments#submit_comment'
   get ':username/posts/:id/comments', to: 'comments#get_post_comments'
