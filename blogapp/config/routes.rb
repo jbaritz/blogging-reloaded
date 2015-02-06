@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
     #communities
   get '/communities/:communityname', to: 'communities#show'
+  get '/communities/new', to: 'communities#create'
 
 
 
