@@ -1,10 +1,11 @@
-<% if @reb %>
-	<h1><%= @user.username %> Reblogged:</h1>
-	<div id="blog">
-		<h6>originally posted by: <a href="/<%= @reb.original_post.user.username %>"> <%= @reb.original_post.user.username %></a></h6>
-		<h2><%= @reb.original_post.title %></h2>
-		<% if @reb.original_post.mediaurls %>
-			<% @reb.original_post.mediaurls.each do |media| %>
+
+<h3>Are you sure you want to reblog this post?</h3>
+
+<div id="blog">
+		<h6>originally posted by: <a href="/<%= @post.user.username %>"> <%= @post.user.username %></a></h6>
+		<h2><%= @post.title %></h2>
+		<% if @post.mediaurls %>
+			<% @post.mediaurls.each do |media| %>
 			<% if media.media_type == 'picture' %>
 				<img src='<%= media.url %>'></img>
 			<% elsif media.media_type == 'youtube' %>
@@ -20,9 +21,14 @@
 	        <% end %>
 			<%end%>
 		<%end%>
-	        <p><%= @reb.original_post.content %></p>
-	        <a href="/<%= @reb.original_post.user.username %>/posts/<%= @reb.original_post.id %>">Comment</a>&nbsp&nbsp<a href='/reblogs/<%= @reb.original_post.id %>/confirm'>Reblog</a>
-	</div>
-<% elsif @error %>
-	<h1 style='color: red'><%= @error %></h1>
-<%end%>
+	        <p><%= @post.content %></p>
+	       
+	</div><br>
+
+	
+	<form action='/reblogs/<%= @post.id %>/confirm' method='post'>
+    	<button type="submit">Reblog</button>
+    	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	</form>
+
+	
