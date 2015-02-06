@@ -5,7 +5,8 @@ class CommentsController < ApplicationController
    comment_hash = @comments.map do |c|
     attrs = c.attributes
     attrs[:username] = c.user.username
-    # if c.has_children?
+    attrs[:children] = c.children
+     # if c.has_children?
     #    attrs[:replies] = c.children
     # end
     attrs
