@@ -44,14 +44,14 @@ Rails.application.routes.draw do
   # get ':username/reblogs'
 
     #individual post display
-  get ':username/posts/:id', to: 'posts#show'
-  get ':username/reblogs/:id', to: 'reblogs#show'
-  get 'reblogs/:id/confirm', to: 'reblogs#confirm' #confirmation page wiht a button to confirm
-  post 'reblogs/:id/confirm', to: 'reblogs#reblog_post' #endpoint that actually sends database request for reblog entry
+  get '/:username/posts/:id', to: 'posts#show'
+  get '/:username/reblogs/:id', to: 'reblogs#show'
+  get '/reblogs/:id/confirm', to: 'reblogs#confirm' #confirmation page wiht a button to confirm
+  post '/reblogs/:id/confirm', to: 'reblogs#reblog_post' #endpoint that actually sends database request for reblog entry
 
     #comments
-  post ':username/posts/:id/comments', to: 'comments#submit_comment'
-  get ':username/posts/:id/comments', to: 'comments#get_post_comments'
+  post '/:username/posts/:id/comments', to: 'comments#submit_comment'
+  get '/:username/posts/:id/comments', to: 'comments#get_post_comments'
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
     #communities
   get '/communities/:communityname', to: 'communities#show'
