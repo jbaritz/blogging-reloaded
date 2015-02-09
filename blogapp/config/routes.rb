@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   get '/communities/new', to: 'communities#new'
   post '/communities/new', to: 'communities#create'
   get '/communities/:name', to: 'communities#show'
-  get '/communities/:name/join', to: 'communities#join'
+  post '/communities/:name/join', to: 'communities#join'
 
 
 

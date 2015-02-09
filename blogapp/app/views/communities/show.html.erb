@@ -1,6 +1,26 @@
-<h3><%= @comm.name %>
-</h3>
+<h3><%= @comm.name %></h3>
+<% if @is_member%>
+<p>You are a member of this group!</p>
+<% else %>
+<div class="joinLinkDiv"><a href="#" data-reveal-id="joinModal">Join!</a></div>
+	<div id="joinModal" class="reveal-modal" data-reveal>
+	  <p>Are you sure you want to join this community?</p>
+	  <button class="joinCommunity">Yep!</button>
+	  <a class="close-reveal-modal">&#215;</a>
+	</div>
+<% end %>
 <div class="community-container large-12 columns">
 <div class="forumbox large-6 columns"></div>
 <div class="media-feed large-6 columns"></div>
 </div>
+<script>
+$(document).ready(function(){
+	$(document).on('click','.joinCommunity', function(){
+		console.log("the click happen");
+		$.post("/communities/<%= @comm.name%>/join").done(function(){
+			$('.joinLinkDiv').text("You are a member of this group!")
+		})
+
+	})
+})
+</script>

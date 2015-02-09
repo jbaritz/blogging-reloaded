@@ -11,6 +11,14 @@ class CommunitiesController < ApplicationController
 
   def show
     @comm = Community.where(name: params[:name])[0]
+    @is_member = CommunityMembership.where(community_id: @comm.id, user_id: current_user.id).first
+  end
+
+  def join
+    params[:user_id] = current_user.id
+    params[:admin] = false
+    params[:community_id] = Community.where(name: params[:name]).first.id
+    CommunityMembership.create!(join_params)
   end
 
   private
@@ -18,5 +26,11 @@ class CommunitiesController < ApplicationController
     params.require(:user_id)
     params.require(:name)
     params.permit(:user_id, :name)
+  end
+
+  def join_params
+    params.require(:user_id)
+    params.require(:community_id)
+    params.permit(:user_id, :community_id, :admin)
   end
 end
