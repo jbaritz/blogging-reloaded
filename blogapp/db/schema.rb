@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206160342) do
+ActiveRecord::Schema.define(version: 20150208234637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,13 @@ ActiveRecord::Schema.define(version: 20150206160342) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "community_posts", id: false, force: :cascade do |t|
+    t.integer "post_id"
+    t.string  "post_type"
+    t.integer "user_id"
+    t.integer "community_id"
+  end
+
   create_table "media_urls", force: :cascade do |t|
     t.integer "post_id"
     t.string  "url"
@@ -63,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150206160342) do
     t.string   "post_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "community_post"
   end
 
   create_table "reblogs", force: :cascade do |t|
@@ -70,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150206160342) do
     t.integer  "user_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.boolean  "community_post"
   end
 
   create_table "subscriptions", force: :cascade do |t|

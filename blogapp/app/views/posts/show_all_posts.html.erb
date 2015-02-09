@@ -13,7 +13,7 @@
 <% end %>
 <% @posts.each do |post| %>
 <div id="blog">
-	<% if post.class == Reblog %>
+	<% if post.class.to_s == "Reblog" %>
 		<h6>originally posted by: <a href="/<%= post.original_post.user.username %>"> <%= post.original_post.user.username %></a></h6>
 		<h2><%= post.original_post.title %></h2>
 		<% post.original_post.mediaurls.each do |media| %>
@@ -34,7 +34,7 @@
         <p><%= post.original_post.content %></p>
         <a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='#'>Reblog</a>
 	<%end%>
-	<% if post.class != Reblog %>
+	<% if post.class.to_s != "Reblog" %>
 	<h2><%= post.title %></h2>
 
 	<% post.mediaurls.each do |media| %>
