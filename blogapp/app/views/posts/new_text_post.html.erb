@@ -5,9 +5,9 @@
 
 <%= form_tag("/posts/text", method: "post") do %>
 	Post to:
-	<%= select("post-to-options", "select") do %>
+	<%= select("post-to-options", "selected") do %>
 	 <% @target_options.each do |t|%>
-	  <%=  content_tag(:option, t.name, value: t.id, data: t.class )%>
+	  <%=  content_tag(:option, t.name, value: t.id.to_s + "-" + t.class.to_s )%>
 	 <% end%>
 	<% end%>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>

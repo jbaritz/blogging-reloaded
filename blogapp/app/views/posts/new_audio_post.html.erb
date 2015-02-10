@@ -1,6 +1,11 @@
 <div class="new-post-form">
 <h3>Create a new audio post</h3>
 <%= form_tag("/posts/audio", method: "post") do %>
+	Post to: <%= select("post-to-options", "selected") do %>
+	 <% @target_options.each do |t|%>
+	  <%=  content_tag(:option, t.name, value: t.id.to_s + "-" + t.class.to_s )%>
+	 <% end%>
+	<% end%>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_field_tag(:'audio_url', nil, placeholder: "audio URL") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "caption",class: "text-area") %>

@@ -42,39 +42,33 @@ class PostsController < ApplicationController
 
   def new_picture_post
     #view  form
+     @target_options = []
+    @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
+    comms = CommunityMembership.where(user_id: current_user.id)
+    comms.each do |c|
+      @target_options.push(c.community)  
+    end
   end
 
   def new_video_post
     #view  form
+     @target_options = []
+    @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
+    comms = CommunityMembership.where(user_id: current_user.id)
+    comms.each do |c|
+      @target_options.push(c.community)  
+    end
   end
 
   def new_audio_post
     #view  form
+     @target_options = []
+    @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
+    comms = CommunityMembership.where(user_id: current_user.id)
+    comms.each do |c|
+      @target_options.push(c.community)  
+    end
   end
-
-
-  # def show_all_posts #this should be in a profile controller
-  #   @user = User.find_by(username: params[:username])
-  #   @posts = []
-  #   ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
-  #   rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
-  #   byebug
-  #   ops.each do |p|
-  #     @posts << p
-  #   end
-  #   rblgs.each do |p|
-  #     p = p.original_post
-  #     attrs = p.attributes
-  #     attrs[:op_username] = p.user.username
-  #     @posts << p
-  #     byebug
-  #   end
-  #   byebug
-  #   @posts.sort_by! {|p| p.created_at}
-  #   @posts.reverse!
-  # end
-
-
  
 
   def show_all_posts_json #this should be in a profile controller
@@ -110,10 +104,13 @@ class PostsController < ApplicationController
   end
 
   def submit_text_post
-    puts params
-    # params['user_id'] = current_user.id
-    # params['post_type'] = 'text'
-    # post = OriginalPost.create!(text_params)
+    selection = params['post-to-options']['selected'].split("-")
+    if selection[1] == "User"
+      params['user_id'] = selection[0]
+      params['post_type'] = 'text'
+      post = OriginalPost.create!(text_params)
+    elsif selection[1] == "Community"
+    end
     redirect_to "/"
   end
 
@@ -165,22 +162,22 @@ class PostsController < ApplicationController
   private
     def text_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :post_type)
+       params.permit(:title, :content, :user_id, :post_type, :community_post)
     end
 
     def pic_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id)
+       params.permit(:title, :content, :user_id, :community_post)
     end
 
     def vid_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id)
+       params.permit(:title, :content, :user_id, :community_post)
     end
 
     def audio_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id)
+       params.permit(:title, :content, :user_id, :community_post)
     end
 
     def media_params
