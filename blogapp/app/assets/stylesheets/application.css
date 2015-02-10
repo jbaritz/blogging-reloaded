@@ -86,3 +86,8 @@ iframe {
 margin: 10px;
 	box-sizing: border-box;
 }
+
+#post-to-options_select{
+	display: inline;
+	width: 200px;
+}

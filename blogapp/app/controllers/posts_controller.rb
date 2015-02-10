@@ -32,6 +32,12 @@ class PostsController < ApplicationController
 
   def new_text_post 
     #view  form
+    @target_options = []
+    @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
+    comms = CommunityMembership.where(user_id: current_user.id)
+    comms.each do |c|
+      @target_options.push(c.community)  
+    end        
   end
 
   def new_picture_post
@@ -101,13 +107,13 @@ class PostsController < ApplicationController
     
     # render :json => @urls
     render :json => @posts
-    # render :json => @urls
   end
 
   def submit_text_post
-    params['user_id'] = current_user.id
-    params['post_type'] = 'text'
-    post = OriginalPost.create!(text_params)
+    puts params
+    # params['user_id'] = current_user.id
+    # params['post_type'] = 'text'
+    # post = OriginalPost.create!(text_params)
     redirect_to "/"
   end
 
