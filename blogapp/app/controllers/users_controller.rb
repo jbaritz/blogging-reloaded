@@ -9,12 +9,12 @@ class UsersController < ApplicationController
     @posts = []
     subscriptions.each do |sub|
       post = OriginalPost.where(user_id: sub.subscribee_id)
+      reblog = Reblog.where(user_id: sub.subscribee_id)
       @posts.push(post)
     end
     @posts.flatten!
     @posts.sort_by! {|p| p.created_at }
-    @posts.reverse!
- 
+    @posts.reverse! 
   
   end
 

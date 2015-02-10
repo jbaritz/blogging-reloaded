@@ -14,8 +14,8 @@ class PostsController < ApplicationController
    def show_all_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
     @posts = []
-    ops = OriginalPost.where(user_id: @user.id).order('created_at DESC').limit(10)
-    rblgs = Reblog.where(user_id: @user.id).order('created_at DESC').limit(10)
+    ops = OriginalPost.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
+    rblgs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
     ops.each do |p|
       @posts << p
     end
@@ -105,20 +105,31 @@ class PostsController < ApplicationController
 
   def submit_text_post
     selection = params['post-to-options']['selected'].split("-")
+    params['user_id'] = selection[0]
+    params['post_type'] = 'text'   
     if selection[1] == "User"
-      params['user_id'] = selection[0]
-      params['post_type'] = 'text'
+      params['community_post'] = false
       post = OriginalPost.create!(text_params)
+      post.tag_list = params[:tags]
+      post.save!      
     elsif selection[1] == "Community"
+      params['community_post'] = true
+      post = OriginalPost.create!(text_params)
+      post.tag_list = params[:tags]
+      post.save!      
+      CommunityPost.create!()
     end
     redirect_to "/"
   end
 
 
   def submit_picture_post
+    selection = params['post-to-options']['selected'].split("-")
     params[:user_id] = current_user.id
     params[:post_type] = 'picture'
     post = OriginalPost.create!(pic_params)
+     post.tag_list = params[:tags]
+     post.save!     
     # url_params = {post_id: post.id, url: params["image_url"], media_type: "picture" }
     params[:post_id] = post.id
     params[:url] = params[:image_url]
@@ -128,6 +139,7 @@ class PostsController < ApplicationController
   end
 
   def submit_video_post
+    selection = params['post-to-options']['selected'].split("-")
     params['user_id'] = current_user.id
     if params[:video_url].include?("outube")
       params[:url] = params[:video_url].split("=")[-1]
@@ -143,14 +155,19 @@ class PostsController < ApplicationController
       params[:media_type] = "vine"
     end
     post = OriginalPost.create!(vid_params)
+    post.tag_list = params[:tags]
+    post.save!     
     params[:post_id] = post.id
     MediaUrl.create!(media_params)
     redirect_to "/"
   end
 
   def submit_audio_post
+    selection = params['post-to-options']['selected'].split("-")
     params[:user_id] = current_user.id
-    OriginalPost.create!(audio_params)
+    post = OriginalPost.create!(audio_params)
+    post.tag_list = params[:tags]
+    post.save!     
     params[:post_id] = post.id
     params[:url] = params[:audio_url]
     params[:media_type] = "audio"
@@ -162,22 +179,22 @@ class PostsController < ApplicationController
   private
     def text_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :post_type, :community_post)
+       params.permit(:title, :content, :user_id, :post_type, :community_post, :tag_list => [])
     end
 
     def pic_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post)
+       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
     end
 
     def vid_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post)
+       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
     end
 
     def audio_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post)
+       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
     end
 
     def media_params

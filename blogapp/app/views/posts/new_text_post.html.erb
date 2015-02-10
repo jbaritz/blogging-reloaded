@@ -9,10 +9,10 @@
 	 <% @target_options.each do |t|%>
 	  <%=  content_tag(:option, t.name, value: t.id.to_s + "-" + t.class.to_s )%>
 	 <% end%>
-	<% end%>
+	<% end %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_area_tag(:'content',nil, placeholder: "post",class: "text-area") %>
-	 <%= text_field_tag(:'tags',nil, placeholder: "tags") %>
+	 <%= text_field_tag(:'tags',nil, placeholder: "tags (separated by commas!)") %>
   <%= submit_tag("submit", class: "button") %>
   <% end %>
   </div>

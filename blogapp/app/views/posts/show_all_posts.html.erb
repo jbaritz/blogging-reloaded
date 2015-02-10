@@ -1,9 +1,6 @@
 <h1><%= @user.username %></h1><br>
 
 <div class='showpost'>
-
-
-
 <% if current_user && current_user.username != @user.username %>
 	<% if !current_user.subscribees.include?(@user) %>
 		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
@@ -33,6 +30,7 @@
 	<%end%>
         <p><%= post.original_post.content %></p>
         <a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='#'>Reblog</a>
+    Tags: <%= post.tag_list %>
 	<%end%>
 	<% if post.class.to_s != "Reblog" %>
 	<h2><%= post.title %></h2>
@@ -53,7 +51,14 @@
         <% end %>
     <% end %>
 	<p><%= post.content %></p> 
-	<a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='/reblogs/<%= post.id %>/confirm'>Reblog</a>
+	<a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='/reblogs/<%= post.id %>/confirm'>Reblog</a><br>
+	Tags: <% post.tag_list.reverse!.each_with_index { |tag, index| %>
+			<% if index == (post.tag_list.length - 1) %>
+				<a href="<%= tag %>"><%= tag %></a>
+			<% else %>
+			<a href="<%= tag %>"><%= tag %></a> , 
+			<% end %>
+		<% } %>
 	<%end%>
 	
 

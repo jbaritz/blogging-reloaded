@@ -3,6 +3,7 @@ class OriginalPost < ActiveRecord::Base
   has_many :media_urls, foreign_key: :post_id
   has_many :reblogs, foreign_key: :original_post_id
   acts_as_commentable
+  acts_as_taggable
 
   def mediaurls
     x = self.media_urls
