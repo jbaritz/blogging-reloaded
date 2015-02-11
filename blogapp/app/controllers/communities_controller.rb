@@ -12,6 +12,11 @@ class CommunitiesController < ApplicationController
   def show
     @comm = Community.where(name: params[:name])[0]
     @is_member = CommunityMembership.where(community_id: @comm.id, user_id: current_user.id).first
+    @posts = []
+    get = CommunityPost.where(community_id: @comm.id)
+    get.each{ |p|
+      @posts.push(p.get_post)
+    }
   end
 
   def join

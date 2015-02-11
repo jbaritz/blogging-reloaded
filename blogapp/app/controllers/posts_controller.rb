@@ -117,7 +117,7 @@ class PostsController < ApplicationController
       post = OriginalPost.create!(text_params)
       post.tag_list = params[:tags]
       post.save!      
-      CommunityPost.create!()
+      CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     end
     redirect_to "/"
   end
@@ -127,20 +127,33 @@ class PostsController < ApplicationController
     selection = params['post-to-options']['selected'].split("-")
     params[:user_id] = current_user.id
     params[:post_type] = 'picture'
-    post = OriginalPost.create!(pic_params)
-     post.tag_list = params[:tags]
-     post.save!     
-    # url_params = {post_id: post.id, url: params["image_url"], media_type: "picture" }
-    params[:post_id] = post.id
-    params[:url] = params[:image_url]
-    params[:media_type] = "picture"
-    MediaUrl.create!(media_params)
+    if selection[1] == "User"
+       params[:community_post] = false
+       post = OriginalPost.create!(pic_params)
+       post.tag_list = params[:tags]
+       post.save!
+       params[:post_id] = post.id
+       params[:url] = params[:image_url]
+       params[:media_type] = "picture"
+       MediaUrl.create!(media_params)
+    elsif selection[1] == "Community"
+       params[:community_post] = true
+       post = OriginalPost.create!(pic_params)
+       post.tag_list = params[:tags]
+       post.save!
+       params[:post_id] = post.id
+       params[:url] = params[:image_url]
+       params[:media_type] = "picture"
+       MediaUrl.create!(media_params)
+       CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
+    end
     redirect_to "/"
   end
 
   def submit_video_post
     selection = params['post-to-options']['selected'].split("-")
     params['user_id'] = current_user.id
+    params[:post_type] = 'video'
     if params[:video_url].include?("outube")
       params[:url] = params[:video_url].split("=")[-1]
       params[:media_type] = "youtube"
@@ -154,26 +167,51 @@ class PostsController < ApplicationController
       params[:url] = params[:video_url].split("/")[-1]
       params[:media_type] = "vine"
     end
-    post = OriginalPost.create!(vid_params)
-    post.tag_list = params[:tags]
-    post.save!     
-    params[:post_id] = post.id
-    MediaUrl.create!(media_params)
+    if selection[1] == "User"
+      params[:community_post] = false
+      post = OriginalPost.create!(vid_params)
+      post.tag_list = params[:tags]
+      post.save!     
+      params[:post_id] = post.id
+      MediaUrl.create!(media_params)
+      CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
+    elsif selection[1] == "Community"
+      params[:community_post] = true
+      post = OriginalPost.create!(vid_params)
+      post.tag_list = params[:tags]
+      post.save!     
+      params[:post_id] = post.id
+      MediaUrl.create!(media_params)
+      CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
+    end
     redirect_to "/"
   end
 
   def submit_audio_post
     selection = params['post-to-options']['selected'].split("-")
     params[:user_id] = current_user.id
-    post = OriginalPost.create!(audio_params)
-    post.tag_list = params[:tags]
-    post.save!     
-    params[:post_id] = post.id
-    params[:url] = params[:audio_url]
-    params[:media_type] = "audio"
-    MediaUrl.create!(media_params)
+    params[:post_type] = 'audio'
+    if selection[1] == "User"
+      params[:community_post] = false
+      post = OriginalPost.create!(audio_params)
+      post.tag_list = params[:tags]
+      post.save!     
+      params[:post_id] = post.id
+      params[:url] = params[:audio_url]
+      params[:media_type] = "audio"
+      MediaUrl.create!(media_params)
+    elsif selection[1] == "Community"
+      params[:community_post] = true
+      post = OriginalPost.create!(audio_params)
+      post.tag_list = params[:tags]
+      post.save!     
+      params[:post_id] = post.id
+      params[:url] = params[:audio_url]
+      params[:media_type] = "audio"
+      MediaUrl.create!(media_params)
+      CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     redirect_to "/"
-
+   end
   end
 
   private

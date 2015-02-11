@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   post '/communities/new', to: 'communities#create'
   get '/communities/:name', to: 'communities#show'
   post '/communities/:name/join', to: 'communities#join'
+  #tag views
+  get '/tags/:name', to: 'tags#show'
 
 
 
