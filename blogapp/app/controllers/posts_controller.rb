@@ -11,23 +11,19 @@ class PostsController < ApplicationController
     @comments_hash = @comments_hash.to_json  
   end
 
-   def show_all_posts #this should be in a profile controller
+   def show_user_posts #this should be in a profile controller
     @user = User.find_by(username: params[:username])
-    @posts = []
-    ops = OriginalPost.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
-    rblgs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
-    ops.each do |p|
-      @posts << p
-    end
-    # rblgs = rblgs.map do |p|
-    #   attrs = p.attributes
-    #   attrs[:op_username] = p.user.username
+    # @posts = []
+    # ops = OriginalPost.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
+    # rblgs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
+    # ops.each do |p|
+    #   @posts << p
     # end
-    rblgs.each do |p|
-      @posts << p
-    end
-    @posts.sort_by! {|p| p.created_at}
-    @posts.reverse!
+    # rblgs.each do |p|
+    #   @posts << p
+    # end
+    # @posts.sort_by! {|p| p.created_at}
+    # @posts.reverse!
   end
 
   def new_text_post 
@@ -73,33 +69,10 @@ class PostsController < ApplicationController
 
   def show_all_posts_json #this should be in a profile controller
     @user = User.find_by(username: params[:username])
-    # counter = params[:counter]
     offset = params[:offset]
-    # @posts = Post.where(user_id: @user.id).order('created_at DESC').limit(3).offset(2)
-
-    # @posts = Post.where(user_id: @user.id).joins(:media_urls)
     sql = "select * from original_posts left outer join media_urls on media_urls.post_id=original_posts.id where original_posts.user_id = #{@user.id} order by created_at desc limit 2 offset #{offset} "
     @posts = ActiveRecord::Base.connection.execute(sql)
-    # @urls = MediaUrl.where(post_id: @posts.id)
 
-    # @newposts = @posts.map do |p|
-    #   byebug
-    #   attrs = p.attributes
-    #   if p.mediaurls.length != 0
-    #     attrs[:url] = p.mediaurls.url
-    #     attrs[:type] = p.mediaurls.media_type
-    #     attrs
-    #   end
-    # end
-    # byebug
-
-    # @posts = Post.where(user_id: @user.id)
-    # @posts.each do |post|
-    #   byebug
-    #   post.created_at = post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p")
-    # end
-    
-    # render :json => @urls
     render :json => @posts
   end
 

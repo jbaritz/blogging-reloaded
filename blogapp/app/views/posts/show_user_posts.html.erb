@@ -1,0 +1,125 @@
+<h1><%= @user.username %></h1><br>
+
+<div class='showpost'>
+<% if current_user && current_user.username != @user.username %>
+	<% if !current_user.subscribees.include?(@user) %>
+		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
+	<% elsif current_user.subscribees.include?(@user) %>
+		<h6>Following this user</h6>
+	<% end %>
+<% end %>
+
+
+
+<% @posts.each do |post| %>
+<div id="blog">
+	<% if post.class.to_s == "Reblog" %>
+		<h6>originally posted by: <a href="/<%= post.original_post.user.username %>"> <%= post.original_post.user.username %></a></h6>
+		<h2><%= post.original_post.title %></h2>
+		<% post.original_post.mediaurls.each do |media| %>
+		<% if media.media_type == 'picture' %>
+			<img src='<%= media.url %>'></img>
+		<% elsif media.media_type == 'youtube' %>
+		<!-- 	<div class="flex-video"> -->
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+		<!-- 	</div> -->
+		<% elsif media.media_type == 'vimeo' %>
+			<!-- <div class="flex-video"> -->
+        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        	<!-- </div> -->
+        <% elsif media.media_type == 'vine' %>
+        	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
+        <% end %>
+	<%end%>
+        <p><%= post.original_post.content %></p>
+        <a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='#'>Reblog</a>
+    Tags: <%= post.tag_list %>
+	<%end%>
+	<% if post.class.to_s != "Reblog" %>
+	<h2><%= post.title %></h2>
+
+	<% post.mediaurls.each do |media| %>
+		<% if media.media_type == 'picture' %>
+			<img src='<%= media.url %>'></img>
+		<% elsif media.media_type == 'youtube' %>
+		<!-- 	<div class="flex-video"> -->
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+		<!-- 	</div> -->
+		<% elsif media.media_type == 'vimeo' %>
+			<!-- <div class="flex-video"> -->
+        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        	<!-- </div> -->
+        <% elsif media.media_type == 'vine' %>
+        	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
+        <% end %>
+    <% end %>
+	<p><%= post.content %></p> 
+	<a href="/<%= @user.username %>/posts/<%= post.id %>">Comment</a>&nbsp&nbsp<a href='/reblogs/<%= post.id %>/confirm'>Reblog</a><br>
+	Tags: <% post.tag_list.reverse!.each_with_index { |tag, index| %>
+			<% if index == (post.tag_list.length - 1) %>
+				<a href="<%= tag %>"><%= tag %></a>
+			<% else %>
+			<a href="<%= tag %>"><%= tag %></a> , 
+			<% end %>
+		<% } %>
+	<%end%>
+	
+
+
+	
+</div>
+<div id='time'>
+	<h6><%= post.created_at.strftime("posted on %m/%d/%Y at %I:%M%p") %></h6>
+</div>
+<% end %>
+<br>
+</div>
+<button type='submit' id='more'>Show more posts</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="../assets/convert.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script type="text/javascript" src="../assets/post_print_templates.js"></script>
+<script type="text/template" class="text-template"></script>
+<script type="text/template" class="picture-template"></script>
+<script type="text/template" class="video-template"></script>
+<script type="text/template" class="audio-template"></script>
+<script>
+$(document).ready(function() {
+	_.templateSettings = {
+		interpolate: /\{\{(.+?)\}\}/g
+		};
+	var offset = 10;
+	$(document).on('click', '#more', function (e) {
+		e.preventDefault()
+		$.ajax({
+			type: 'GET',
+			url: '/<%= @user.username %>/json/' + offset
+		}).done(function (data) {			
+			data.forEach(function (c) {		
+				// console.log(c.content)
+				$x = $('<div>').attr('id', 'blog')
+				$x.prepend('<h2>' + c.title)
+				if (c.media_type && c.media_type === 'picture') {
+					var $player = $('<div>').html('<img src=' + c.url + ' />')
+				}else if (c.media_type && c.media_type === 'youtube') {
+					var newurl = '//www.youtube.com/embed/' + c.url;
+					var $player = $('<div>').html("<iframe width='400' height='225' src=" + newurl + " frameborder='0' allowfullscreen></iframe>")
+				}else if (c.media_type && c.media_type === 'vimeo') {
+					var newurl = 'http://player.vimeo.com/video/' + c.url;
+					var $player = $('<div>').html("<iframe src=" + newurl + " + c.url + '  width='400' height='225' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>")
+				}
+				$x.append($player)
+				$x.append('<h3>' + c.content)
+				$y = $('<div>').attr('id', 'time')
+				$y.html(convertTime(c.created_at))
+				$('.showpost').append($x,$y)
+			})
+		})
+		offset += 10
+	})
+})
+</script>
+
+
+
+

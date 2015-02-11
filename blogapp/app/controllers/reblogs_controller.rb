@@ -20,6 +20,7 @@ class ReblogsController < ApplicationController
     @post = OriginalPost.find(params[:id])
     params[:original_post_id] = @post.id
     params[:user_id] = current_user.id
+    params[:community_post] = false
     Reblog.create!(reblog_params)
     redirect_to '/'
   end
@@ -28,7 +29,7 @@ class ReblogsController < ApplicationController
     def reblog_params
        params.require(:original_post_id)
        params.require(:user_id)
-       params.permit(:original_post_id, :user_id)
+       params.permit(:original_post_id, :user_id, :community_post)
     end
 
 end
