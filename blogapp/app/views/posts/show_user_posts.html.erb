@@ -34,15 +34,43 @@
 <script type="text/template" class="op-picture-temp">
 	<div id="blog">
 	<h2>{{= title }}</h2>
-		<img src='{{ media_url.url }}'></img>
+		<img src='{{= media_url[0].url }}'></img>
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a>&nbsp&nbsp<a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
 			<a href='{{= tag }}'> {{= tag }} </a>
 			{{ } else { }}
 			<a href='{{= tag }}'>{{= tag }}</a> + ","
+		{{ } }) }}
+		</div>
+	</div>
+</script>
+<script type="text/template" class="op-video-temp">
+	<div id="blog">
+	<h2>{{= title }}</h2>
+ 	{{ if (media_url[0].media_type == 'youtube'){ }}
+			<div class="flex-video"> 
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
+		 	</div> 
+	{{ } else if (media_url[0].media_type == 'vimeo') { }}
+			 <div class="flex-video"> 
+        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        	 </div> 
+    {{ } else if (media_url[0].media_type == 'vine') { }}
+    		<div class="flex-video"> 
+        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
+        	</div>
+     {{ } }}
+	<p>{{= content }}</p>
+	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<div class="tags">
+		Tags: {{ _.each(tags, function(tag, i){ }}
+			{{ if(i == tags.length - 1){ }}
+			<a href='{{= tag }}'> {{= tag }} </a>
+			{{ } else { }}
+			<a href='{{= tag }}'>{{= tag }}</a>,
 		{{ } }) }}
 		</div>
 	</div>
@@ -74,6 +102,7 @@ $(document).ready(function() {
 	var print_posts = function (posts){		
 		var op_text_template = _.template($('.op-text-temp').html());
 		var op_picture_template = _.template($('.op-picture-temp').html());
+		var op_video_template = _.template($('.op-video-temp').html());
 		var rb_text_template = _.template($('.rb-text-temp').html());
 		_.each(posts, function (p){
 				console.log(p.class)
@@ -81,15 +110,16 @@ $(document).ready(function() {
 			 	if (p.post_type === "text"){
 			 		$('.showpost').append(op_text_template(p))	
 			 	}
-			 	else if (p.post_type === "picture"){}
-			 	else if (p.post_type === "video"){
-			 		if (p.media_url[0].media_type === "youtube"){}
-			 		else if (p.media_url[0].media_type === "vimeo"){}
-			 		else if (p.media_url[0].media_type === "vine"){}
+			 	else if (p.post_type === "picture"){
+			 		$('.showpost').append(op_picture_template(p))	
 			 	}
-			 	else if (p.post_type === "audio"){}
-			// $('.showpost').append(op_template(p))	
-			}
+			 	else if (p.post_type === "video"){
+					$('.showpost').append(op_video_template(p))
+			 	}
+			 	else if (p.post_type === "audio"){
+					$('.showpost').append(op_audio_template(p))	
+				}
+			} //end original post
 			else if (p.class === "Reblog"){
 				console.log("reblog detected")
 				if (p.original_post.post_type === "text"){
@@ -98,12 +128,10 @@ $(document).ready(function() {
 				}
 			 	else if (p.post_type === "picture"){}
 			 	else if (p.post_type === "video"){
-			 		if (p.media_url[0].media_type === "youtube"){}
-			 		else if (p.media_url[0].media_type === "vimeo"){}
-			 		else if (p.media_url[0].media_type === "vine"){}
+	
 			 	}
 			 	else if (p.post_type === "audio"){}
-			// $('.showpost').append(rb_template(p))	
+				
 			}
 		}) //end _.each
 	}//end print_posts

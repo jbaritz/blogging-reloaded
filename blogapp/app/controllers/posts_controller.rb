@@ -203,17 +203,17 @@ class PostsController < ApplicationController
 
     def pic_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
+       params.permit(:title, :content, :user_id, :post_type, :community_post, :tag_list => [])
     end
 
     def vid_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
+       params.permit(:title, :content, :user_id,:post_type, :community_post, :tag_list => [])
     end
 
     def audio_params
        params.require(:user_id)
-       params.permit(:title, :content, :user_id, :community_post, :tag_list => [])
+       params.permit(:title, :content, :user_id, :post_type, :community_post, :tag_list => [])
     end
 
     def media_params

@@ -26,6 +26,15 @@ class CommunitiesController < ApplicationController
     CommunityMembership.create!(join_params)
   end
 
+  def user_list_json
+    mems = CommunityMembership.where(user_id: current_user.id)
+    @comms = []
+    mems.each{ |m|
+      @comms.push(m.community.name)
+    }
+    render :json => @comms
+  end
+
   private
   def new_community_params
     params.require(:user_id)

@@ -19,8 +19,7 @@
 
   </head>
 
-  <body>
-  
+  <body>  
 
   <nav class="top-bar" data-topbar role="navigation" >
   <ul class="title-area">
@@ -39,10 +38,8 @@
         <li><%= link_to "Sign Out", signout_path %></li>
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
-      <% end %>
-    
+      <% end %>    
     </ul>
-
     <!-- Left Nav Section -->
     <ul class="left">
    <!--    <li><a href="#">Left Nav Button</a></li> -->
@@ -53,6 +50,11 @@
           <li><a href="/posts/picture"><i class="fa fa-picture-o fa-2x"></i></a></li>
           <li><a href="/posts/video"><i class="fa fa-film fa-2x"></i></a></li>      
           <li><a href="/posts/audio"><i class="fa fa-music fa-2x"></i></a></li>
+        </ul>
+      </li>
+   <li class="has-dropdown not-click">
+        <a href="#">Your Communities</a>
+        <ul class="dropdown user-communities">
         </ul>
       </li>
     </ul>
@@ -66,4 +68,13 @@
 
 
   </body>
+  <script>
+  $(document).ready(function(){
+    $.get('/communities/<%=current_user.username %>/json',function (list){
+      list.forEach(function(c){
+        $('.user-communities').append('<li><a href="/communities/'+c+'">'+c+'</a></li>')
+      })
+    })
+  })
+  </script>
 </html>

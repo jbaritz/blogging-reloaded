@@ -21,7 +21,9 @@ class ReblogsController < ApplicationController
     params[:original_post_id] = @post.id
     params[:user_id] = current_user.id
     params[:community_post] = false
-    Reblog.create!(reblog_params)
+    r = Reblog.create!(reblog_params)
+    r.tag_list = params[:tags]
+    r.save!
     redirect_to '/'
   end
 
