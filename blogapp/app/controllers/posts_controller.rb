@@ -174,7 +174,6 @@ class PostsController < ApplicationController
       post.save!     
       params[:post_id] = post.id
       MediaUrl.create!(media_params)
-      CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     elsif selection[1] == "Community"
       params[:community_post] = true
       post = OriginalPost.create!(vid_params)
