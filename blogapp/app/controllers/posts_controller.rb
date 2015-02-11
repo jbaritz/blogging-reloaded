@@ -13,22 +13,11 @@ class PostsController < ApplicationController
     @comments_hash = @comments_hash.to_json  
   end
 
-   def show_user_posts #this should be in a profile controller
+   def show_user_posts 
     @user = User.find_by(username: params[:username])
-    # @posts = []
-    # ops = OriginalPost.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
-    # rblgs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(10)
-    # ops.each do |p|
-    #   @posts << p
-    # end
-    # rblgs.each do |p|
-    #   @posts << p
-    # end
-    # @posts.sort_by! {|p| p.created_at}
-    # @posts.reverse!
   end
 
-  def show_user_posts_json #this should be in a profile controller
+  def show_user_posts_json
     @user = User.find_by(username: params[:username])
     offset = params[:offset]
     @posts = []
@@ -37,7 +26,7 @@ class PostsController < ApplicationController
       attrs = p.attributes
       attrs[:media_url] = p.mediaurls
       attrs[:class] = "OriginalPost"
-      attrs[:tags] = p.tag_list
+      attrs[:tags] = p.tag_list.reverse!
       @posts.push(attrs)
       }
     rbs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(offset.to_i + 10)
@@ -47,7 +36,7 @@ class PostsController < ApplicationController
       attrs[:original_post] = r.original_post
       attrs[:original_user] = r.original_post.user.username
       attrs[:media_url] = r.original_post.mediaurls
-      attrs[:tags] = r.tag_list
+      attrs[:tags] = r.tag_list.reverse!
       @posts.push(attrs)
       }
     @posts.sort_by! {|p| p['created_at']}
@@ -94,7 +83,6 @@ class PostsController < ApplicationController
       @target_options.push(c.community)  
     end
   end
- 
 
 
   def submit_text_post
