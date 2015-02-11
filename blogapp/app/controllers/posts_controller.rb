@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
+
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
-  def show #this is okay
+  
+  def show 
     @post = OriginalPost.find(params[:id])
     @comments = @post.comment_threads
     @comments_hash = @comments.map do |c|
@@ -24,6 +26,33 @@ class PostsController < ApplicationController
     # end
     # @posts.sort_by! {|p| p.created_at}
     # @posts.reverse!
+  end
+
+  def show_user_posts_json #this should be in a profile controller
+    @user = User.find_by(username: params[:username])
+    offset = params[:offset]
+    @posts = []
+    ops = OriginalPost.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(offset.to_i + 10)
+    ops.each { |p|
+      attrs = p.attributes
+      attrs[:media_url] = p.mediaurls
+      attrs[:class] = "OriginalPost"
+      attrs[:tags] = p.tag_list
+      @posts.push(attrs)
+      }
+    rbs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(offset.to_i + 10)
+    rbs.each { |r|
+      attrs = r.attributes
+      attrs[:class] = "Reblog"
+      attrs[:original_post] = r.original_post
+      attrs[:original_user] = r.original_post.user.username
+      attrs[:media_url] = r.original_post.mediaurls
+      attrs[:tags] = r.tag_list
+      @posts.push(attrs)
+      }
+    @posts.sort_by! {|p| p['created_at']}
+    @posts.reverse!
+    render :json => @posts
   end
 
   def new_text_post 
@@ -67,14 +96,6 @@ class PostsController < ApplicationController
   end
  
 
-  def show_all_posts_json #this should be in a profile controller
-    @user = User.find_by(username: params[:username])
-    offset = params[:offset]
-    sql = "select * from original_posts left outer join media_urls on media_urls.post_id=original_posts.id where original_posts.user_id = #{@user.id} order by created_at desc limit 2 offset #{offset} "
-    @posts = ActiveRecord::Base.connection.execute(sql)
-
-    render :json => @posts
-  end
 
   def submit_text_post
     selection = params['post-to-options']['selected'].split("-")

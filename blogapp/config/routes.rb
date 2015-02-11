@@ -37,13 +37,13 @@ Rails.application.routes.draw do
   post '/posts/audio', to: 'posts#submit_audio_post'
     #user blog display
   get '/:username', to: 'posts#show_user_posts', as: :user_page_path
-  get '/:username/json/:offset', to: 'posts#user_posts_json'
+  get '/:username/json/:offset', to: 'posts#show_user_posts_json'
 
   get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
   # get ':username/posts'
   # get ':username/reblogs'
 
-    #individual post display
+  #individual post display
   get '/:username/posts/:id', to: 'posts#show'
   get '/:username/reblogs/:id', to: 'reblogs#show'
   get '/reblogs/:id/confirm', to: 'reblogs#confirm' #confirmation page wiht a button to confirm
