@@ -1,4 +1,4 @@
-<h1>your feed<h1><br>
+<h1>your feed</h1><br>
 <div class="showposts">
 
 </div>
@@ -9,9 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 <script type="text/template" class="op-text-temp">
 	<div id="blog">
+	<p><a href="/{{= user }}">{{= user }}</a> posted:</p>
 	<h2>{{= title }}</h2>
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/{{= user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
 		<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -24,10 +25,11 @@
 </script>
 <script type="text/template" class="op-picture-temp">
 	<div id="blog">
+	<p><a href="/{{= user }}">{{= user }}</a> posted:</p>
 	<h2>{{= title }}</h2>
 		<img src='{{= media_url[0].url }}'></img>
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/{{= user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -40,6 +42,7 @@
 </script>
 <script type="text/template" class="op-video-temp">
 	<div id="blog">
+	<p><a href="/{{= user }}">{{= user }}</a> posted:</p>
 	<h2>{{= title }}</h2>
  	{{ if (media_url[0].media_type == 'youtube'){ }}
 			<div class="flex-video"> 
@@ -55,7 +58,7 @@
         	</div>
      {{ } }}
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/{{= user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -68,7 +71,7 @@
 </script>
 <script type="text/template" class="rb-text-temp">
 	<div id="blog">
-	<h6>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></h6>
+	<p><a href="/{{= user }}">{{= user }}</a> rebloggged <a href="/{{= original_user }}">{{= original_user }}</a></p>
 	<h2>{{= original_post.title }}</h2>
 	<p>{{= original_post.content }}</p>
 	<a href="/{{= original_user }}/posts/{{= original_post.id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
@@ -84,7 +87,7 @@
 </script>
 <script type="text/template" class="rb-picture-temp">
 	<div id="blog">
-	<h6>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></h6>
+	<p><a href="/{{= user }}">{{= user }}</a> rebloggged <a href="/{{= original_user }}">{{= original_user }}</a></p>
 	<h2>{{= original_post.title }}</h2>
 		<img src='{{= media_url[0].url }}'></img>
 	<p>{{= original_post.content }}</p>
@@ -116,13 +119,13 @@ $(document).ready(function() {
 				console.log(p.class)
 			if (p.class === "OriginalPost"){
 			 	if (p.post_type === "text"){
-			 		$('.showpost').append(op_text_template(p))	
+			 		$('.showposts').append(op_text_template(p))	
 			 	}
 			 	else if (p.post_type === "picture"){
-			 		$('.showpost').append(op_picture_template(p))	
+			 		$('.showposts').append(op_picture_template(p))	
 			 	}
 			 	else if (p.post_type === "video"){
-					$('.showpost').append(op_video_template(p))
+					$('.showposts').append(op_video_template(p))
 			 	}
 			 	else if (p.post_type === "audio"){
 					// $('.showpost').append(op_audio_template(p))	
@@ -131,10 +134,10 @@ $(document).ready(function() {
 			else if (p.class === "Reblog"){
 				console.log("reblog detected")
 				if (p.original_post.post_type === "text"){
-					$('.showpost').append(rb_text_template(p))	
+					$('.showposts').append(rb_text_template(p))	
 				}
 			 	else if (p.original_post.post_type === "picture"){
-			 		$('.showpost').append(rb_picture_template(p))
+			 		$('.showposts').append(rb_picture_template(p))
 			 	}
 			 	else if (p.original_post.post_type === "video"){
 	
@@ -146,7 +149,7 @@ $(document).ready(function() {
 	}//end print_posts
 
 	$.ajax({type: 'GET',
-			url: '/<%= @user.username %>/json/' + offset
+			url: '/<%= current_user.username %>/home-feed-json/'
 		}).done(function (posts) {	
 			console.log(posts)
 			print_posts(posts);

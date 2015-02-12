@@ -14,13 +14,14 @@ class ReblogsController < ApplicationController
 
   def reblog_from_op_confirm
     @post = OriginalPost.find(params[:id])
+
   end 
 
   def reblog_from_rb_confirm
     @post = Reblog.find(params[:id])
   end
 
-  def reblog_post
+  def reblog_submit
     @post = OriginalPost.find(params[:id])
     params[:original_post_id] = @post.id
     params[:user_id] = current_user.id

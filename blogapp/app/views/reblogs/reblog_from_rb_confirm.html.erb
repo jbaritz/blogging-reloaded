@@ -1,0 +1,36 @@
+
+<h3 class="page-center">Are you sure you want to reblog this post?</h3>
+
+<div id="blog">
+		<p><a href="/<%= @post.user.username %>"><%= @post.user.username %></a> reblogged <a href="/<%= @post.original_post.user.username %>"><%= @post.original_post.user.username %></a></p>
+		<h2><%= @post.original_post.title %></h2>
+		<% if @post.original_post.mediaurls %>
+			<% @post.original_post.mediaurls.each do |media| %>
+			<% if media.media_type == 'picture' %>
+				<img src='<%= media.url %>'></img>
+			<% elsif media.media_type == 'youtube' %>
+			<!-- 	<div class="flex-video"> -->
+	        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+			<!-- 	</div> -->
+			<% elsif media.media_type == 'vimeo' %>
+				<!-- <div class="flex-video"> -->
+	        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+	        	<!-- </div> -->
+	        <% elsif media.media_type == 'vine' %>
+	        	<iframe src="https://vine.co/v/<%= media.url %>/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
+	        <% end %>
+			<%end%>
+		<%end%>
+	        <p><%= @post.original_post.content %></p>
+	       
+	</div><br>
+	<div class="large-5 columns page-center">
+
+	<form action='/reblogs/<%= @post.original_post.id %>/confirm' method='post'>
+	 <%= text_field_tag(:'tags',nil, placeholder: "add tags (separated by commas!)") %>
+    	<button type="submit">Reblog</button>
+    	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	</form>
+	</div>
+
+	

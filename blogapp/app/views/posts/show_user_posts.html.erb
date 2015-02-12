@@ -16,11 +16,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript" src="../assets/convert.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+
 <script type="text/template" class="op-text-temp">
 	<div id="blog">
 	<h2>{{= title }}</h2>
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
 		<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -36,7 +37,7 @@
 	<h2>{{= title }}</h2>
 		<img src='{{= media_url[0].url }}'></img>
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -64,7 +65,7 @@
         	</div>
      {{ } }}
 	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -80,7 +81,7 @@
 	<h6>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></h6>
 	<h2>{{= original_post.title }}</h2>
 	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= original_post.id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/{{= original_user }}/posts/{{= original_post.id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
 		<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}
@@ -97,7 +98,7 @@
 	<h2>{{= original_post.title }}</h2>
 		<img src='{{= media_url[0].url }}'></img>
 	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/{{= id }}/confirm'>Reblog</a><br>
+	<a href="/{{= original_user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
 	<div class="tags">
 		Tags: {{ _.each(tags, function(tag, i){ }}
 			{{ if(i == tags.length - 1){ }}

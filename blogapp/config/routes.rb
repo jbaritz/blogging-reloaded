@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     #user blog display
   get '/:username', to: 'posts#show_user_posts', as: :user_page_path
   get '/:username/json/:offset', to: 'posts#show_user_posts_json'
-  get '/:username/home-feed-json', to: 'users#home_feed_json'
+  get '/home-feed-json', to: 'users#home_feed_json'
 
   get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
   # get ':username/posts'
@@ -49,7 +49,7 @@ Rails.application.routes.draw do
   get '/:username/reblogs/:id', to: 'reblogs#show'
   get '/reblogs/rb/:id/confirm', to: 'reblogs#reblog_from_rb_confirm' #confirmation page wiht a button to confirm
   get '/reblogs/op/:id/confirm', to: 'reblogs#reblog_from_op_confirm' #confirmation page wiht a button to confirm
-  post '/reblogs/:id/confirm', to: 'reblogs#reblog_post' #endpoint that actually sends database request for reblog entry
+  post '/reblogs/:id/confirm', to: 'reblogs#reblog_submit' #endpoint that actually sends database request for reblog entry
 
     #comments
   post '/:username/posts/:id/comments', to: 'comments#submit_comment'
