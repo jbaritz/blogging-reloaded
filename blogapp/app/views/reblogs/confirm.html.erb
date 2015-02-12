@@ -1,5 +1,5 @@
 
-<h3>Are you sure you want to reblog this post?</h3>
+<h3 class="page-center">Are you sure you want to reblog this post?</h3>
 
 <div id="blog">
 		<h6>originally posted by: <a href="/<%= @post.user.username %>"> <%= @post.user.username %></a></h6>
@@ -24,11 +24,12 @@
 	        <p><%= @post.content %></p>
 	       
 	</div><br>
-
-	
+	<div class="large-5 columns page-center">
 	<form action='/reblogs/<%= @post.id %>/confirm' method='post'>
+	 <%= text_field_tag(:'tags',nil, placeholder: "add tags (separated by commas!)") %>
     	<button type="submit">Reblog</button>
     	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	</form>
+	</div>
 
 	

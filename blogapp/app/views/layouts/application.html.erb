@@ -43,6 +43,7 @@
     <!-- Left Nav Section -->
     <ul class="left">
    <!--    <li><a href="#">Left Nav Button</a></li> -->
+  <% if current_user %>
    <li class="has-dropdown not-click">
         <a href="#">Post!</a>
         <ul class="dropdown">
@@ -58,6 +59,7 @@
         </ul>
       </li>
     </ul>
+    <% end %>
   </section>
 </nav>
 
@@ -67,14 +69,10 @@
 </div>
 
 
-  </body>
-  <script>
-  $(document).ready(function(){
-    $.get('/communities/<%=current_user.username %>/json',function (list){
-      list.forEach(function(c){
-        $('.user-communities').append('<li><a href="/communities/'+c+'">'+c+'</a></li>')
-      })
-    })
-  })
-  </script>
+</body>
+
+<% if current_user %>
+  <%= render partial: 'layouts/get_communities' %>
+<% end %>
+
 </html>

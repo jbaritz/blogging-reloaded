@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     post = OriginalPost.find(params[:id])
     comment = Comment.build_from(post, current_user.id, params['body'])
     comment.save!
-    redirect_to "/posts/" + params[:id]
+    redirect_to "/" + post.user.username + "/posts/" + params[:id]
   end
 
   def reply_to_comment
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     new_comment = Comment.build_from(post, current_user.id, params['body'])
     new_comment.move_to_child_of(parent_comment)
     new_comment.save!
-    redirect_to "/posts/" + params[:id]
+    redirect_to "/" + post.user.username + "/posts/" + params[:id]
 
   end
 

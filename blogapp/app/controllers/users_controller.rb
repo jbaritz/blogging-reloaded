@@ -5,17 +5,38 @@ class UsersController < ApplicationController
   end
 
   def home
-    subscriptions = Subscription.where(subscriber_id: current_user.id)
-    @posts = []
-    subscriptions.each do |sub|
-      post = OriginalPost.where(user_id: sub.subscribee_id)
-      reblog = Reblog.where(user_id: sub.subscribee_id)
-      @posts.push(post)
+ 
+  end
+
+  def home_feed_json
+   subs = User.find(current_user.id).subscribees
+   @posts = []
+   subs.each do |sub|
+      ops = OriginalPost.where(user_id: sub.id, community_post: false)
+      rbs = Reblog.where(user_id: sub.id, community_post: false)
+      ops.each { |p|
+        attrs = p.attributes
+        attrs[:user] = p.user.username
+        attrs[:media_url] = p.mediaurls
+        attrs[:class] = "OriginalPost"
+        attrs[:tags] = p.tag_list.reverse!
+        @posts.push(attrs)
+      }
+      rbs.each { |r|
+        attrs = r.attributes
+        attrs[:user] = p.user.username
+        attrs[:class] = "Reblog"
+        attrs[:original_post] = r.original_post
+        attrs[:original_user] = r.original_post.user.username
+        attrs[:media_url] = r.original_post.mediaurls
+        attrs[:tags] = r.tag_list.reverse!
+        @posts.push(attrs)
+      }
     end
     @posts.flatten!
-    @posts.sort_by! {|p| p.created_at }
-    @posts.reverse! 
-  
+    @posts.sort_by! {|p| p['created_at'] }
+    @posts.reverse!  
+    render :json => @posts
   end
 
   def new_subscription

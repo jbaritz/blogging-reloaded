@@ -12,6 +12,8 @@
 
 body {
 	background-color: #36A4FD;
+	background: linear-gradient(to right bottom, #648880, #293f50) fixed;
+
 }
 
 .comments {
@@ -41,8 +43,10 @@ body {
 	border-radius: 5px;
 	margin-bottom: 50px;
 	display: inline-block;
+}
 
-
+.page-center{
+	margin-left: 27%;
 }
 
 iframe {

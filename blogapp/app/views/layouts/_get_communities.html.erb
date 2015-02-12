@@ -1,0 +1,10 @@
+<script>
+  $(document).ready(function(){  
+
+    $.get('/communities/<%= current_user.username %>/json',function (list){
+      list.forEach(function(c){
+        $('.user-communities').append('<li><a href="/communities/'+c+'">'+c+'</a></li>')
+      })
+   })// end get
+ })
+</script>
