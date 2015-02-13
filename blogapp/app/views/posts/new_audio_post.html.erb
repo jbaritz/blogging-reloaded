@@ -8,7 +8,7 @@
 	<% end%>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
  	 <%= text_field_tag(:'audio_url', nil, placeholder: "audio URL") %>
- 	 <%= text_area_tag(:'content',nil, placeholder: "caption",class: "text-area") %>
+ 	 <%= quill_editor 'content'%>
 	 <%= text_field_tag(:'tags',nil, placeholder: "tags (separated by commas!)") %>
   <%= submit_tag("submit", class: "button") %>
 <% end %>

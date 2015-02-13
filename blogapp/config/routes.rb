@@ -38,7 +38,7 @@ Rails.application.routes.draw do
     #user blog display
   get '/:username', to: 'posts#show_user_posts', as: :user_page_path
   get '/:username/json/:offset', to: 'posts#show_user_posts_json'
-  get '/home-feed-json', to: 'users#home_feed_json'
+  get '/:username/home-feed-json', to: 'users#home_feed_json'
 
   get '/:username/subscribe', to: 'users#new_subscription', as: :subscribe_path
   # get ':username/posts'

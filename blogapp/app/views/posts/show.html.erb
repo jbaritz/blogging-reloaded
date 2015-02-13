@@ -1,4 +1,6 @@
-<div class="large-6 columns" id="blog"><h3><%= @post.title %></h3>
+<div class="large-6 columns" id="blog">
+<p><a href="/<%= @post.user.username %>"><%= @post.user.username %></a></p>
+<h3><%= @post.title %></h3>
 <% @post.mediaurls.each do |media| %>
 	 	<% if media.media_type == 'picture' %>
 			<img src='<%= media.url %>'></img>
@@ -12,7 +14,19 @@
         	<!-- </div> -->
         <% end %>
 <% end %>
-<p><%= @post.content %></p>
+<%= raw @post.content %>
+<a href='/reblogs/op/{{= id }}/confirm'>Reblog</a>
+<% if @post.tags.length > 0 %>
+<p>Tags: 
+	<% @post.tags.each_with_index {|t, i| %>
+		<% if i == (@post.tags.length - 1) %>
+			<a href='/tags/<%= t %>'> <%= t %></a>
+		<% else %>
+			<a href='/tags/<%= t %>'> <%= t %></a>,
+		<% end %>
+	<% } %>
+	<% end %>
+	</p>
 </div>
 
 <div class="comments large-12 columns page-center"><b>Comments</b><br>
@@ -20,7 +34,7 @@
 <div class="large-12 columns comment-form">
 <h4>Add a comment</h4>
 <%= form_tag("/" +@post.user.username + "/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
- 	 <%= text_area_tag(:'body',nil, placeholder: "comment") %>
+ 	  <%= quill_editor 'body'%>
   <%= submit_tag("submit", class: "button small") %>
   <% end %>
 </div>

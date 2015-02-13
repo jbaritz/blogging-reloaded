@@ -14,7 +14,6 @@ class ReblogsController < ApplicationController
 
   def reblog_from_op_confirm
     @post = OriginalPost.find(params[:id])
-
   end 
 
   def reblog_from_rb_confirm

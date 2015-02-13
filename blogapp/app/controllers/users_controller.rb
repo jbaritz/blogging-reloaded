@@ -24,7 +24,7 @@ class UsersController < ApplicationController
       }
       rbs.each { |r|
         attrs = r.attributes
-        attrs[:user] = p.user.username
+        attrs[:user] = r.user.username
         attrs[:class] = "Reblog"
         attrs[:original_post] = r.original_post
         attrs[:original_user] = r.original_post.user.username

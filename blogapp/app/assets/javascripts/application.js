@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
+//= require quill
+//= require underscore
 
 // $(function(){ $(document).foundation();
 //  });

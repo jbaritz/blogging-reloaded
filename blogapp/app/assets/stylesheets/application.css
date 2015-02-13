@@ -1,5 +1,55 @@
 /*= require foundation */
+/*
+ *= require quill.snow
+*/
 
+body {
+	background-color: #36A4FD;
+	background: linear-gradient(to right bottom, #0099FF, #0066CC) fixed;
+
+}
+
+.post-header {
+	background-color: #404040;
+	border-radius: 3px 3px 0 0;
+}
+
+.post-title{
+	font-size: 150%;
+	padding: 20px;
+	color: #FBFBFB;
+}
+
+.post-body{
+	padding: 20px;
+}
+
+.post-nav {
+	padding-left: 20px;
+}
+
+.tags-container {
+	background-color: #404040;
+	border-radius: 0 0 3px 3px ;
+}
+
+.tags{
+	padding: 10px;
+	font-size: 80%;
+}
+
+#blog {
+	min-height: 100px;
+	width: 600px;
+	background-color: #FBFBFB;
+	margin-top: 30px;
+	margin-right: 20px;
+	margin-left: 27%;	
+	border-radius: 3px;
+	margin-bottom: 30px;
+	display: inline-block;
+
+}
 
 .new-post-form {
 	width: 60%;
@@ -10,15 +60,11 @@
 	height: 400px;
 }
 
-body {
-	background-color: #36A4FD;
-	background: linear-gradient(to right bottom, #648880, #293f50) fixed;
-
-}
 
 .comments {
 	display: block;
 }
+
 .comment-box{
 	display: inline;
 	background-color: #FBFBFB;
@@ -31,18 +77,6 @@ body {
 .comment-form {
 	width: 50%;
 	float:left;
-}
-#blog {
-	min-height: 100px;
-	width: 600px;
-	background-color: #FBFBFB;
-	margin-top: 30px;
-	margin-right: 20px;
-	margin-left: 27%;
-	padding: 20px;
-	border-radius: 5px;
-	margin-bottom: 50px;
-	display: inline-block;
 }
 
 .page-center{
@@ -62,8 +96,6 @@ iframe {
 	background-color: #FBFBFB;
 	border-radius: 5px;
 	padding: 5px;
-
-
 }
 
 .top-bar-section ul.right li {
@@ -94,4 +126,14 @@ margin: 10px;
 #post-to-options_selected{
 	display: inline;
 	width: 200px;
+}
+
+.quill-wrapper{
+	background-color: #ffffff;
+	border: 1px solid gray;
+	margin-bottom: 10px;
+}
+
+.toolbar.ql-toolbar-container{
+	border-bottom: 1px solid gray;
 }

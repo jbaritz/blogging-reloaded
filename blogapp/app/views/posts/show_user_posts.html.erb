@@ -12,103 +12,7 @@
 
 </div>
 <button type='submit' id='more'>Show more posts</button>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="../assets/convert.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-
-<script type="text/template" class="op-text-temp">
-	<div id="blog">
-	<h2>{{= title }}</h2>
-	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
-		<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'> {{= tag }}</a>,
-		{{ } }) }}
-		</div>
-	</div>
-</script>
-<script type="text/template" class="op-picture-temp">
-	<div id="blog">
-	<h2>{{= title }}</h2>
-		<img src='{{= media_url[0].url }}'></img>
-	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'> {{= tag }}</a>,
-		{{ } }) }}
-		</div>
-	</div>
-</script>
-<script type="text/template" class="op-video-temp">
-	<div id="blog">
-	<h2>{{= title }}</h2>
- 	{{ if (media_url[0].media_type == 'youtube'){ }}
-			<div class="flex-video"> 
-        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
-		 	</div> 
-	{{ } else if (media_url[0].media_type == 'vimeo') { }}
-			 <div class="flex-video"> 
-        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        	 </div> 
-    {{ } else if (media_url[0].media_type == 'vine') { }}
-    		<div class="flex-video"> 
-        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
-        	</div>
-     {{ } }}
-	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'>{{= tag }}</a>,
-		{{ } }) }}
-		</div>
-	</div>
-</script>
-<script type="text/template" class="rb-text-temp">
-	<div id="blog">
-	<h6>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></h6>
-	<h2>{{= original_post.title }}</h2>
-	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= original_post.id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
-		<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'>{{= tag }}</a>
-			{{ } else { }}
-			<a href='{{= tag }}'> {{= tag }}</a>,
-		{{ } }) }}
-		</div>
-	</div>
-</script>
-<script type="text/template" class="rb-picture-temp">
-	<div id="blog">
-	<h6>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></h6>
-	<h2>{{= original_post.title }}</h2>
-		<img src='{{= media_url[0].url }}'></img>
-	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'>{{= tag }}</a> + ","
-		{{ } }) }}
-		</div>
-	</div>
-</script>
+<%= render partial: "post_templates" %>
 <script>
 $(document).ready(function() {
 	_.templateSettings = {
@@ -126,7 +30,7 @@ $(document).ready(function() {
 				console.log(p.class)
 			if (p.class === "OriginalPost"){
 			 	if (p.post_type === "text"){
-			 		$('.showpost').append(op_text_template(p))	
+			 		$('.showpost').append(op_text_template(p))
 			 	}
 			 	else if (p.post_type === "picture"){
 			 		$('.showpost').append(op_picture_template(p))	

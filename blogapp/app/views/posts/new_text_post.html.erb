@@ -11,9 +11,8 @@
 	 <% end%>
 	<% end %>
  	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
- 	 <%= text_area_tag(:'content',nil, placeholder: "post",class: "text-area") %>
+	 <%= quill_editor 'content'%>
 	 <%= text_field_tag(:'tags',nil, placeholder: "tags (separated by commas!)") %>
   <%= submit_tag("submit", class: "button") %>
   <% end %>
   </div>
-
