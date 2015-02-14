@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :show_all_posts]
   
   def show 
+    @current_page = ""
     @post = OriginalPost.find(params[:id])
     @comments = @post.comment_threads
     @comments_hash = @comments.map do |c|
@@ -15,6 +16,7 @@ class PostsController < ApplicationController
 
    def show_user_posts 
     @user = User.find_by(username: params[:username])
+    @current_page = @user.username
   end
 
   def show_user_posts_json
@@ -45,6 +47,7 @@ class PostsController < ApplicationController
   end
 
   def new_text_post 
+    @current_page = "make a new text post"
     #view  form
     @target_options = []
     @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
@@ -55,6 +58,7 @@ class PostsController < ApplicationController
   end
 
   def new_picture_post
+    @current_page = "make a new picture post"
     #view  form
      @target_options = []
     @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
@@ -65,6 +69,7 @@ class PostsController < ApplicationController
   end
 
   def new_video_post
+      @current_page = "make a new video post"
     #view  form
      @target_options = []
     @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)
@@ -75,6 +80,7 @@ class PostsController < ApplicationController
   end
 
   def new_audio_post
+    @current_page = "make a new audio post"
     #view  form
      @target_options = []
     @target_options.push(User.find_by_sql(["SELECT username AS name, id FROM users WHERE id = ? LIMIT 1", current_user.id]).first)

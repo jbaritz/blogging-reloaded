@@ -1,104 +1,183 @@
 <script type="text/template" class="op-text-temp">
 	<div id="blog">
 		<div class="post-header">
-			<span class="post-title">
+			<div class="post-title">
 			{{= title }}
-			</span>
+			</div>
 		</div>
 		<div class="post-body">
-			<p>{{= content }}</p>
+			{{= content }}
 		</div>
 		<div class="post-nav">
-			<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
+			<div class="post-nav-left">
+				<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> <span class="min-class">(0)</span> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			</div>
+			<div class="post-nav-right">
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+			</div>
 		</div>
-			<div class="tags-container">
-				<div class="tags">
+		<div class="tags-container">
+			<div class="tags">
 				Tags: {{ _.each(tags, function(tag, i){ }}
 					{{ if(i == tags.length - 1){ }}
 					<a href='{{= tag }}'> {{= tag }} </a>
 					{{ } else { }}
 					<a href='{{= tag }}'> {{= tag }}</a>,
 				{{ } }) }}
-				</div>
+			</div>
 		</div>
 	</div>
 </script>
+
 <script type="text/template" class="op-picture-temp">
 	<div id="blog">
-	<div class="post-header">
-	<h4>{{= title }}</h4>
-	</div>
-		<img src='{{= media_url[0].url }}'></img>
-	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'> {{= tag }}</a>,
-		{{ } }) }}
+		<div class="post-header">
+			<div class="post-title">
+				{{= title }}
+			</div>
+		</div>
+		<div class="post-media">
+			<img src='{{= media_url[0].url }}'></img>
+		</div>
+		<div class="post-body">
+			{{= content }}
+		</div>
+		<div class="post-nav">
+			<div class="post-nav-left">
+				<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			</div>
+			<div class="post-nav-right">
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+			</div>
+		</div>
+		<div class="tags-container">
+			<div class="tags">
+				Tags: {{ _.each(tags, function(tag, i){ }}
+					{{ if(i == tags.length - 1){ }}
+					<a href='{{= tag }}'> {{= tag }} </a>
+					{{ } else { }}
+					<a href='{{= tag }}'> {{= tag }}</a>,
+				{{ } }) }}
+			</div>
 		</div>
 	</div>
 </script>
+
 <script type="text/template" class="op-video-temp">
 	<div id="blog">
-	<h4>{{= title }}</h4>
+	<div class="post-header">
+		<div class="post-title">
+			{{= title }}
+		</div>
+	</div>
  	{{ if (media_url[0].media_type == 'youtube'){ }}
-			<div class="flex-video"> 
+			<div class="post-media">
+				<div class="flex-video"> 
         			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
+        		</div>
 		 	</div> 
 	{{ } else if (media_url[0].media_type == 'vimeo') { }}
-			 <div class="flex-video"> 
+			 <div class="post-media">
+				<div class="flex-video"> 
         			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        		</div>
         	 </div> 
     {{ } else if (media_url[0].media_type == 'vine') { }}
-    		<div class="flex-video"> 
-        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
-        	</div>
+    		<div class="post-media">
+	    		<div class="flex-video"> 
+		        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
+	        	</div>
+	        </div>
      {{ } }}
-	<p>{{= content }}</p>
-	<a href="/<%= @user.username %>/posts/{{= id }}">Comment</a> | <a href='/reblogs/op/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'>{{= tag }}</a>,
-		{{ } }) }}
+		<div class="post-body">
+			{{= content }}
+		</div>
+	<div class="post-nav">
+		<div class="post-nav-left">
+			<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+		</div>
+		<div class="post-nav-right">
+			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+		</div>
+	</div>
+	<div class="tags-container">
+		<div class="tags">
+			Tags: {{ _.each(tags, function(tag, i){ }}
+				{{ if(i == tags.length - 1){ }}
+				<a href='{{= tag }}'> {{= tag }} </a>
+				{{ } else { }}
+				<a href='{{= tag }}'>{{= tag }}</a>,
+			{{ } }) }}
 		</div>
 	</div>
 </script>
+
 <script type="text/template" class="rb-text-temp">
 	<div id="blog">
-	<p>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></p>
-	<h4>{{= original_post.title }}</h4>
-	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= original_post_id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
-		<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'>{{= tag }}</a>
-			{{ } else { }}
-			<a href='{{= tag }}'> {{= tag }}</a>,
-		{{ } }) }}
+	<div class="post-header">
+		<div class="post-citation">originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></p>	
+		</div>
+		<div class="post-title">
+			{{= original_post.title }}
 		</div>
 	</div>
+	<div class="post-body">
+		{{= original_post.content }}
+	</div>
+	<div class="post-nav">
+		<div class="post-nav-left">
+			<a href="/{{= original_user }}/posts/{{= original_post_id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+		</div>
+		<div class="post-nav-right">
+			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+		</div>
+	</div>
+	<div class="tags-contianer">
+		<div class="tags">
+			Tags: {{ _.each(tags, function(tag, i){ }}
+				{{ if(i == tags.length - 1){ }}
+				<a href='{{= tag }}'>{{= tag }}</a>
+				{{ } else { }}
+				<a href='{{= tag }}'> {{= tag }}</a>,
+			{{ } }) }}
+		</div>
+	</div>
+	</div>
 </script>
+
 <script type="text/template" class="rb-picture-temp">
 	<div id="blog">
-	<p>originally posted by: <a href="/{{= original_user }}">{{= original_user }}</a></p>
-	<h4>{{= original_post.title }}</h4>
-		<img src='{{= media_url[0].url }}'></img>
-	<p>{{= original_post.content }}</p>
-	<a href="/{{= original_user }}/posts/{{= original_post_id }}">Comment</a> | <a href='/reblogs/rb/{{= id }}/confirm'>Reblog</a><br>
-	<div class="tags">
-		Tags: {{ _.each(tags, function(tag, i){ }}
-			{{ if(i == tags.length - 1){ }}
-			<a href='{{= tag }}'> {{= tag }} </a>
-			{{ } else { }}
-			<a href='{{= tag }}'>{{= tag }}</a> + ","
-		{{ } }) }}
+	<div class="post-header">
+		<div class="post-citation">
+			originally posted by: <a href="/{{= original_user }}">{{=original_user }}</a></p>
 		</div>
+		<div class="post-title">
+			{{= original_post.title }}
+		</div>
+	</div>
+	<div class="post-media">
+		<img src='{{= media_url[0].url }}'></img>
+	</div>
+	<div class="post-body">
+		{{= original_post.content }}
+	</div>
+	<div class="post-nav">
+		<div class="post-nav-left">
+			<a href="/{{= original_user }}/posts/{{= original_post_id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+		</div>
+		<div class="post-nav-right">
+			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+		</div>
+	</div>
+	<div class="tags-container">
+		<div class="tags">
+			Tags: {{ _.each(tags, function(tag, i){ }}
+				{{ if(i == tags.length - 1){ }}
+				<a href='{{= tag }}'> {{= tag }} </a>
+				{{ } else { }}
+				<a href='{{= tag }}'> {{= tag }}</a>,
+			{{ } }) }}
+		</div>
+	</div>
 	</div>
 </script>

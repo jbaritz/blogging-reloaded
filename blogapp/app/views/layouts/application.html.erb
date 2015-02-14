@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-  <title>Awesome Blog</title>
+  <title><%= @current_page %></title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
@@ -21,6 +21,7 @@
 
   <body>  
 
+<div class="fixed navbar-container">
   <nav class="top-bar" data-topbar role="navigation" >
   <ul class="title-area">
     <li class="name">
@@ -29,16 +30,17 @@
      <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   </ul>
-
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
       <% if current_user %>
-        <li>Signed in as <span><a href="/<%= current_user.username %>"><%= current_user.username %></a></span></li>
+        <li>Signed in as <span class="navbar-username"><a href="/<%= current_user.username %>"><%= current_user.username %></a></span></li>
         <li><%= link_to "Sign Out", signout_path %></li>
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
-      <% end %>    
+      <% end %>  
+      <li><a href="#"><i class="fa fa-caret-square-o-left fa-lg"></i></a></li>
+      </ul>
     </ul>
     <!-- Left Nav Section -->
     <ul class="left">
@@ -53,16 +55,17 @@
           <li><a href="/posts/audio"><i class="fa fa-music fa-2x"></i></a></li>
         </ul>
       </li>
-   <li class="has-dropdown not-click">
+    <li class="has-dropdown not-click">
         <a href="#">Your Communities</a>
         <ul class="dropdown user-communities">
         </ul>
-      </li>
+    </li>    
+    <li class ="navbar-pagetitle"><%= @current_page%></li>
     </ul>
     <% end %>
   </section>
 </nav>
-
+</div>
 
 <div class="large-12 columns yield">
     <%= yield %>

@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  def show
-    
-  end
 
   def home
- 
+     @current_page = current_user.username
   end
 
   def home_feed_json

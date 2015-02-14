@@ -3,37 +3,94 @@
  *= require quill.snow
 */
 
+.navbar-pagetitle{	
+	text-transform: uppercase;
+	text-decoration: bold;
+	color: #ffffff;
+	margin-top: -35px;
+	margin-left: 225%;
+}
+.navbar-container{
+	
+}
+
 body {
 	background-color: #36A4FD;
 	background: linear-gradient(to right bottom, #0099FF, #0066CC) fixed;
-
 }
 
+.showposts{
+	margin-top: 100px;
+}
 .post-header {
-	background-color: #404040;
+	background-color: #333333;
 	border-radius: 3px 3px 0 0;
+	height: relative;
+	min-height: 30px;
 }
 
-.post-title{
-	font-size: 150%;
-	padding: 20px;
+.post-citation {
+	font-size: 75%;
+	 padding: 10px;
+	height: 10px;
 	color: #FBFBFB;
 }
 
-.post-body{
+.post-title {
+	line-height: 1em;
+	font-size: 150%;
+	padding: 10px 10px 10px 20px;
+	color: #FBFBFB;
+}
+
+.post-media {
+	text-align: center;
+	padding: 5px;
+	border-bottom: 1px solid #B2B2B2;
+}
+
+.post-body {
+	text-align: justify;
+	line-height: 1.2em;
+	font-size: 85%;
 	padding: 20px;
 }
 
+p.line{
+	font-family: Helvetica;
+	line-height: 1.2;
+	font-size: 100%;
+	margin: 0px;
+}
+
+.min-text{
+
+}
+
 .post-nav {
-	padding-left: 20px;
+	padding: 10px;
+	border-top: 1px solid #B2B2B2;
+}
+
+.post-nav-left {
+	display: inline-block;
+	width: 49%;
+}
+
+.post-nav-right {
+	text-align: right;
+	display:inline-block;
+	width: 49%;
 }
 
 .tags-container {
-	background-color: #404040;
+	background-color: #FBFBFB;
 	border-radius: 0 0 3px 3px ;
 }
 
-.tags{
+
+.tags {
+	border-top: 1px solid #B2B2B2;
 	padding: 10px;
 	font-size: 80%;
 }
@@ -44,11 +101,10 @@ body {
 	background-color: #FBFBFB;
 	margin-top: 30px;
 	margin-right: 20px;
-	margin-left: 27%;	
+	margin-left: 30%;	
 	border-radius: 3px;
 	margin-bottom: 30px;
 	display: inline-block;
-
 }
 
 .new-post-form {
@@ -56,7 +112,7 @@ body {
 	margin: auto;
 }
 
-.text-area{
+.text-area {
 	height: 400px;
 }
 
