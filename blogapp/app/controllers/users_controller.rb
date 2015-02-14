@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def home
-     @current_page = current_user.username
+     @current_page = "your feed"
   end
 
   def home_feed_json

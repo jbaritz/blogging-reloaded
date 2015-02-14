@@ -1,5 +1,5 @@
 
-<div class='showpost'>
+<div class='showposts'>
 <% if current_user && current_user.username != @user.username %>
 	<% if !current_user.subscribees.include?(@user) %>
 		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
@@ -29,13 +29,13 @@ $(document).ready(function() {
 				console.log(p.class)
 			if (p.class === "OriginalPost"){
 			 	if (p.post_type === "text"){
-			 		$('.showpost').append(op_text_template(p))
+			 		$('.showposts').append(op_text_template(p))
 			 	}
 			 	else if (p.post_type === "picture"){
-			 		$('.showpost').append(op_picture_template(p))	
+			 		$('.showposts').append(op_picture_template(p))	
 			 	}
 			 	else if (p.post_type === "video"){
-					$('.showpost').append(op_video_template(p))
+					$('.showposts').append(op_video_template(p))
 			 	}
 			 	else if (p.post_type === "audio"){
 					// $('.showpost').append(op_audio_template(p))	
@@ -44,10 +44,10 @@ $(document).ready(function() {
 			else if (p.class === "Reblog"){
 				console.log("reblog detected")
 				if (p.original_post.post_type === "text"){
-					$('.showpost').append(rb_text_template(p))	
+					$('.showposts').append(rb_text_template(p))	
 				}
 			 	else if (p.original_post.post_type === "picture"){
-			 		$('.showpost').append(rb_picture_template(p))
+			 		$('.showposts').append(rb_picture_template(p))
 			 	}
 			 	else if (p.original_post.post_type === "video"){
 	

@@ -14,6 +14,20 @@
 	
 }
 
+.navbar-container.navbar-collapsed{
+	margin-left: 97%;
+}
+
+.navbar-collapse-button {
+	margin-top: 5px;
+}
+
+.navbar-collapse-link {
+	height: 0px;
+}
+
+
+
 body {
 	background-color: #36A4FD;
 	background: linear-gradient(to right bottom, #0099FF, #0066CC) fixed;

@@ -20,8 +20,7 @@
   </head>
 
   <body>  
-
-<div class="fixed navbar-container">
+<div class="fixed">
   <nav class="top-bar" data-topbar role="navigation" >
   <ul class="title-area">
     <li class="name">
@@ -39,7 +38,7 @@
       <% else %>
         <li><%= link_to "Sign In", new_user_session_path %></li>
       <% end %>  
-      <li><a href="#"><i class="fa fa-caret-square-o-left fa-lg"></i></a></li>
+      <li class="navbar-collapse-button"><a href="#" class="navbar-collapse-link"><i class="fa fa-caret-square-o-left fa-2x"></i></a></li>
       </ul>
     </ul>
     <!-- Left Nav Section -->
@@ -60,7 +59,7 @@
         <ul class="dropdown user-communities">
         </ul>
     </li>    
-    <li class ="navbar-pagetitle"><%= @current_page%></li>
+    <li class ="navbar-pagetitle"></li>
     </ul>
     <% end %>
   </section>
@@ -77,5 +76,13 @@
 <% if current_user %>
   <%= render partial: 'layouts/get_communities' %>
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+})
+
+</script>
 
 </html>
