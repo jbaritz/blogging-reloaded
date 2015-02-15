@@ -12,9 +12,11 @@
 			<div class="post-nav-left">
 				<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> <span class="min-class">(0)</span> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 			</div>
+			{{if (<%= current_user.id %> === user_id ) { }}
 			<div class="post-nav-right">
 				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 			</div>
+			{{ } }}
 		</div>
 		<div class="tags-container">
 			<div class="tags">
@@ -46,9 +48,11 @@
 			<div class="post-nav-left">
 				<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 			</div>
+			{{if (<%= current_user.id %> === user_id ) { }}
 			<div class="post-nav-right">
 				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 			</div>
+			{{ } }}
 		</div>
 		<div class="tags-container">
 			<div class="tags">
@@ -96,9 +100,11 @@
 		<div class="post-nav-left">
 			<a href="/<%= @user.username %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
 	<div class="tags-container">
 		<div class="tags">
@@ -128,9 +134,11 @@
 		<div class="post-nav-left">
 			<a href="/{{= original_user }}/posts/{{= original_post_id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
 	<div class="tags-contianer">
 		<div class="tags">
@@ -165,9 +173,11 @@
 		<div class="post-nav-left">
 			<a href="/{{= original_user }}/posts/{{= original_post_id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
 	<div class="tags-container">
 		<div class="tags">

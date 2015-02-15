@@ -26,7 +26,6 @@ $(document).ready(function() {
 		var rb_text_template = _.template($('.rb-text-temp').html());
 		var rb_picture_template = _.template($('.rb-picture-temp').html());
 		_.each(posts, function (p){
-				console.log(p.class)
 			if (p.class === "OriginalPost"){
 			 	if (p.post_type === "text"){
 			 		$('.showposts').append(op_text_template(p))
@@ -42,7 +41,6 @@ $(document).ready(function() {
 				}
 			} //end original post
 			else if (p.class === "Reblog"){
-				console.log("reblog detected")
 				if (p.original_post.post_type === "text"){
 					$('.showposts').append(rb_text_template(p))	
 				}
@@ -61,7 +59,6 @@ $(document).ready(function() {
 	$.ajax({type: 'GET',
 			url: '/<%= @user.username %>/json/' + offset
 		}).done(function (posts) {	
-			console.log(posts)
 			print_posts(posts);
 		})
 	}) //end get

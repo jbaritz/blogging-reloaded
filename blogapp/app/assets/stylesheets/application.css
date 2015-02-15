@@ -8,9 +8,10 @@
 	margin-top: 55px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: -30px;
+	margin-bottom: -52px;
 	font-size: 350%;
 	text-align: center;
+	text-decoration: bold;
 }
 
 .navbar-container{
@@ -33,7 +34,7 @@
 
 body {
 	background-color: #36A4FD;
-	background: linear-gradient(to right bottom, #0099FF, #0066CC) fixed;
+	background: linear-gradient(to right bottom, #0099AE, #006686) fixed;
 }
 
 .showposts{
@@ -94,12 +95,13 @@ p.line{
 }
 
 .min-text{
-
+	font-size: 80%;
 }
 
 .post-nav {
 	padding: 10px;
 	border-top: 1px solid #B2B2B2;
+	color: #B2B2B2;
 }
 
 .post-nav-left {

@@ -22,12 +22,15 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (<a href="/" class="min-text">0</a>) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id%> === user.id  ) { }}
 		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>			
 		</div>
+		{{ } }}
 	</div>
+	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
 			Tags: {{ _.each(tags, function(tag, i){ }}
@@ -38,6 +41,7 @@
 			{{ } }) }}
 		</div>
 	</div>
+	{{ } }}
 	</div>
 </script>
 
@@ -61,10 +65,13 @@
 		<div class="post-nav-left">
 			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
+	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
 			Tags: {{ _.each(tags, function(tag, i){ }}
@@ -75,8 +82,10 @@
 			{{ } }) }}
 		</div>
 	</div>
+	{{ } }}
 	</div>
 </script>
+
 <script type="text/template" class="op-video-temp">
 	<div id="blog">
 	<div class="post-header">
@@ -109,10 +118,13 @@
 		<div class="post-nav-left">
 			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>	
+	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
 			Tags: {{ _.each(tags, function(tag, i){ }}
@@ -123,6 +135,7 @@
 			{{ } }) }}
 		</div>
 	</div>
+	{{ } }}
 	</div>
 </script>
 
@@ -143,10 +156,13 @@
 		<div class="post-nav-left">
 			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}	
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
+	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
 			Tags: {{ _.each(tags, function(tag, i){ }}
@@ -157,11 +173,11 @@
 			{{ } }) }}
 		</div>
 	</div>
+	{{ } }}
 	</div>
 </script>
 
 <script type="text/template" class="rb-picture-temp">
-
 	<div id="blog">
 	<div class="post-header">
 		<div class="post-citation">
@@ -181,10 +197,13 @@
 		<div class="post-nav-left">
 			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
+		{{if (<%= current_user.id %> === user_id ) { }}	
 		<div class="post-nav-right">
 			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
 		</div>
+		{{ } }}
 	</div>
+	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
 			Tags: {{ _.each(tags, function(tag, i){ }}
@@ -195,8 +214,10 @@
 			{{ } }) }}
 		</div>
 	</div>
+	{{ } }}
 	</div>
 </script>
+
 <script>
 $(document).ready(function() {
 	_.templateSettings = {
