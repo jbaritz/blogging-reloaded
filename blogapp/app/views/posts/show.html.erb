@@ -1,47 +1,88 @@
-<div class="large-6 columns" id="blog">
-<p><a href="/<%= @post.user.username %>"><%= @post.user.username %></a></p>
-<h3><%= @post.title %></h3>
-<% @post.mediaurls.each do |media| %>
-	 	<% if media.media_type == 'picture' %>
-			<img src='<%= media.url %>'></img>
-		<% elsif media.media_type == 'youtube' %>
-		<!-- 	<div class="flex-video"> -->
-        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
-		<!-- 	</div> -->
-		<% elsif media.media_type == 'vimeo' %>
-			<!-- <div class="flex-video"> -->
-        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-        	<!-- </div> -->
-        <% end %>
-<% end %>
-<%= raw @post.content %>
-<a href='/reblogs/op/{{= id }}/confirm'>Reblog</a>
-<% if @post.tags.length > 0 %>
-<p>Tags: 
-	<% @post.tags.each_with_index {|t, i| %>
-		<% if i == (@post.tags.length - 1) %>
-			<a href='/tags/<%= t %>'> <%= t %></a>
-		<% else %>
-			<a href='/tags/<%= t %>'> <%= t %></a>,
+<div class="show-post-container large-offset-3 large-6 columns">
+	<div id="indv-post">
+		<div class="post-header">
+			<div class="post-citation"><a href="/<%= @post.user.username %>"><%= @post.user.username %></a> posted: 
+			</div>
+			<div class="post-title">
+				<%= @post.title %>
+			</div>
+		</div>
+		<%if @post.mediaurls.length > 0 %>
+			<div class="post-media">
+				<% @post.mediaurls.each do |media| %>
+				 	<% if media.media_type == 'picture' %>
+						<img src='<%= media.url %>'></img>
+					<% elsif media.media_type == 'youtube' %>
+					<!-- 	<div class="flex-video"> -->
+			        			<iframe width="400" height="225" src="//www.youtube.com/embed/<%= media.url %>" frameborder="0" allowfullscreen></iframe>
+					<!-- 	</div> -->
+					<% elsif media.media_type == 'vimeo' %>
+						<!-- <div class="flex-video"> -->
+			        			<iframe src="http://player.vimeo.com/video/<%= media.url %>" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+			        	<!-- </div> -->
+			   		 <% end %>
+			   	 <% end %>
+			</div>
 		<% end %>
-	<% } %>
-	<% end %>
-	</p>
+	
+		<div class="post-body">
+			<%= raw @post.content %>
+		</div>
+		<div class="post-nav">
+			<div class="post-nav-left">
+				<a href="/<%= @post.user.username %>/posts/<%= @post.id %>"><i class="fa fa-comments fa-lg"></i></a> <span class="min-class">(0)</span> <a href='/reblogs/op/<%= @post.id %>/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			</div>
+			<% if current_user.id == @post.user_id  %>
+				<div class="post-nav-right">
+					<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+				</div>
+			<% end %>
+		</div>
+		<% if @post.tags.length > 0 %>
+			<div class="tags-container">
+			<div class="tags">
+				Tags: 
+				<% @post.tags.each_with_index {|t, i| %>
+				<% if i == (@post.tags.length - 1) %>
+					<a href='/tags/<%= t %>'> <%= t %></a>
+				<% else %>
+					<a href='/tags/<%= t %>'> <%= t %></a>,
+				<% end %>
+			<% } %>
+			</div>
+			</div>
+		<% end %>	
+	</div>
+
+	<div class="comments">Comments
+		<div class="print-comments">			
+
+		</div>
+		<div class= "comment-form">
+			Add a comment
+			<%= form_tag("/" +@post.user.username + "/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
+			 	  <%= quill_editor 'body'%>
+			  <%= submit_tag("submit", class: "button small") %>
+			  <% end %>
+		</div>
+	</div>
 </div>
 
-<div class="comments large-12 columns page-center"><b>Comments</b><br>
-<div class="comments large-12 columns print-comments"></div>
-<div class="large-12 columns comment-form">
-<h4>Add a comment</h4>
-<%= form_tag("/" +@post.user.username + "/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
- 	  <%= quill_editor 'body'%>
-  <%= submit_tag("submit", class: "button small") %>
-  <% end %>
 </div>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-<script type="text/template" class="comments-template"><div class="large-12 columns comment-box"><a href="/{{username}} "> {{username}}</a>:<br> {{body}} <br></div></script>
+<script type="text/template" class="comments-template">
+	<div class="comment-box">
+		<div class="post-header">
+			<div class="post-citation">
+				<a href="/{{username}} "> {{username}}</a>:<br> 
+			</div>
+		</div>
+		<div class="post-body">
+			{{body}}
+		</div>
+	</div>
+</script>
+
 <script>
 $(document).ready(function(){
 	_.templateSettings = {

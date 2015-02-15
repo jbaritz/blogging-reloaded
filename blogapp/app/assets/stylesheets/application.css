@@ -52,6 +52,10 @@ body {
 	margin-bottom: 30px;
 	display: inline-block;
 }
+#indv-post{
+	background-color: #FBFBFB;
+	border-radius: 3px;
+}
 
 .post-header {
 	background-color: #333333;
@@ -126,7 +130,31 @@ p.line{
 	padding: 10px;
 	font-size: 80%;
 }
+.show-post-container{
+	margin-top: 100px;
+}
 
+.community-container{
+	background-color: #333333;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+.forumbox{
+	display: inline-block;
+	overflow-y: scroll;
+	background-color: #FBFBFB;
+	height: 500px;
+	width: 700px;
+}
+
+.comm-media-feed{
+	display: inline-block;
+	overflow-y: scroll;
+	background-color: #FBFBFB;
+	height: 500px;
+	width: 700px;
+}
 
 .new-post-form {
 	width: 60%;
@@ -139,21 +167,17 @@ p.line{
 
 
 .comments {
-	display: block;
+
 }
 
 .comment-box{
-	display: inline;
 	background-color: #FBFBFB;
 	margin: 5px;
-	padding: 10px;
-	border-radius: 5px;
-	width: 57%;
+	border-radius: 5px;	
 }
 
 .comment-form {
-	width: 50%;
-	float:left;
+
 }
 
 .page-center{
