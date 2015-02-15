@@ -3,18 +3,21 @@
  *= require quill.snow
 */
 
-.navbar-pagetitle{	
-	text-transform: uppercase;
-	text-decoration: bold;
+.page-title{	
 	color: #ffffff;
-	margin-top: -35px;
-	margin-left: 225%;
+	margin-top: 55px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: -30px;
+	font-size: 350%;
+	text-align: center;
 }
+
 .navbar-container{
 	
 }
 
-.navbar-container.navbar-collapsed{
+/*.navbar-container.navbar-collapsed{
 	margin-left: 97%;
 }
 
@@ -24,7 +27,7 @@
 
 .navbar-collapse-link {
 	height: 0px;
-}
+}*/
 
 
 
@@ -34,8 +37,21 @@ body {
 }
 
 .showposts{
-	margin-top: 100px;
+	margin-top: 5px;
 }
+
+#blog {
+	min-height: 100px;
+	width: 650px;
+	background-color: #FBFBFB;
+	margin-top: 30px;
+	margin-right: 20px;
+	margin-left: 30%;	
+	border-radius: 3px;
+	margin-bottom: 30px;
+	display: inline-block;
+}
+
 .post-header {
 	background-color: #333333;
 	border-radius: 3px 3px 0 0;
@@ -109,17 +125,6 @@ p.line{
 	font-size: 80%;
 }
 
-#blog {
-	min-height: 100px;
-	width: 600px;
-	background-color: #FBFBFB;
-	margin-top: 30px;
-	margin-right: 20px;
-	margin-left: 30%;	
-	border-radius: 3px;
-	margin-bottom: 30px;
-	display: inline-block;
-}
 
 .new-post-form {
 	width: 60%;
