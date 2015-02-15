@@ -157,8 +157,10 @@ p.line{
 }
 
 .new-post-form {
-	width: 60%;
-	margin: auto;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 75px;
 }
 
 .text-area {

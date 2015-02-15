@@ -74,11 +74,23 @@
 	<div class="comment-box">
 		<div class="post-header">
 			<div class="post-citation">
-				<a href="/{{username}} "> {{username}}</a>:<br> 
+				<a href="/{{=username}} "> {{=username}}</a>:<br> 
 			</div>
 		</div>
 		<div class="post-body">
-			{{body}}
+			{{=body}}
+		</div>
+		<div class="post-nav">
+			<div class="post-nav-left">
+				<a href="#">
+					<i class="fa fa-comments fa-lg"></i>
+				</a>
+			</div>
+			{{ if (<%= current_user.id %> === user_id ) { }}
+				<div class="post-nav-right">
+					<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+				</div>
+			{{ } }}
 		</div>
 	</div>
 </script>
@@ -86,7 +98,8 @@
 <script>
 $(document).ready(function(){
 	_.templateSettings = {
-		interpolate: /\{\{(.+?)\}\}/g
+		interpolate: /\{\{\=(.+?)\}\}/g,
+	    evaluate: /\{\{(.+?)\}\}/g
 		};
 	$.get("/" + "<%= @post.user.username %>" + "/posts/" + <%= @post.id %> + "/comments", function (comments){
 		var template = _.template($('.comments-template').html())
