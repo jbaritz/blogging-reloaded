@@ -31,6 +31,7 @@ gem 'acts_as_commentable_with_threading'
 gem 'font-awesome-sass'
 gem 'quill-rails', '~> 0.1.0'
 gem "autoprefixer-rails"
+gem 'rails_12factor'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
