@@ -53,14 +53,6 @@ body {
 	display: inline-block;
 }
 
-#comm-post{
-	background-color: #FBFBFB;
-	border-radius: 3px;
-	margin-bottom: 30px;
-	margin-left: 10px;
-	width: 650px;
-}
-
 #indv-post{
 	background-color: #FBFBFB;
 	border-radius: 3px;
@@ -139,21 +131,44 @@ p.line{
 	padding: 10px;
 	font-size: 80%;
 }
+
 .show-post-container{
 	margin-top: 100px;
 }
 
 .community-container{
-
+	margin-top: 35px;
 	height: 100%;
 	
 }
 
 .forumbox{
+	background-color: #EBEBEB;
 	display: inline-block;
 	overflow-y: scroll;
 	height: 650px;
 	width: 725px;
+	border-radius: 3px;
+}
+
+.forum-listing{
+	font-size: 85%;
+	margin: 5px;
+	border-radius: 3px;
+	background-color: #FBFBFB;
+}
+
+.forum-title{
+	color: #ffffff;
+	padding: 10px;
+	border-radius: 3px 3px 0 0;
+	background-color: #464646;
+}
+
+.forum-body-preview{
+	padding: 10px;
+	background-color: #FBFBFB;
+		border-radius: 3px;
 }
 
 .comm-media-feed{
@@ -161,6 +176,14 @@ p.line{
 	overflow-y: scroll;
 	height: 650px;
 	width: 725px;
+}
+
+#comm-post{
+	background-color: #FBFBFB;
+	border-radius: 3px;
+	margin-bottom: 30px;
+	margin-left: 25px;
+	width: 650px;
 }
 
 .new-post-form {
@@ -216,22 +239,6 @@ iframe {
   float: left; 
 }
 
-.community-container {
-	background-color: ##CCCCFF;
-
-}
-
-.forumbox{
-	background-color: #FBFBFB;
-	margin: 10px;
-		box-sizing: border-box;
-}
-
-.media-feed{
-	background-color: #FBFBFB;
-margin: 10px;
-	box-sizing: border-box;
-}
 
 #post-to-options_selected{
 	display: inline;

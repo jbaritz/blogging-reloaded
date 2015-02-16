@@ -1,4 +1,4 @@
-<h3><%= @comm.name %></h3>
+
 <% if @is_member%>
 <p>You are a member of this group! | <a href="/">Post an entry to this community</a></p>
 <% else %>
@@ -11,10 +11,17 @@
 <% end %>
 
 <div class="community-container large-12 columns">
-	<div class="forumbox "> sdfdgjgjyr</div>
+	<div class="forumbox"> </div>
 	<div class="comm-media-feed "> </div>
 </div>
 <%= render partial: "comm_post_temps" %>
+<script type="text/template" class="forum-temp">
+<div class="forum-listing">
+	<div class="forum-title">
+	<a href="/{{=username}}">{{=username}}</a>: <b>{{=title}}</b></div>
+	<div class="forum-body-preview">{{=body}}</div>
+</div>
+</script>
 <script>
 	$(document).ready(function(){
 	_.templateSettings = {
@@ -59,13 +66,26 @@
 		}) //end _.each
 	}//end print_posts
 
+	var print_forum = function (posts){	
+		var forum_template = _.template($('.forum-temp').html());
+		_.each(posts, function(p){
+			console.log(p)
+			$('.forumbox').append(forum_template(p));
+		})
+	}
+
+
 	$.ajax({type: 'GET',
 			url: '/communities/<%= @comm.name %>/posts-json/'
 		}).done(function (posts) {	
 			print_posts(posts);
 		})
 
-
+	$.ajax({type: 'GET',
+			url: '/communities/<%= @comm.name %>/forum-json/'
+		}).done(function (posts) {	
+			print_forum(posts);
+		})
 
 $(document).on('click','.joinCommunity', function(){
 			$.post("/communities/<%= @comm.name%>/join").done(function(){

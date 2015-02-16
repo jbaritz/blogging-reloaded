@@ -17,6 +17,7 @@ class CommunitiesController < ApplicationController
     # get.each{ |p|
     #   @posts.push(p.get_post)
     # }
+    @current_page = @comm.name
   end
 
   def posts_json
@@ -27,6 +28,7 @@ class CommunitiesController < ApplicationController
     ops.each { |post|
       p = post.get_post
       attrs = p.attributes
+      attrs[:username] = post.user.username
       attrs[:media_url] = p.mediaurls
       attrs[:class] = "OriginalPost"
       attrs[:tags] = p.tag_list.reverse!
@@ -44,6 +46,19 @@ class CommunitiesController < ApplicationController
     #   }
     @posts.reverse!
     render :json => @posts
+  end
+
+  def forum_json
+    @comm = Community.find_by(name: params[:name])
+    @posts = []
+    posts = ForumPost.where(community_id: @comm.id)
+    posts.each {|p|
+      attrs = p.attributes
+      attrs[:username] = p.user.username
+      @posts.push(attrs)
+    }
+    render :json => @posts
+
   end
 
   def join
