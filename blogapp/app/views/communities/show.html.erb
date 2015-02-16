@@ -2,7 +2,7 @@
 <% if @is_member%>
 <p>You are a member of this group! | <a href="/">Post an entry to this community</a></p>
 <% else %>
-<div class="joinLinkDiv"><a href="#" data-reveal-id="joinModal">Join!</a></div>
+<div class="joinLinkDiv"><button data-reveal-id="joinModal">Join!</button></div>
 	<div id="joinModal" class="reveal-modal" data-reveal>
 	  <p>Are you sure you want to join this community?</p>
 	  <button class="joinCommunity">Yep!</button>
@@ -12,18 +12,66 @@
 
 <div class="community-container large-12 columns">
 	<div class="forumbox "> sdfdgjgjyr</div>
-	<div class="comm-media-feed "> <%= @posts %></div>
+	<div class="comm-media-feed "> </div>
 </div>
-
-
+<%= render partial: "comm_post_temps" %>
 <script>
-$(document).ready(function(){
-	$(document).on('click','.joinCommunity', function(){
-		console.log("the click happen");
-		$.post("/communities/<%= @comm.name%>/join").done(function(){
-			$('.joinLinkDiv').text("You are a member of this group!")
+	$(document).ready(function(){
+	_.templateSettings = {
+	    interpolate: /\{\{\=(.+?)\}\}/g,
+	    evaluate: /\{\{(.+?)\}\}/g
+	};
+	var offset = 0;
+	var print_posts = function (posts){		
+		var op_text_template = _.template($('.op-text-temp').html());
+		var op_picture_template = _.template($('.op-picture-temp').html());
+		var op_video_template = _.template($('.op-video-temp').html());
+		var rb_text_template = _.template($('.rb-text-temp').html());
+		var rb_picture_template = _.template($('.rb-picture-temp').html());
+		_.each(posts, function (p){
+			if (p.class === "OriginalPost"){
+			 	if (p.post_type === "text"){
+			 		$('.comm-media-feed').append(op_text_template(p))
+			 	}
+			 	else if (p.post_type === "picture"){
+			 		$('.comm-media-feed').append(op_picture_template(p))	
+			 	}
+			 	else if (p.post_type === "video"){
+					$('.comm-media-feed').append(op_video_template(p))
+			 	}
+			 	else if (p.post_type === "audio"){
+					// $('.showpost').append(op_audio_template(p))	
+				}
+			} //end original post
+			else if (p.class === "Reblog"){
+				if (p.original_post.post_type === "text"){
+					$('.comm-media-feed').append(rb_text_template(p))	
+				}
+			 	else if (p.original_post.post_type === "picture"){
+			 		$('.comm-media-feed').append(rb_picture_template(p))
+			 	}
+			 	else if (p.original_post.post_type === "video"){
+	
+			 	}
+			 	else if (p.original_post.post_type === "audio"){}
+				
+			}// end reblog
+		}) //end _.each
+	}//end print_posts
+
+	$.ajax({type: 'GET',
+			url: '/communities/<%= @comm.name %>/posts-json/'
+		}).done(function (posts) {	
+			print_posts(posts);
 		})
 
-	})
+
+
+$(document).on('click','.joinCommunity', function(){
+			$.post("/communities/<%= @comm.name%>/join").done(function(){
+				$('.joinLinkDiv').text("You are a member of this group!")
+			})
+
+		})
 })
 </script>

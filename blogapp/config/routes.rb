@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get '/communities/new', to: 'communities#new'
   post '/communities/new', to: 'communities#create'
   get '/communities/:name', to: 'communities#show'
+  get '/communities/:name/posts-json', to: 'communities#posts_json'
+  get '/communities/:name/forum-json', to: 'communities#forum_json'
   post '/communities/:name/join', to: 'communities#join'
   get '/communities/:username/json', to: 'communities#user_list_json'
   #tag views

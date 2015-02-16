@@ -12,11 +12,38 @@ class CommunitiesController < ApplicationController
   def show
     @comm = Community.where(name: params[:name])[0]
     @is_member = CommunityMembership.where(community_id: @comm.id, user_id: current_user.id).first
+    # @posts = []
+    # get = CommunityPost.where(community_id: @comm.id)
+    # get.each{ |p|
+    #   @posts.push(p.get_post)
+    # }
+  end
+
+  def posts_json
+    @comm = Community.find_by(name: params[:name])
+    offset = params[:offset]
     @posts = []
-    get = CommunityPost.where(community_id: @comm.id)
-    get.each{ |p|
-      @posts.push(p.get_post)
-    }
+    ops = CommunityPost.where(community_id: @comm.id)
+    ops.each { |post|
+      p = post.get_post
+      attrs = p.attributes
+      attrs[:media_url] = p.mediaurls
+      attrs[:class] = "OriginalPost"
+      attrs[:tags] = p.tag_list.reverse!
+      @posts.push(attrs)
+      }
+    # rbs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(offset.to_i + 10)
+    # rbs.each { |r|
+    #   attrs = r.attributes
+    #   attrs[:class] = "Reblog"
+    #   attrs[:original_post] = r.original_post
+    #   attrs[:original_user] = r.original_post.user.username
+    #   attrs[:media_url] = r.original_post.mediaurls
+    #   attrs[:tags] = r.tag_list.reverse!
+    #   @posts.push(attrs)
+    #   }
+    @posts.reverse!
+    render :json => @posts
   end
 
   def join

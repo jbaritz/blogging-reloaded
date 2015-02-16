@@ -52,6 +52,15 @@ body {
 	margin-bottom: 30px;
 	display: inline-block;
 }
+
+#comm-post{
+	background-color: #FBFBFB;
+	border-radius: 3px;
+	margin-bottom: 30px;
+	margin-left: 10px;
+	width: 650px;
+}
+
 #indv-post{
 	background-color: #FBFBFB;
 	border-radius: 3px;
@@ -135,25 +144,23 @@ p.line{
 }
 
 .community-container{
-	background-color: #333333;
+
 	height: 100%;
-	box-sizing: border-box;
+	
 }
 
 .forumbox{
 	display: inline-block;
 	overflow-y: scroll;
-	background-color: #FBFBFB;
-	height: 500px;
-	width: 700px;
+	height: 650px;
+	width: 725px;
 }
 
 .comm-media-feed{
 	display: inline-block;
 	overflow-y: scroll;
-	background-color: #FBFBFB;
-	height: 500px;
-	width: 700px;
+	height: 650px;
+	width: 725px;
 }
 
 .new-post-form {
