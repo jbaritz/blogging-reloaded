@@ -151,6 +151,20 @@ p.line{
 	border-radius: 3px;
 }
 
+.forum-topbar{
+	background-color: #FBFBFB;
+	border-radius: 3px;
+	color: #999999;
+	text-decoration: bold;
+	text-align: center;
+	padding: 5px;
+	margin: 5px;
+}
+.forum-topbar-buttons{
+	float: right;
+	margin-right: 10px;
+}
+
 .forum-listing{
 	font-size: 85%;
 	margin: 5px;

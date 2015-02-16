@@ -11,8 +11,28 @@
 <% end %>
 
 <div class="community-container large-12 columns">
-	<div class="forumbox"> </div>
-	<div class="comm-media-feed "> </div>
+	<div class="forumbox">
+	 <div class="forum-topbar">
+	 	DISCUSSION
+		 <div class="forum-topbar-buttons">
+		  	<a href="#" class="newPostModalLink" data-reveal-id="newPostModal">
+		  		<i class="fa fa-plus "></i>
+		  	</a>
+			<div id="newPostModal" class="reveal-modal" data-reveal>
+			  <h2>Make a new forum post.</h2>			
+				<%= form_tag("/communities/<%= @comm.id %>/forum-post", method: "post") do %>
+				 	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
+					 <%= quill_editor 'content'%>
+				  <%= submit_tag("submit", class: "button") %>
+				  <% end %>
+			  <a class="close-reveal-modal">&#215;</a>
+			</div>
+	 	</div>
+	 </div>
+	 </div>
+	<div class="comm-media-feed ">
+
+	</div>
 </div>
 <%= render partial: "comm_post_temps" %>
 <script type="text/template" class="forum-temp">
@@ -93,5 +113,33 @@ $(document).on('click','.joinCommunity', function(){
 			})
 
 		})
-})
+
+$('#newPostModal').data('reveal-init', {
+    animation: 'fadeAndPop',
+    animation_speed: 250,
+    close_on_background_click: false,
+    close_on_esc: false,
+    dismiss_modal_class: 'close-reveal-modal',
+    bg_class: 'reveal-modal-bg',
+    bg : $('.reveal-modal-bg'),
+    css : {
+        open : {
+            'opacity': 0,
+            'visibility': 'visible',
+            'display' : 'block'
+        },
+        close : {
+            'opacity': 1,
+            'visibility': 'hidden',
+            'display': 'none'
+        }
+    }
+});
+
+$('.newPostModalLink').on('click',function(){
+	console.log("click")
+	$('#newPostModal').foundation('reveal', 'open');
+});
+
+})//doc ready
 </script>

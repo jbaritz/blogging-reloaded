@@ -20,6 +20,10 @@ class CommunitiesController < ApplicationController
     @current_page = @comm.name
   end
 
+  def new_forum_post
+
+  end
+  
   def posts_json
     @comm = Community.find_by(name: params[:name])
     offset = params[:offset]
