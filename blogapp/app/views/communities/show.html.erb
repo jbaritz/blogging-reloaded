@@ -15,26 +15,21 @@
 	 <div class="forum-topbar">
 	 	DISCUSSION
 		 <div class="forum-topbar-buttons">
-		  	<a href="#" class="newPostModalLink" data-reveal-id="newPostModal">
+		  	<a href="/communities/<%= @comm.id.to_s %>/forum-post">
 		  		<i class="fa fa-plus "></i>
-		  	</a>
-			<div id="newPostModal" class="reveal-modal" data-reveal>
-			  <h2>Make a new forum post.</h2>			
-				<%= form_tag("/communities/<%= @comm.id %>/forum-post", method: "post") do %>
-				 	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
-					 <%= quill_editor 'content'%>
-				  <%= submit_tag("submit", class: "button") %>
-				  <% end %>
-			  <a class="close-reveal-modal">&#215;</a>
-			</div>
+		  	</a>			
 	 	</div>
 	 </div>
 	 </div>
-	<div class="comm-media-feed ">
+	<div class="comm-media-feed">
 
 	</div>
 </div>
+
+
+
 <%= render partial: "comm_post_temps" %>
+
 <script type="text/template" class="forum-temp">
 <div class="forum-listing">
 	<div class="forum-title">
@@ -42,6 +37,7 @@
 	<div class="forum-body-preview">{{=body}}</div>
 </div>
 </script>
+
 <script>
 	$(document).ready(function(){
 	_.templateSettings = {

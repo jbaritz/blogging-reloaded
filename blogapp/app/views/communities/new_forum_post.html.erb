@@ -1,0 +1,8 @@
+<div class="large-offset-3 large-6 columns forum-new-form">
+  <h2>Make a new forum post.</h2>			
+	<%= form_tag("/communities/"+ @comm.id.to_s + "/forum-post", method: "post") do %>
+	 	 <%= text_field_tag(:'title', nil, placeholder: "title") %>
+		 <%= quill_editor 'body'%>
+	  <%= submit_tag("submit", class: "button") %>
+	  <% end %>
+</div>

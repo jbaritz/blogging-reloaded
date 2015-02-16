@@ -12,18 +12,22 @@ class CommunitiesController < ApplicationController
   def show
     @comm = Community.where(name: params[:name])[0]
     @is_member = CommunityMembership.where(community_id: @comm.id, user_id: current_user.id).first
-    # @posts = []
-    # get = CommunityPost.where(community_id: @comm.id)
-    # get.each{ |p|
-    #   @posts.push(p.get_post)
-    # }
     @current_page = @comm.name
   end
 
   def new_forum_post
+    #form page
+    @comm = Community.find(params[:community_id])
+  end
+
+  def new_forum_post_submit
+    @comm = Community.find(params[:community_id])
+    params[:user_id] = current_user.id
+    ForumPost.create!(new_forum_post_params)
+    redirect_to '/communities/' + URI.encode(@comm.name)
 
   end
-  
+
   def posts_json
     @comm = Community.find_by(name: params[:name])
     offset = params[:offset]
@@ -61,6 +65,7 @@ class CommunitiesController < ApplicationController
       attrs[:username] = p.user.username
       @posts.push(attrs)
     }
+    @posts.reverse!
     render :json => @posts
 
   end
@@ -82,6 +87,14 @@ class CommunitiesController < ApplicationController
   end
 
   private
+
+  def new_forum_post_params
+    params.require(:title)
+    params.require(:user_id)
+    params.require(:community_id)
+    params.permit(:title, :body, :user_id, :community_id)
+  end
+
   def new_community_params
     params.require(:user_id)
     params.require(:name)
