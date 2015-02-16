@@ -27,6 +27,10 @@ class ReblogsController < ApplicationController
     params[:original_post_id] = @post.id
     params[:user_id] = current_user.id
     params[:community_post] = false
+    if params[:body] != '<p class="line" id="line-1"><br></p>'
+      comment = Comment.build_from(@post, current_user.id, params['body'])
+      comment.save!
+    end
     r = Reblog.create!(reblog_params)
     r.tag_list = params[:tags]
     r.save!

@@ -47,22 +47,22 @@ Rails.application.routes.draw do
   #individual post display
   get '/:username/posts/:id', to: 'posts#show'
   get '/:username/reblogs/:id', to: 'reblogs#show'
+  #reblogging
   get '/reblogs/rb/:id/confirm', to: 'reblogs#reblog_from_rb_confirm' #confirmation page wiht a button to confirm
   get '/reblogs/op/:id/confirm', to: 'reblogs#reblog_from_op_confirm' #confirmation page wiht a button to confirm
   post '/reblogs/:id/confirm', to: 'reblogs#reblog_submit' #endpoint that actually sends database request for reblog entry
-
     #comments
   post '/:username/posts/:id/comments', to: 'comments#submit_comment'
   get '/:username/posts/:id/comments', to: 'comments#get_post_comments'
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
     #communities
+  get '/communities/:name', to: 'communities#show'
   get '/communities/new', to: 'communities#new'
   post '/communities/new', to: 'communities#create'
-  get '/communities/:community_id/forum-post', to: 'communities#new_forum_post'
-  post '/communities/:community_id/forum-post', to: 'communities#new_forum_post_submit'
-  get '/communities/:name', to: 'communities#show'
   get '/communities/:name/posts-json', to: 'communities#posts_json'
   get '/communities/:name/forum-json', to: 'communities#forum_json'
+  get '/communities/:community_id/forum-post', to: 'communities#new_forum_post'
+  post '/communities/:community_id/forum-post', to: 'communities#new_forum_post_submit'
   post '/communities/:name/join', to: 'communities#join'
   get '/communities/:username/json', to: 'communities#user_list_json'
   #tag views

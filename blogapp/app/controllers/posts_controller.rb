@@ -29,6 +29,7 @@ class PostsController < ApplicationController
       attrs[:media_url] = p.mediaurls
       attrs[:class] = "OriginalPost"
       attrs[:tags] = p.tag_list.reverse!
+       attrs[:comments_num] = p.comment_threads.length
       @posts.push(attrs)
       }
     rbs = Reblog.where(user_id: @user.id, community_post: false).order('created_at DESC').limit(offset.to_i + 10)
@@ -39,6 +40,7 @@ class PostsController < ApplicationController
       attrs[:original_user] = r.original_post.user.username
       attrs[:media_url] = r.original_post.mediaurls
       attrs[:tags] = r.tag_list.reverse!
+      attrs[:comments_num] = r.original_post.comment_threads.length
       @posts.push(attrs)
       }
     @posts.sort_by! {|p| p['created_at']}

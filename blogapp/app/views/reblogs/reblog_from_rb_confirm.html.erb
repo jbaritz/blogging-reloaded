@@ -60,8 +60,9 @@
 		</div>
 		<div class= "comment-form">
 			Add a comment
-			<%= form_tag("/" +@post.user.username + "/posts/" + @post.id.to_s + "/comments" , method: "post") do %>
+			<%= form_tag("/reblogs/" + @post.original_post.id.to_s + "/confirm" , method: "post") do %>
 			 	  <%= quill_editor 'body'%>
+			 	  <%= text_field_tag(:'tags',nil, placeholder: "tags (separated by commas!)") %>
 			  <%= submit_tag("reblog", class: "button small") %>
 			  <% end %>
 		</div>
