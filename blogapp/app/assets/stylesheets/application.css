@@ -133,7 +133,10 @@ p.line{
 }
 
 .show-post-container{
-	margin-top: 100px;
+	margin-top: 116px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 650px;
 }
 
 .community-container{
@@ -182,7 +185,12 @@ p.line{
 .forum-body-preview{
 	padding: 10px;
 	background-color: #FBFBFB;
-		border-radius: 3px;
+	color: #999999;
+	border-radius: 3px;
+}
+
+.forum-thread-details{
+	float:right;
 }
 
 .forum-new-form{

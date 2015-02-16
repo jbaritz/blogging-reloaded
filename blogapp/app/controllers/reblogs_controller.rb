@@ -13,10 +13,12 @@ class ReblogsController < ApplicationController
   end
 
   def reblog_from_op_confirm
+    @current_page = "reblog this post"
     @post = OriginalPost.find(params[:id])
   end 
 
   def reblog_from_rb_confirm
+    @current_page = "reblog this post"
     @post = Reblog.find(params[:id])
   end
 

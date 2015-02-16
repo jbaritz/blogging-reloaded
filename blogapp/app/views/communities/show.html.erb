@@ -34,7 +34,13 @@
 <div class="forum-listing">
 	<div class="forum-title">
 	<a href="/{{=username}}">{{=username}}</a>: <b>{{=title}}</b></div>
-	<div class="forum-body-preview">{{=body}}</div>
+	<div class="forum-body-preview">
+	<div class="forum-thread-details">
+			<a href="#"><i class="fa fa-comments fa-lg"></i> 0</a>
+		</div>
+		{{=body}}
+
+	</div>
 </div>
 </script>
 
