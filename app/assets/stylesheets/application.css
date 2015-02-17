@@ -3,16 +3,19 @@
  *= require quill.snow
 */
 
+/* ------EVERY PAGE------ */
+
 .page-title{	
 	color: #ffffff;
 	margin-top: 55px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: -52px;
-	font-size: 350%;
+	font-size: 250%;
 	text-align: center;
 	text-decoration: bold;
 }
+
 
 .navbar-container{
 	
@@ -39,9 +42,12 @@
 
 
 body {
-	background-color: #36A4FD;
-	background: linear-gradient(to right bottom, #0099AE, #006686) fixed;
-}
+	background-color: #008DA1;
+/*	background: linear-gradient(to right bottom, #0099AE, #006686) fixed;
+*/}
+
+
+/* HOME AND JOURNAL POST DISPLAY */
 
 .showposts{
 	margin-top: 150px;
@@ -140,10 +146,6 @@ p.line{
 	margin: 0px;
 }
 
-.min-text{
-	font-size: 80%;
-}
-
 .post-nav {
 	padding: 10px;
 	border-top: 1px solid #B2B2B2;
@@ -181,10 +183,37 @@ p.line{
 	width: 650px;
 }
 
+/* COMMUNITY PAGES */
+
+.comm-page-title{
+	color: #FBFBFB;
+	margin-top: 55px;
+	float:left;
+	font-size: 200%;
+	margin-left: 50px;
+	font-variant: small-caps;
+	display:inline;
+	font-weight: bold;
+}
+
+.comm-util-bar{
+	font-size: 200%;
+	display: inline-block;
+	margin-top: 55px;
+	margin-left: 20px;
+	}
+.comm-util-bar-item{
+	display: inline-block;
+}
+
+.leaveLinkDiv a {
+	color: #FAC116 !important;
+}
+
 .community-container{
-	margin-top: 35px;
-	height: 100%;
-	
+	margin-top: 5px;
+	margin-left: 25px;
+	margin-right: -50px;
 }
 
 .forumbox{
@@ -253,6 +282,8 @@ p.line{
 	margin-left: 25px;
 	width: 650px;
 }
+
+/* NEW POST & COMMENT FORMS */
 
 .new-post-form {
 	width: 50%;

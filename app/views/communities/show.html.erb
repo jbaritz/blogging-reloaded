@@ -1,14 +1,36 @@
+<div class="comm-page-title"><%= @current_page %></div>
 
-<% if @is_member%>
-<p>You are a member of this group! | <a href="/">Post an entry to this community</a></p>
-<% else %>
-<div class="joinLinkDiv"><button data-reveal-id="joinModal">Join!</button></div>
-	<div id="joinModal" class="reveal-modal" data-reveal>
-	  <p>Are you sure you want to join this community?</p>
-	  <button class="joinCommunity">Yep!</button>
-	  <a class="close-reveal-modal">&#215;</a>
+<div class="comm-util-bar">
+	<% if @is_member%>
+		<div class="leaveLinkDiv comm-util-bar-item">
+			<a href="#" data-reveal-id="leaveModal">
+				<i class="fa fa-user-plus"></i>
+			</a>
+		</div>
+			<!-- modal -->
+			<div id="leaveModal" class="reveal-modal" data-reveal>
+		 	 <p>Are you sure you want to leave this community?</p>
+			 <button class="joinCommunity">So long!</button>
+			 <a class="close-reveal-modal">&#215;</a>
+			</div>
+	
+	<% else %>
+		<div class="joinLinkDiv"><a href="#" data-reveal-id="joinModal"><i class="fa fa-users"></i></a>
+		</div>
+
+		<!-- modal -->
+		<div id="joinModal" class="reveal-modal" data-reveal>
+		  <p>Are you sure you want to join this community?</p>
+		  <button class="joinCommunity">Yep!</button>
+		  <a class="close-reveal-modal">&#215;</a>
+		</div>
+	<% end %>
+	<div class="comm-util-bar-item">
+		<a href="#">
+		<i class="fa fa-users" style="color: #153F4D"></i>
+		</a>
 	</div>
-<% end %>
+</div>
 
 <div class="community-container large-12 columns">
 	<div class="forumbox">
@@ -116,32 +138,42 @@ $(document).on('click','.joinCommunity', function(){
 
 		})
 
-$('#newPostModal').data('reveal-init', {
-    animation: 'fadeAndPop',
-    animation_speed: 250,
-    close_on_background_click: false,
-    close_on_esc: false,
-    dismiss_modal_class: 'close-reveal-modal',
-    bg_class: 'reveal-modal-bg',
-    bg : $('.reveal-modal-bg'),
-    css : {
-        open : {
-            'opacity': 0,
-            'visibility': 'visible',
-            'display' : 'block'
-        },
-        close : {
-            'opacity': 1,
-            'visibility': 'hidden',
-            'display': 'none'
-        }
-    }
-});
+// 	$('#newPostModal').data('reveal-init', {
+// 	    animation: 'fadeAndPop',
+// 	    animation_speed: 250,
+// 	    close_on_background_click: false,
+// 	    close_on_esc: false,
+// 	    dismiss_modal_class: 'close-reveal-modal',
+// 	    bg_class: 'reveal-modal-bg',
+// 	    bg : $('.reveal-modal-bg'),
+// 	    css : {
+// 	        open : {
+// 	            'opacity': 0,
+// 	            'visibility': 'visible',
+// 	            'display' : 'block'
+// 	        },
+// 	        close : {
+// 	            'opacity': 1,
+// 	            'visibility': 'hidden',
+// 	            'display': 'none'
+// 	        }
+// 	    }
+// 	});
 
-$('.newPostModalLink').on('click',function(){
-	console.log("click")
-	$('#newPostModal').foundation('reveal', 'open');
-});
+// $('.newPostModalLink').on('click',function(){
+// 	console.log("click")
+// 	$('#newPostModal').foundation('reveal', 'open');
+// })
+
+$('.leaveLinkDiv').on('click',function(){
+	console.log("click");
+	$('#leaveModal').foundation('reveal', 'open');
+})
+
+$('.joinLinkDiv').on('click',function(){
+	console.log("click");
+	$('#joinModal').foundation('reveal', 'open');
+})
 
 })//doc ready
 </script>

@@ -1,4 +1,6 @@
 
+<div class="page-title large-offset-2 large-8 columns"><%= @current_page %></div>
+
 <div class="showposts">
 	 
 </div>
@@ -22,7 +24,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (<a href="/" class="min-text">0</a>) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id%> === user.id  ) { }}
 		<div class="post-nav-right">
@@ -63,7 +65,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
@@ -116,7 +118,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}
 		<div class="post-nav-right">
@@ -154,7 +156,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}	
 		<div class="post-nav-right">
@@ -195,7 +197,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}	
 		<div class="post-nav-right">
@@ -248,7 +250,7 @@
 	</div>
 	<div class="post-nav">
 		<div class="post-nav-left">
-			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}	
 		<div class="post-nav-right">
