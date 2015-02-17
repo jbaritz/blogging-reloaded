@@ -1,20 +1,25 @@
 <div class="user-sidebar">
-	<div class="sb-section sb-header"><%=@user.username%> 
+	<div class="sb-section sb-header"><a href="/<%=@user.username%>/profile"><%=@user.username%></a>
 	<% if current_user && current_user.username != @user.username %>
 		<% if !current_user.subscribees.include?(@user) %>
 		<a href='/<%= @user.username %>/subscribe'><i class="fa fa-check-circle-o"></i></a><br>
 		<% elsif current_user.subscribees.include?(@user) %>
 		<a><i class="fa fa-check-circle"></i></a>
-	<% end %>
-<% end %>	</div>
+		<% end %>
+	<% end %>	</div>
 	<div class="sb-section">
-		<a href="#"><%= @user.original_posts.length%></a> original posts</div>
-	<div class="sb-section">
-		<a href="#"><%= @user.reblogs.length %></a> reblogs</div>
-	<div class="sb-section">
-		<a href="#"><i class="fa fa-paper-plane-o"></i></a> message
+		<a href="#" class="sb-link-icon"><%= @user.original_posts.length%></a> original posts
 	</div>
-	</div>	
+	<div class="sb-section">
+		<a href="#" class="sb-link-icon"><%= @user.reblogs.length %></a> reblogs
+	</div>
+	<div class="sb-section">
+		<a href="#" class="sb-link-icon"><i class="fa fa-calendar"></i></a> archive
+	</div>
+	<div class="sb-section">
+		<a href="#" class="sb-link-icon"><i class="fa fa-paper-plane-o"></i></a> message
+	</div>
+</div>	
 	
 <div class='showposts'>
 
