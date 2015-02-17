@@ -1,4 +1,8 @@
-
+<div class="user-sidebar">
+	<div class="sb-section sb-header"><h5><%=@user.username%> stats</h5></div>
+	<div class="sb-section"><a href="#">#</a> original posts</div>
+	<div class="sb-section"><a href="#">#</a> reblogs</div>
+	</div>
 <div class='showposts'>
 <% if current_user && current_user.username != @user.username %>
 	<% if !current_user.subscribees.include?(@user) %>
