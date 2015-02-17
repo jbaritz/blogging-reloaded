@@ -1,16 +1,23 @@
 <div class="user-sidebar">
-	<div class="sb-section sb-header"><h5><%=@user.username%> stats</h5></div>
-	<div class="sb-section"><a href="#">#</a> original posts</div>
-	<div class="sb-section"><a href="#">#</a> reblogs</div>
-	</div>
-<div class='showposts'>
-<% if current_user && current_user.username != @user.username %>
-	<% if !current_user.subscribees.include?(@user) %>
-		<a href='/<%= @user.username %>/subscribe'>follow</a><br>
-	<% elsif current_user.subscribees.include?(@user) %>
-		<h6>Following this user</h6>
+	<div class="sb-section sb-header"><%=@user.username%> 
+	<% if current_user && current_user.username != @user.username %>
+		<% if !current_user.subscribees.include?(@user) %>
+		<a href='/<%= @user.username %>/subscribe'><i class="fa fa-check-circle-o"></i></a><br>
+		<% elsif current_user.subscribees.include?(@user) %>
+		<a><i class="fa fa-check-circle"></i></a>
 	<% end %>
-<% end %>	
+<% end %>	</div>
+	<div class="sb-section">
+		<a href="#"><%= @user.original_posts.length%></a> original posts</div>
+	<div class="sb-section">
+		<a href="#"><%= @user.reblogs.length %></a> reblogs</div>
+	<div class="sb-section">
+		<a href="#"><i class="fa fa-paper-plane-o"></i></a> message
+	</div>
+	</div>	
+	
+<div class='showposts'>
+
 	
 
 </div>
