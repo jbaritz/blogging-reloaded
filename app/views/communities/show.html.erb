@@ -4,18 +4,19 @@
 	<% if @is_member%>
 		<div class="leaveLinkDiv comm-util-bar-item">
 			<a href="#" data-reveal-id="leaveModal">
-				<i class="fa fa-user-plus"></i>
+				<i class="fa fa-user-times"></i>
 			</a>
 		</div>
 			<!-- modal -->
 			<div id="leaveModal" class="reveal-modal" data-reveal>
 		 	 <p>Are you sure you want to leave this community?</p>
-			 <button class="joinCommunity">So long!</button>
+			 <button class="leaveCommunity">So long!</button>
 			 <a class="close-reveal-modal">&#215;</a>
 			</div>
 	
 	<% else %>
-		<div class="joinLinkDiv"><a href="#" data-reveal-id="joinModal"><i class="fa fa-users"></i></a>
+		<div class="joinLinkDiv comm-util-bar-item"><a href="#" data-reveal-id="joinModal"><i class="fa fa-user-plus" style="color: #21BF85"></i>
+		</a>
 		</div>
 
 		<!-- modal -->
@@ -133,10 +134,20 @@
 
 $(document).on('click','.joinCommunity', function(){
 			$.post("/communities/<%= @comm.name%>/join").done(function(){
-				$('.joinLinkDiv').text("You are a member of this group!")
+		
 			})
-
+			location.reload();
 		})
+
+
+$('.leaveLinkDiv').on('click',function(){
+	$('#leaveModal').foundation('reveal', 'open');
+})
+
+$('.joinLinkDiv').on('click',function(){
+	$('#joinModal').foundation('reveal', 'open');
+})
+
 
 // 	$('#newPostModal').data('reveal-init', {
 // 	    animation: 'fadeAndPop',
@@ -165,15 +176,7 @@ $(document).on('click','.joinCommunity', function(){
 // 	$('#newPostModal').foundation('reveal', 'open');
 // })
 
-$('.leaveLinkDiv').on('click',function(){
-	console.log("click");
-	$('#leaveModal').foundation('reveal', 'open');
-})
 
-$('.joinLinkDiv').on('click',function(){
-	console.log("click");
-	$('#joinModal').foundation('reveal', 'open');
-})
 
 })//doc ready
 </script>

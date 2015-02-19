@@ -56,8 +56,8 @@ Rails.application.routes.draw do
   get '/:username/posts/:id/comments', to: 'comments#get_post_comments'
   post '/posts/:post_id/comments/:comment_id', to: 'comments#reply_to_comment'
     #communities
-  get '/communities/:name', to: 'communities#show'
   get '/communities/new', to: 'communities#new'
+  get '/communities/:name', to: 'communities#show'
   post '/communities/new', to: 'communities#create'
   get '/communities/:name/posts-json', to: 'communities#posts_json'
   get '/communities/:name/forum-json', to: 'communities#forum_json'
