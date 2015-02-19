@@ -47,9 +47,11 @@
 		<div class="post-media">
 			<img src='{{= media_url[0].url }}'></img>
 		</div>
-		<div class="post-body">
-			{{= content }}
-		</div>
+		{{if (content != '<p class="line" id="line-1"><br></p>') { }}
+			<div class="post-body">
+				{{= content }}
+			</div>
+		{{ } }}
 		<div class="post-nav">
 			<div class="post-nav-left">
 				<a href="/<%= @comm.name %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
@@ -102,9 +104,11 @@
 	        	</div>
 	        </div>
      {{ } }}
-		<div class="post-body">
-			{{= content }}
-		</div>
+	{{if (content != '<p class="line" id="line-1"><br></p>') { }}
+			<div class="post-body">
+				{{= content }}
+			</div>
+		{{ } }}
 	<div class="post-nav">
 		<div class="post-nav-left">
 			<a href="/<%= @comm.name %>/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i></a> (0) <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
