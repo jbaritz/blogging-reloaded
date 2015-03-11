@@ -36,38 +36,15 @@ $(document).ready(function() {
 	};
 	var offset = 0;
 	var print_posts = function (posts){		
-		var op_text_template = _.template($('.op-text-temp').html());
-		var op_picture_template = _.template($('.op-picture-temp').html());
-		var op_video_template = _.template($('.op-video-temp').html());
-		var rb_text_template = _.template($('.rb-text-temp').html());
-		var rb_picture_template = _.template($('.rb-picture-temp').html());
+		var op_template = _.template($('.op-temp').html());
+		var rb_template = _.template($('.rb-temp').html());
 		_.each(posts, function (p){
-			if (p.class === "OriginalPost"){
-			 	if (p.post_type === "text"){
-			 		$('.showposts').append(op_text_template(p))
-			 	}
-			 	else if (p.post_type === "picture"){
-			 		$('.showposts').append(op_picture_template(p))	
-			 	}
-			 	else if (p.post_type === "video"){
-					$('.showposts').append(op_video_template(p))
-			 	}
-			 	else if (p.post_type === "audio"){
-					// $('.showpost').append(op_audio_template(p))	
-				}
+			if (p.class === "OriginalPost"){			 	
+			 	$('.showposts').append(op_template(p))
+			 	
 			} //end original post
 			else if (p.class === "Reblog"){
-				if (p.original_post.post_type === "text"){
-					$('.showposts').append(rb_text_template(p))	
-				}
-			 	else if (p.original_post.post_type === "picture"){
-			 		$('.showposts').append(rb_picture_template(p))
-			 	}
-			 	else if (p.original_post.post_type === "video"){
-	
-			 	}
-			 	else if (p.original_post.post_type === "audio"){}
-				
+				$('.showposts').append(rb_template(p))				
 			}// end reblog
 		}) //end _.each
 	}//end print_posts
