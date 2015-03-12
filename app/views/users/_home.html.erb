@@ -9,7 +9,7 @@
 
 <script type="text/javascript" src="../assets/convert.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
-<script type="text/template" class="op-text-temp">
+<script type="text/template" class="op-temp">
 	<div id="blog">
 	<div class="post-header">
 		<div class="post-citation">
@@ -18,10 +18,55 @@
 		<div class="post-title">
 			{{= title }}
 		</div>
-	</div>
-	<div class="post-body">
-		{{= content }}
-	</div>
+		</div>
+	
+		{{ if (post_type === "text") {  }}
+			<div class="post-body">
+				{{= content }}
+			</div>
+		{{ } }}
+
+	
+		{{ if (post_type === "picture") {  }}
+			<div class="post-media">
+				<img src='{{= media_url[0].url }}'></img>
+			</div>
+			{{if (content != '<p class="line" id="line-1"><br></p>') { }}
+				<div class="post-body">
+					{{= content }}
+				</div>
+			{{ } }}
+		{{ } }}
+
+
+		{{ if (post_type === "video") {  }}
+			{{ if (media_url[0].media_type === 'youtube'){ }}
+				<div class="post-media">
+					<div class="flex-video"> 
+	        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
+	        		</div>
+			 	</div> 
+
+			{{ } else if (media_url[0].media_type === 'vimeo') { }}
+					 <div class="post-media">
+						<div class="flex-video"> 
+		        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		        		</div>
+		        	 </div> 
+		    {{ } else if (media_url[0].media_type === 'vine') { }}
+		    		<div class="post-media">
+			    		<div class="flex-video"> 
+				        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
+			        	</div>
+			        </div>
+		     {{ } }}
+		     {{if (content != '<p class="line" id="line-1"><br></p>') { }}
+				<div class="post-body">
+					{{= content }}
+				</div>
+			{{ } }}
+		{{ } }}
+
 	<div class="post-nav">
 		<div class="post-nav-left">
 			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
@@ -47,106 +92,8 @@
 	</div>
 </script>
 
-<script type="text/template" class="op-picture-temp">
-	<div id="blog">
-	<div class="post-header">
-		<div class="post-citation">
-			<a href="/{{= user }}">{{= user }}</a> posted:
-		</div>
-		<div class="post-title">
-			{{= title }}
-		</div>
-	</div>
-	<div class="post-media">
-		<img src='{{= media_url[0].url }}'></img>
-	</div>
 
-	{{if (content != '<p class="line" id="line-1"><br></p>') { }}
-	<div class="post-body">
-		{{= content }}
-	</div>
-	{{ } }}
-	<div class="post-nav">
-		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
-		</div>
-		{{if (<%= current_user.id %> === user_id ) { }}
-		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
-		</div>
-		{{ } }}
-	</div>
-	{{ if (tags.length > 0) { }}
-	<div class="tags-container">
-		<div class="tags">
-			Tags: {{ _.each(tags, function(tag, i){ }}
-				{{ if(i == tags.length - 1){ }}
-				<a href='{{= tag }}'> {{= tag }} </a>
-				{{ } else { }}
-				<a href='{{= tag }}'> {{= tag }}</a>,
-			{{ } }) }}
-		</div>
-	</div>
-	{{ } }}
-	</div>
-</script>
-
-<script type="text/template" class="op-video-temp">
-	<div id="blog">
-	<div class="post-header">
-		<div class="post-citation">
-			<a href="/{{= user }}">{{= user }}</a> posted:
-		</div>
-		<div class="post-title">
-			{{= title }}
-		</div>
-	</div>
-	<div class="post-media">
-	 	{{ if (media_url[0].media_type == 'youtube'){ }}
-				<div class="flex-video"> 
-	        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
-			 	</div> 
-		{{ } else if (media_url[0].media_type == 'vimeo') { }}
-				 <div class="flex-video"> 
-	        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-	        	 </div> 
-	    {{ } else if (media_url[0].media_type == 'vine') { }}
-	    		<div class="flex-video"> 
-	        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
-	        	</div>
-	     {{ } }}
-	</div>
-	{{if (content != '<p class="line" id="line-1"><br></p>') { }}
-	<div class="post-body">
-		{{= content }}
-	</div>
-	{{ } }}
-	<div class="post-nav">
-		<div class="post-nav-left">
-			<a href="/{{= user }}/posts/{{= id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/op/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
-		</div>
-		{{if (<%= current_user.id %> === user_id ) { }}
-		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
-		</div>
-		{{ } }}
-	</div>	
-	{{ if (tags.length > 0) { }}
-	<div class="tags-container">
-		<div class="tags">
-			Tags: {{ _.each(tags, function(tag, i){ }}
-				{{ if(i == tags.length - 1){ }}
-				<a href='{{= tag }}'> {{= tag }} </a>
-				{{ } else { }}
-				<a href='{{= tag }}'>{{= tag }}</a>,
-			{{ } }) }}
-		</div>
-	</div>
-	{{ } }}
-	</div>
-</script>
-
-<script type="text/template" class="rb-text-temp">
+<script type="text/template" class="rb-temp">
 	<div id="blog">
 	<div class="post-header">
 		<div class="post-citation">
@@ -156,123 +103,66 @@
 			{{= original_post.title }}
 		</div>
 	</div>
-	{{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
-		<div class="post-body">
-			{{= original_post.content }}
-		</div>
-	{{ } }}
-	<div class="post-nav">
-		<div class="post-nav-left">
-			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
-		</div>
-		{{if (<%= current_user.id %> === user_id ) { }}	
-		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
-		</div>
-		{{ } }}
-	</div>
-	{{ if (tags.length > 0) { }}
-	<div class="tags-container">
-		<div class="tags">
-			Tags: {{ _.each(tags, function(tag, i){ }}
-				{{ if(i == tags.length - 1){ }}
-				<a href='{{= tag }}'> {{= tag }} </a>
-				{{ } else { }}
-				<a href='{{= tag }}'> {{= tag }}</a>,
-			{{ } }) }}
-		</div>
-	</div>
-	{{ } }}
-	</div>
-</script>
 
-<script type="text/template" class="rb-picture-temp">
-	<div id="blog">
-	<div class="post-header">
-		<div class="post-citation">
-			<a href="/{{= user }}">{{= user }}</a> reblogged <a href="/{{= original_user }}">{{= original_user }}</a>:
-		</div>
-		<div class="post-title">
-			{{= original_post.title }}
-		</div>
-	</div>
-	<div class="post-media">
-		<img src='{{= media_url[0].url }}'></img>
-	</div>
-
-	{{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
+	{{ if (original_post.post_type === "text") {  }}
 		<div class="post-body">
 			{{= original_post.content }}
 		</div>
 	{{ } }}
 
-	<div class="post-nav">
-		<div class="post-nav-left">
-			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
-		</div>
-		{{if (<%= current_user.id %> === user_id ) { }}	
-		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
-		</div>
-		{{ } }}
-	</div>
-	{{ if (tags.length > 0) { }}
-	<div class="tags-container">
-		<div class="tags">
-			Tags: {{ _.each(tags, function(tag, i){ }}
-				{{ if(i == tags.length - 1){ }}
-				<a href='{{= tag }}'> {{= tag }} </a>
-				{{ } else { }}
-				<a href='{{= tag }}'> {{= tag }}</a>,
-			{{ } }) }}
-		</div>
-	</div>
-	{{ } }}
-	</div>
-</script>
 
-<script type="text/template" class="rb-video-temp">
-	<div id="blog">
-	<div class="post-header">
-		<div class="post-citation">
-			<a href="/{{= user}}">{{= user }}</a> reblogged <a href="/{{= original_user }}">{{= original_user }}</a>:
+	{{ if (original_post.post_type === "picture") {  }}
+		<div class="post-media">
+			<img src='{{= media_url[0].url }}'></img>
 		</div>
-		<div class="post-title">
-			{{= original_post.title }}
-		</div>
-	</div>
-	<div class="post-media">
-		{{ if (media_url[0].media_type == 'youtube'){ }}
+		{{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
+			<div class="post-body">
+				{{= original_post.content }}
+			</div>
+		{{ } }}
+	{{ } }}
+
+
+	{{ if (original_post.post_type === "video") {  }}
+		{{ if (media_url[0].media_type === 'youtube'){ }}
+			<div class="post-media">
 				<div class="flex-video"> 
-	        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
-			 	</div> 
-		{{ } else if (media_url[0].media_type == 'vimeo') { }}
-				 <div class="flex-video"> 
-	        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-	        	 </div> 
-	    {{ } else if (media_url[0].media_type == 'vine') { }}
-	    		<div class="flex-video"> 
-	        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
-	        	</div>
-	     {{ } }}
-	</div>
+        			<iframe width="400" height="225" src="//www.youtube.com/embed/{{= media_url[0].url }}" frameborder="0" allowfullscreen></iframe>
+        		</div>
+		 	</div> 
 
-	{{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
-		<div class="post-body">
-			{{= original_post.content }}
-		</div>
+		{{ } else if (media_url[0].media_type === 'vimeo') { }}
+				 <div class="post-media">
+					<div class="flex-video"> 
+	        			<iframe src="http://player.vimeo.com/video/{{= media_url[0].url }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+	        		</div>
+	        	 </div> 
+	    {{ } else if (media_url[0].media_type === 'vine') { }}
+	    		<div class="post-media">
+		    		<div class="flex-video"> 
+			        	<iframe src="https://vine.co/v/{{= media_url[0].url }}/embed/simple" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></iframe>
+		        	</div>
+		        </div>
+	     {{ } }}
+	     {{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
+			<div class="post-body">
+				{{= original_post.content }}
+			</div>
+		{{ } }}
 	{{ } }}
-	
+
 	<div class="post-nav">
 		<div class="post-nav-left">
 			<a href="/{{= original_user }}/posts/{{= original_post.id }}"><i class="fa fa-comments fa-lg"></i> {{= comments_num }}</a> <a href='/reblogs/rb/{{= id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 		</div>
 		{{if (<%= current_user.id %> === user_id ) { }}	
-		<div class="post-nav-right">
-			<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
-		</div>
-		{{ } }}
+			<div class="post-nav-right">
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>
+			</div>
+		{{ } }}		
 	</div>
+
+
 	{{ if (tags.length > 0) { }}
 	<div class="tags-container">
 		<div class="tags">
@@ -287,6 +177,7 @@
 	{{ } }}
 	</div>
 </script>
+
 
 <script>
 $(document).ready(function() {
@@ -296,41 +187,16 @@ $(document).ready(function() {
 	};
 	var offset = 0;
 	var print_posts = function (posts){		
-		var op_text_template = _.template($('.op-text-temp').html());
-		var op_picture_template = _.template($('.op-picture-temp').html());
-		var op_video_template = _.template($('.op-video-temp').html());
-		var rb_text_template = _.template($('.rb-text-temp').html());
-		var rb_picture_template = _.template($('.rb-picture-temp').html());
-		var rb_video_template = _.template($('.rb-video-temp').html());
+		var op_template = _.template($('.op-temp').html());
+		var rb_template = _.template($('.rb-temp').html());
+
 		_.each(posts, function (p){
-			if (p.class === "OriginalPost"){
-			 	if (p.post_type === "text"){
-			 		$('.showposts').append(op_text_template(p))	
-			 	}
-			 	else if (p.post_type === "picture"){
-			 		$('.showposts').append(op_picture_template(p))	
-			 	}
-			 	else if (p.post_type === "video"){
-					$('.showposts').append(op_video_template(p))
-			 	}
-			 	else if (p.post_type === "audio"){
-					// $('.showpost').append(op_audio_template(p))	
-				}
-			} //end original post
+			if (p.class === "OriginalPost"){	 	
+			 	$('.showposts').append(op_template(p));	
+			} 
 			else if (p.class === "Reblog"){
-				if (p.original_post.post_type === "text"){
-					$('.showposts').append(rb_text_template(p))	
-				}
-			 	else if (p.original_post.post_type === "picture"){
-			 		$('.showposts').append(rb_picture_template(p))
-			 	}
-			 	else if (p.original_post.post_type === "video"){
-			 		$('.showposts').append(rb_video_template(p))
-	
-			 	}
-			 	else if (p.original_post.post_type === "audio"){}
-				
-			}// end reblog
+				$('.showposts').append(rb_template(p));			
+			}
 		}) //end _.each
 	}//end print_posts
 
