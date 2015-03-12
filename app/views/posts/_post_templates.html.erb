@@ -107,7 +107,7 @@
 			<div class="post-media">
 				<img src='{{= media_url[0].url }}'></img>
 			</div>
-			{{if (content != '<p class="line" id="line-1"><br></p>') { }}
+			{{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
 				<div class="post-body">
 					{{= original_post.content }}
 				</div>
@@ -136,7 +136,7 @@
 			        	</div>
 			        </div>
 		     {{ } }}
-		     {{if (content != '<p class="line" id="line-1"><br></p>') { }}
+		     {{if (original_post.content != '<p class="line" id="line-1"><br></p>') { }}
 				<div class="post-body">
 					{{= original_post.content }}
 				</div>
