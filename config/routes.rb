@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   #individual post display
   get '/:username/posts/:id', to: 'posts#show'
   get '/:username/reblogs/:id', to: 'reblogs#show'
+  post '/username/posts/:id/delete' to: 'posts#delete'
   #reblogging
   get '/reblogs/rb/:id/confirm', to: 'reblogs#reblog_from_rb_confirm' #confirmation page wiht a button to confirm
   get '/reblogs/op/:id/confirm', to: 'reblogs#reblog_from_op_confirm' #confirmation page wiht a button to confirm

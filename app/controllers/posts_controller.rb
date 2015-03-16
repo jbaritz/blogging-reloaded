@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :authenticate_user!, :except => [:show, :show_all_posts]
+  before_action :authenticate_user!, :except => [:show, :show_user_posts]
   
   def show 
     @current_page = ""
