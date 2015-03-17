@@ -1,1 +1,3 @@
- pillowfort = angular.module('PF', [])
+ var pillowfort = angular.module('pillowfort', [
+ 	'postControllers'
+ 	]);

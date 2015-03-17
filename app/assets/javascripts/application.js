@@ -14,9 +14,11 @@
 //= require jquery_ujs
 //= require foundation
 //= require quill
-//= require underscore
-//= require angular
 
+//= require angular
+//= require angular/main
+//= require angular/controllers/PostsCtrl
+//= require_tree
 
 // $(function(){ $(document).foundation();
 //  });
