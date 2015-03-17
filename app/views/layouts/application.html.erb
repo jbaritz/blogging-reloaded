@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html ng-app="pillowfort">
 <head>
   <title><%= @current_page %></title>
   
@@ -64,7 +64,7 @@
 </nav>
 </div>
 
-<div class="large-12 columns yield">
+<div class="large-12 columns yield" ng-view>
 
     <%= yield %>
 </div>

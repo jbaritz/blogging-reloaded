@@ -29,36 +29,36 @@
 
 <div class="large-offset-5 large-2 columns"><button type='submit' id='more'>Show more posts</button></div>
 
-<%= render partial: "post_templates" %>
+
 
 <script>
 $(document).ready(function() {
-	_.templateSettings = {
-	    interpolate: /\{\{\=(.+?)\}\}/g,
-	    evaluate: /\{\{(.+?)\}\}/g
-	};
+	// _.templateSettings = {
+	//     interpolate: /\{\{\=(.+?)\}\}/g,
+	//     evaluate: /\{\{(.+?)\}\}/g
+	// };
 
-	var offset = 0;
+	// var offset = 0;
 
-	var print_posts = function (posts){		
-		var op_template = _.template($('.op-temp').html());
-		var rb_template = _.template($('.rb-temp').html());
+	// var print_posts = function (posts){		
+	// 	var op_template = _.template($('.op-temp').html());
+	// 	var rb_template = _.template($('.rb-temp').html());
 
-		_.each(posts, function (p){
-			if (p.class === "OriginalPost"){	 	
-			 	$('.showposts').append(op_template(p));	
-			} 
-			else if (p.class === "Reblog"){
-				$('.showposts').append(rb_template(p));			
-			}
-		}) //end _.each
-	}//end print_posts
+	// 	_.each(posts, function (p){
+	// 		if (p.class === "OriginalPost"){	 	
+	// 		 	$('.showposts').append(op_template(p));	
+	// 		} 
+	// 		else if (p.class === "Reblog"){
+	// 			$('.showposts').append(rb_template(p));			
+	// 		}
+	// 	}) //end _.each
+	// }//end print_posts
 
-	$.ajax({type: 'GET',
-			url: '/<%= @user.username %>/json/' + offset
-		}).done(function (posts) {	
-			print_posts(posts);
-	}) //end get
+	// $.ajax({type: 'GET',
+	// 		url: '/<%= @user.username %>/json/' + offset
+	// 	}).done(function (posts) {	
+	// 		print_posts(posts);
+	// }) //end get
 })
 	
 </script>
