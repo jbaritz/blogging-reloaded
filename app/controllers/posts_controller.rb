@@ -48,6 +48,15 @@ class PostsController < ApplicationController
     render :json => @posts
   end
 
+  def delete
+    p = OriginalPost.find(params[:id]).destroy
+    redirect_to '/' + URI.encode(current_user.username)
+  end
+
+  def edit
+
+  end
+
   def new_text_post 
     @current_page = ""
     #view  form
@@ -105,11 +114,11 @@ class PostsController < ApplicationController
     elsif selection[1] == "Community"
       params['community_post'] = true
       post = OriginalPost.create!(text_params)
-      post.tag_list = params[:tags]
+      post.tag_list = params['tags']
       post.save!      
       CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     end
-    redirect_to "/"
+    redirect_to "/" + URI.encode(current_user.username)
   end
 
 
@@ -137,7 +146,7 @@ class PostsController < ApplicationController
        MediaUrl.create!(media_params)
        CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     end
-    redirect_to "/"
+    redirect_to "/" + URI.encode(current_user.username)
   end
 
   def submit_video_post
@@ -173,7 +182,7 @@ class PostsController < ApplicationController
       MediaUrl.create!(media_params)
       CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
     end
-    redirect_to "/"
+    redirect_to "/" + URI.encode(current_user.username)
   end
 
   def submit_audio_post
@@ -199,7 +208,7 @@ class PostsController < ApplicationController
       params[:media_type] = "audio"
       MediaUrl.create!(media_params)
       CommunityPost.create!({post_id: post.id, post_type: "OriginalPost", user_id: current_user.id, community_id: selection[0]})
-    redirect_to "/"
+    redirect_to "/" + URI.encode(current_user.username)
    end
   end
 
