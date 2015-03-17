@@ -15,6 +15,7 @@
 //= require foundation
 //= require quill
 //= require underscore
+//= require angular
 
 
 // $(function(){ $(document).foundation();
