@@ -10,3 +10,12 @@ postControllers.controller('userPostCtrl', ['$scope', '$http', '$location', '$sc
     return $sce.trustAsResourceUrl(url);
 	}
 }]);
+
+postControllers.controller('homeFeedCtrl', ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
+	$http.get('/home/json').success(function(data) {
+   		$scope.posts = data;
+	});
+	$scope.trustUrl = function(url) {
+    return $sce.trustAsResourceUrl(url);
+	}
+}]);
