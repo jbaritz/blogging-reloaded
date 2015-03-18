@@ -28,7 +28,7 @@ class PostsController < ApplicationController
       attrs = p.attributes
       attrs[:media_url] = p.mediaurls
       attrs[:class] = "OriginalPost"
-      attrs[:tags] = p.tag_list.reverse!
+      attrs[:tags] = p.tag_list
        attrs[:comments_num] = p.comment_threads.length
       @posts.push(attrs)
       }
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
       attrs[:original_post] = r.original_post
       attrs[:original_user] = r.original_post.user.username
       attrs[:media_url] = r.original_post.mediaurls
-      attrs[:tags] = r.tag_list.reverse!
+      attrs[:tags] = r.tag_list
       attrs[:comments_num] = r.original_post.comment_threads.length
       @posts.push(attrs)
       }
