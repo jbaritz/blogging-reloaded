@@ -38,15 +38,34 @@
 		<div class="post-body" ng-if ="p.post_type === 'text'" ng-bind-html="p.content">
 		</div>	
 
-		<div class="post-media" ng-if ="p.post_type === 'picture'">
-			<img ng-src="{{ p.media_url[0].url }}"></img>
+		<div ng-if="p.post_type === 'picture'">
+			<div class="post-media"><img ng-src="{{ p.media_url[0].url }}"></img></div>
 			<div class="post-body" ng-if="p.content != '<p class=&quot;line&quot; id=&quot;line-1&quot;><br></p>'" ng-bind-html="p.content"></div>
 		</div>	
 
-	</div> <!-- end original post template, id-blog -->	
+		<div ng-if ="p.post_type === 'video'">
+
+			<div ng-if="p.media_url[0].media_type === 'youtube'" class="post-media">
+				<div class="flex-video"> 
+        			<iframe width="400" height="225" ng-src="{{ trustUrl('http://www.youtube.com/embed/'+ p.media_url[0].url) }}" frameborder="0" allowfullscreen></iframe>
+	        	</div>	
+			</div>
+
+			<div ng-if="p.media_url[0].media_type === 'vimeo'" class="post-media">
+				<div class="flex-video"> 
+        			<iframe ng-src="{{ trustUrl('http://player.vimeo.com/video/' + p.media_url[0].url) }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		        </div>
+			</div>
+
+			<div class="post-body" ng-if="p.content != '<p class=&quot;line&quot; id=&quot;line-1&quot;><br></p>'" ng-bind-html="p.content"></div>
+		</div>
+
+
+	</div> 
 
 
 	<!--reblogs -->
+
 	</div>
 </div>
 
