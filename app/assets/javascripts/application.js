@@ -16,6 +16,7 @@
 //= require quill
 
 //= require angular
+//= require angular-sanitize
 //= require angular/main
 //= require angular/controllers/PostsCtrl
 //= require_tree

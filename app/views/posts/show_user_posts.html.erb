@@ -1,3 +1,4 @@
+<!-- sidebar -->
 <div class="user-sidebar">
 	<div class="sb-section sb-header"><a href="/<%=@user.username%>/profile"><%=@user.username%></a>
 	<% if current_user && current_user.username != @user.username %>
@@ -23,9 +24,24 @@
 	
 
 <div class='showposts' ng-controller="userPostCtrl">
-<div id="blog" ng-repeat="post in posts">
-{{post}}
-{{title}}
+	<div ng-repeat="p in posts">
+
+	<!-- original posts -->
+	<div id= "blog" ng-if="p.class === 'OriginalPost'">
+
+		<div class="post-header">
+			<div class="post-title">
+			{{ p.title }}
+			</div>
+		</div>
+
+		<div class="post-body" ng-if ="p.post_type === 'text'">
+			{{ p.content }}		
+		</div>	
+		
+	</div>
+
+	<!--reblogs -->
 </div>
 
 
