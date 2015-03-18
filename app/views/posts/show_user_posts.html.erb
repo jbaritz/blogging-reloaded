@@ -35,13 +35,19 @@
 			</div>
 		</div>
 
-		<div class="post-body" ng-if ="p.post_type === 'text'">
-			{{ p.content }}		
+		<div class="post-body" ng-if ="p.post_type === 'text'" ng-bind-html="p.content">
 		</div>	
-		
-	</div>
+
+		<div class="post-media" ng-if ="p.post_type === 'picture'">
+			<img ng-src="{{ p.media_url[0].url }}"></img>
+			<div class="post-body" ng-if="p.content != '<p class=&quot;line&quot; id=&quot;line-1&quot;><br></p>'" ng-bind-html="p.content"></div>
+		</div>	
+
+	</div> <!-- end original post template, id-blog -->	
+
 
 	<!--reblogs -->
+	</div>
 </div>
 
 
@@ -51,32 +57,7 @@
 
 <script>
 $(document).ready(function() {
-	// _.templateSettings = {
-	//     interpolate: /\{\{\=(.+?)\}\}/g,
-	//     evaluate: /\{\{(.+?)\}\}/g
-	// };
 
-	var offset = 0;
-
-	// var print_posts = function (posts){		
-	// 	var op_template = _.template($('.op-temp').html());
-	// 	var rb_template = _.template($('.rb-temp').html());
-
-	// 	_.each(posts, function (p){
-	// 		if (p.class === "OriginalPost"){	 	
-	// 		 	$('.showposts').append(op_template(p));	
-	// 		} 
-	// 		else if (p.class === "Reblog"){
-	// 			$('.showposts').append(rb_template(p));			
-	// 		}
-	// 	}) //end _.each
-	// }//end print_posts
-
-	// $.ajax({type: 'GET',
-	// 		url: '/<%= @user.username %>/json/' + offset
-	// 	}).done(function (posts) {	
-	// 		print_posts(posts);
-	// }) //end get
 })
 	
 </script>

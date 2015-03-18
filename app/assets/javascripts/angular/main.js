@@ -1,3 +1,4 @@
  var pillowfort = angular.module('pillowfort', [
- 	'postControllers'
+ 	'postControllers',
+ 	'ngSanitize'
  	]);
