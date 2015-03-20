@@ -36,7 +36,7 @@ class CommunitiesController < ApplicationController
     ops.each { |post|
       p = post.get_post
       attrs = p.attributes
-      attrs[:username] = post.user.username
+      attrs[:user] = post.user.username
       attrs[:media_url] = p.mediaurls
       attrs[:class] = "OriginalPost"
       attrs[:tags] = p.tag_list.reverse!
@@ -62,7 +62,7 @@ class CommunitiesController < ApplicationController
     posts = ForumPost.where(community_id: @comm.id)
     posts.each {|p|
       attrs = p.attributes
-      attrs[:username] = p.user.username
+      attrs[:user] = p.user.username
       @posts.push(attrs)
     }
     @posts.reverse!

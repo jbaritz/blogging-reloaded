@@ -33,7 +33,7 @@
 	</div>
 </div>
 
-<div class="community-container large-12 columns">
+<div class="community-container large-12 columns"  ng-controller="commCtrl">
 	<!-- forum -->
 	<div class="forumbox">
 	 <div class="forum-topbar">
@@ -44,29 +44,86 @@
 		  	</a>			
 	 	</div>
 	 </div>
+
+	 <div ng-repeat="p in forum" >
+		<div class="forum-listing">
+			<div class="forum-title">
+				<a href="/{{ p.user}}">{{p.user}}</a>: <b>{{p.title}}</b>
+			</div>
+			<div class="forum-body-preview">
+				<div class="forum-thread-details">
+					<a href="#"><i class="fa fa-comments fa-lg"></i> 0</a>
+				</div>
+			<span ng-bind-html="p.body">{{p.body}}</span>
+			</div>
+		</div>
+	 </div>
 	</div>
 
 	<!-- media feed -->
-	<div class="comm-media-feed" ng-controller="commMediaCtrl">
+	<div class="comm-media-feed">
+	<div ng-repeat="p in posts">
+		<div id= "blog" ng-if="p.class === 'OriginalPost'">
 
-	</div>
-</div>
-
-
-
-<script type="text/template" class="forum-temp">
-<div class="forum-listing">
-	<div class="forum-title">
-	<a href="/{{=username}}">{{=username}}</a>: <b>{{=title}}</b></div>
-	<div class="forum-body-preview">
-	<div class="forum-thread-details">
-			<a href="#"><i class="fa fa-comments fa-lg"></i> 0</a>
+		<div class="post-header">
+			<div class="post-citation">	<a href="/{{ p.user }}">{{ p.user }}</a> posted:</div>
+			<div class="post-title">
+				{{ p.title }}
+			</div>
 		</div>
-		{{=body}}
 
+		<div class="post-body" ng-if ="p.post_type === 'text'" ng-bind-html="p.content">
+		</div>	
+
+		<div ng-if="p.post_type === 'picture'">
+			<div class="post-media"><img ng-src="{{ p.media_url[0].url }}"></img></div>
+			<div class="post-body" ng-if="p.content != '<p class=&quot;line&quot; id=&quot;line-1&quot;><br></p>'" ng-bind-html="p.content"></div>
+		</div>	
+
+		<div ng-if ="p.post_type === 'video'">
+			<div ng-if="p.media_url[0].media_type === 'youtube'" class="post-media">
+				<div class="flex-video"> 
+        			<iframe width="400" height="225" ng-src="{{ trustUrl('http://www.youtube.com/embed/'+ p.media_url[0].url) }}" frameborder="0" allowfullscreen></iframe>
+	        	</div>	
+			</div>
+
+			<div ng-if="p.media_url[0].media_type === 'vimeo'" class="post-media">
+				<div class="flex-video"> 
+        			<iframe ng-src="{{ trustUrl('http://player.vimeo.com/video/' + p.media_url[0].url) }}" width="400" height="225" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		        </div>
+			</div>
+
+			<div ng-if="p.media_url[0].media_type === 'vine'" class="post-media">
+					<div class="flex-video"> 
+			        	<iframe ng-src="{{ trustUrl('https://vine.co/v/'+ p.media_url[0].url + '/embed/simple') }}" width="400" height="225" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
+			        </div>
+			</div>
+
+			<div class="post-body" ng-if="p.content != '<p class=&quot;line&quot; id=&quot;line-1&quot;><br></p>'" ng-bind-html="p.content"></div>
+		</div>
+
+		<div class="post-nav">
+			<div class="post-nav-left">
+				<a href="/{{p.user}}/posts/{{ p.id }}"><i class="fa fa-comments fa-lg"></i> {{ p.comments_num }}</a><a href='/reblogs/op/{{ p.id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
+			</div>
+			<div ng-if="<%= current_user.id %> === p.user_id" class="post-nav-right">
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>				
+			</div>
+		</div>
+
+		<div ng-if="p.tags.length > 0" class="tags-container">			
+			<div class="tags">
+				Tags: <span ng-repeat="tag in p.tags">
+					<span ng-if="!$last"><a href='{{ tag }}'> {{ tag }}</a>,</span>
+					<span ng-if="$last"><a href='{{ tag }}'> {{ tag }} </a></span>	
+				</span>	
+			</div>
+		</div> 
+	</div>
+	</div>
 	</div>
 </div>
-</script>
+
 
 <script>
 	$(document).ready(function(){

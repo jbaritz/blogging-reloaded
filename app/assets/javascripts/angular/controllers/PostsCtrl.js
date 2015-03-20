@@ -20,7 +20,7 @@ postControllers.controller('homeFeedCtrl', ['$scope', '$http', '$location', '$sc
 	}
 }]);
 
-postControllers.controller('commMediaCtrl' , ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
+postControllers.controller('commCtrl' , ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
 	urlBits = $location.absUrl().split("/");
 	$http.get('/communities/' + urlBits[4] + '/posts-json').success(function(data){
 		$scope.posts = data;
