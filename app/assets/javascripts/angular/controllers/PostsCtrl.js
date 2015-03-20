@@ -19,3 +19,16 @@ postControllers.controller('homeFeedCtrl', ['$scope', '$http', '$location', '$sc
     return $sce.trustAsResourceUrl(url);
 	}
 }]);
+
+postControllers.controller('commMediaCtrl' , ['$scope', '$http', '$location', '$sce', function($scope, $http, $location, $sce) {
+	urlBits = $location.absUrl().split("/");
+	$http.get('/communities/' + urlBits[4] + '/posts-json').success(function(data){
+		$scope.posts = data;
+	});
+	$http.get('/communities/' + urlBits[4] + '/forum-json').success(function(data){
+		$scope.forum = data;
+	});
+	$scope.trustUrl = function(url) {
+    return $sce.trustAsResourceUrl(url);
+	}
+}])

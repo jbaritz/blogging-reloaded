@@ -34,6 +34,7 @@
 </div>
 
 <div class="community-container large-12 columns">
+	<!-- forum -->
 	<div class="forumbox">
 	 <div class="forum-topbar">
 	 	DISCUSSION
@@ -43,15 +44,15 @@
 		  	</a>			
 	 	</div>
 	 </div>
-	 </div>
-	<div class="comm-media-feed">
+	</div>
+
+	<!-- media feed -->
+	<div class="comm-media-feed" ng-controller="commMediaCtrl">
 
 	</div>
 </div>
 
 
-
-<%= render partial: "comm_post_temps" %>
 
 <script type="text/template" class="forum-temp">
 <div class="forum-listing">
@@ -69,68 +70,9 @@
 
 <script>
 	$(document).ready(function(){
-	_.templateSettings = {
-	    interpolate: /\{\{\=(.+?)\}\}/g,
-	    evaluate: /\{\{(.+?)\}\}/g
-	};
-	var offset = 0;
-	var print_posts = function (posts){		
-		var op_text_template = _.template($('.op-text-temp').html());
-		var op_picture_template = _.template($('.op-picture-temp').html());
-		var op_video_template = _.template($('.op-video-temp').html());
-		var rb_text_template = _.template($('.rb-text-temp').html());
-		var rb_picture_template = _.template($('.rb-picture-temp').html());
-		_.each(posts, function (p){
-			if (p.class === "OriginalPost"){
-			 	if (p.post_type === "text"){
-			 		$('.comm-media-feed').append(op_text_template(p))
-			 	}
-			 	else if (p.post_type === "picture"){
-			 		$('.comm-media-feed').append(op_picture_template(p))	
-			 	}
-			 	else if (p.post_type === "video"){
-					$('.comm-media-feed').append(op_video_template(p))
-			 	}
-			 	else if (p.post_type === "audio"){
-					// $('.showpost').append(op_audio_template(p))	
-				}
-			} //end original post
-			else if (p.class === "Reblog"){
-				if (p.original_post.post_type === "text"){
-					$('.comm-media-feed').append(rb_text_template(p))	
-				}
-			 	else if (p.original_post.post_type === "picture"){
-			 		$('.comm-media-feed').append(rb_picture_template(p))
-			 	}
-			 	else if (p.original_post.post_type === "video"){
 	
-			 	}
-			 	else if (p.original_post.post_type === "audio"){}
-				
-			}// end reblog
-		}) //end _.each
-	}//end print_posts
-
-	var print_forum = function (posts){	
-		var forum_template = _.template($('.forum-temp').html());
-		_.each(posts, function(p){
-			console.log(p)
-			$('.forumbox').append(forum_template(p));
-		})
-	}
 
 
-	$.ajax({type: 'GET',
-			url: '/communities/<%= @comm.name %>/posts-json/'
-		}).done(function (posts) {	
-			print_posts(posts);
-		})
-
-	$.ajax({type: 'GET',
-			url: '/communities/<%= @comm.name %>/forum-json/'
-		}).done(function (posts) {	
-			print_forum(posts);
-		})
 
 $(document).on('click','.joinCommunity', function(){
 			$.post("/communities/<%= @comm.name%>/join").done(function(){
