@@ -70,8 +70,18 @@
 				<a href="/<%= @user.username %>/posts/{{ p.id }}"><i class="fa fa-comments fa-lg"></i> {{ p.comments_num }}</a><a href='/reblogs/op/{{ p.id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 			</div>
 			<div ng-if="<%= current_user.id %> === p.user_id" class="post-nav-right">
-				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>				
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+				<a href="" class="deletePostLink"><i class="fa fa-times fa-lg" data-reveal-id="postDeleteModal"></i></a>		
 			</div>
+
+			<!-- post delete modal -->
+				<div id="postDeleteModal" class="reveal-modal" data-reveal>
+				  <p>Are you sure you want to delete this post?</p>
+				<form action="/posts/"+{{p.id}}+"/delete"><input type="submit" class="deletePostButton button">Yep!</input>
+   				</form>
+				  <a class="close-reveal-modal">Nope</a>
+				</div>	
+		
 		</div>
 
 		<div ng-if="p.tags.length > 0" class="tags-container">			
@@ -130,9 +140,19 @@
 				<a href="/<%= @user.username %>/reblogs/{{ p.id }}"><i class="fa fa-comments fa-lg"></i> {{ p.comments_num }}</a><a href='/reblogs/rb/{{ p.id }}/confirm'>  <i class="fa fa-refresh fa-lg"></i></a><br>
 			</div>
 			<div ng-if="<%= current_user.id %> === p.user_id" class="post-nav-right">
-				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> <a href="/posts/:id/delete"><i class="fa fa-times fa-lg"></i></a>				
+				<a href="/posts/:id/edit"><i class="fa fa-pencil-square-o fa-lg"></i></a> 
+				<a href=""><i class="fa fa-times fa-lg" data-reveal-id="reblogDeleteModal"></i></a>		
 			</div>
+
+			<!-- delete post modal -->
+				<div id="reblogDeleteModal" class="reveal-modal" data-reveal>
+				  <p>Are you sure you want to delete this post?</p>
+				<form action="/reblogs/"+{{p.id}}+"/delete"><input type="submit" class="deletePostButton">Yep!</input>
+   				</form>
+				  <a class="close-reveal-modal">Nope</a>
+				</div>		
 		</div>
+		
 
 		<div ng-if="p.tags.length > 0" class="tags-container">			
 			<div class="tags">
@@ -152,7 +172,21 @@
 
 <script>
 $(document).ready(function() {
+	$('document').on('click', function(e){
+		console.log("badah");
+		$('#postDeleteModal').foundation('reveal', 'open');
+	})
 
+	$(document).on('deletePostButton', 'click', function(){
+		$post("/posts/:id/delete").done(function(){
+		
+			})
+			location.reload();
+		})
+
+	$('.joinLinkDiv').on('click',function(){
+		$('#postDeleteModal').foundation('reveal', 'open');
+	})
 })
 	
 </script>

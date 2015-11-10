@@ -47,8 +47,8 @@ Rails.application.routes.draw do
   #individual post display/delete/edit
   get '/:username/posts/:id', to: 'posts#show'
   get '/:username/reblogs/:id', to: 'reblogs#show'
-  post '/:username/posts/:id/delete', to: 'posts#delete'
-  post '/:username/reblogs/:id/delete', to: 'reblogs#delete'
+  post '/posts/:id/delete', to: 'posts#delete'
+  post '/reblogs/:id/delete', to: 'reblogs#delete'
   get '/:username/posts/:id/edit', to: 'posts#edit'
   get '/:username/reblogs/:id/edit', to: 'reblogs#edit'
   #reblogging
